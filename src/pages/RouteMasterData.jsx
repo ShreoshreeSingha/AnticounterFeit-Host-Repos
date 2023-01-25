@@ -12,8 +12,9 @@ import {
   Filter,
 } from "@syncfusion/ej2-react-grids";
 
-import data from "../data/locationMasterData.json";
 import Header from "../components/Header";
+
+import data from "../data/routeMasterData.json";
 
 const ProductMaster = () => {
   const selectionsettings = { persistSelection: true };
@@ -22,7 +23,7 @@ const ProductMaster = () => {
 
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
-      <Header category="Page" title="Location Master" />
+      <Header category="Page" title="Route Master" />
       <GridComponent
         dataSource={data}
         enableHover={false}
@@ -37,64 +38,29 @@ const ProductMaster = () => {
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <ColumnDirective type="checkbox" width="50" />
           <ColumnDirective
-            field="Location ID"
-            width="100"
+            field="Route ID"
+            width="200"
             textAlign="Center"
-            headerText="Location ID"
+            headerText="Route ID"
           />
           <ColumnDirective
-            field="Location Name"
-            width="100"
+            field="Checkpoints"
+            width="200"
+            headerText="Checkpoints"
             textAlign="Center"
-            headerText="Location Name"
           />
           <ColumnDirective
-            field="Location Type"
-            width="100"
+            field="Total Distance (Kms)"
+            width="70"
             textAlign="Center"
-            headerText="Location Type"
+            headerText="Total Distance (Kms)"
           />
           <ColumnDirective
-            field="Street Address"
-            width="100"
+            field="Avg Time Taken (Hrs)"
+            width="70"
             format="C2"
             textAlign="Center"
-            headerText="Street Address"
-          />
-          <ColumnDirective
-            field="City"
-            width="100"
-            format="C2"
-            textAlign="Center"
-            headerText="City"
-          />
-          <ColumnDirective
-            field="State"
-            width="100"
-            format="C2"
-            textAlign="Center"
-            headerText="State"
-          />
-          <ColumnDirective
-            field="Country"
-            width="100"
-            format="C2"
-            textAlign="Center"
-            headerText="Country"
-          />
-          <ColumnDirective
-            field="Storage Capacity"
-            width="100"
-            format="C2"
-            textAlign="Center"
-            headerText="Storage Capacity"
-          />
-          <ColumnDirective
-            field="Status"
-            width="100"
-            format="C2"
-            textAlign="Center"
-            headerText="Status"
+            headerText="Avg Time Taken (Hrs)"
           />
         </ColumnsDirective>
         <Inject services={[Page, Selection, Toolbar, Edit, Sort, Filter]} />

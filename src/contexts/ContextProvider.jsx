@@ -18,8 +18,6 @@ export const ContextProvider = ({ children }) => {
     setIsMenuOpen(!isMenuOpen);
   };
 
-  const handleNotification = () => {};
-
   const handleMouseOver = () => {
     setIsHovering(true);
     console.log("Inside handleMouseOver");
@@ -35,6 +33,7 @@ export const ContextProvider = ({ children }) => {
       ...initialState,
       [clicked]: true,
     });
+    console.log("Inside handle Click");
   };
 
   const handleClickLeave = (clicked) => {

@@ -1,7 +1,4 @@
-import React, { useEffect } from "react";
-import { AiOutlineMenu } from "react-icons/ai";
-import { FiShoppingCart } from "react-icons/fi";
-import { BsChatLeft } from "react-icons/bs";
+import React from "react";
 import { RiNotification3Line } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
 import { TooltipComponent } from "@syncfusion/ej2-react-popups";
@@ -29,15 +26,7 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
 );
 
 const Navbar = () => {
-  const {
-    currentColor,
-    activeMenu,
-    setActiveMenu,
-    handleClick,
-    isClicked,
-    screenSize,
-    setScreenSize,
-  } = useStateContext();
+  const { handleClick, isClicked } = useStateContext();
 
   return (
     <div className="flex justify-end w-full bg-navbar-bg p-2">

@@ -3,14 +3,11 @@ import { MdOutlineCancel } from "react-icons/md";
 
 import Button from "../components/Button";
 import { userProfileData } from "../data/dummy";
-import { useStateContext } from "../contexts/ContextProvider";
 import avatar from "../data/image/avatar.jpg";
 
 const UserProfile = () => {
-  const { currentColor } = useStateContext();
-
   return (
-    <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-4 rounded-lg w-80">
+    <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-4 rounded-lg w-80 z-50">
       <div className="flex justify-between items-center">
         <p className="font-semibold text-lg dark:text-gray-200">User Profile</p>
         <Button

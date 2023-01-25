@@ -9,7 +9,7 @@ import Sidebar from "./components/Sidebar";
 import Navbar from "./components/Navbar";
 import ProductMaster from "./pages/ProductMaster";
 import LocationMaster from "./pages/LocationMaster";
-import RouteMaster from "./pages/RouteMaster";
+import RouteMasterData from "./pages/RouteMasterData";
 import TransactionMaster from "./pages/TransactionData";
 import Tracker from "./Screens/Tracker";
 import BOD from "./pages/BOD";
@@ -44,7 +44,7 @@ const App = (props) => {
                 path="/masterData/locations"
                 element={<LocationMaster />}
               />
-              <Route path="/masterData/routes" element={<RouteMaster />} />
+              <Route path="/masterData/routes" element={<RouteMasterData />} />
               <Route
                 path="/masterData/transaction"
                 element={<TransactionMaster />}

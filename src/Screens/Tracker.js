@@ -5,7 +5,9 @@ import { Box, Typography } from "@material-ui/core";
 import StepLabel from "@material-ui/core/StepLabel";
 import StepContent from "@material-ui/core/StepContent";
 import LoadingScreen from "../components/LoadingScreen.js";
-import "../components/styles.css";
+// import { csv } from "csvtojson";
+// import { CsvToHtmlTable } from "react-csv-to-table";
+// import Papa from "papaparse";
 
 function Tracker() {
   const [activeStep, setActiveStep] = React.useState(0);
@@ -14,10 +16,10 @@ function Tracker() {
   const [load, upadateLoad] = React.useState(true);
   const [ccc, setCcc] = React.useState("");
   const URL =
-    "https://lovely-baboons-reply-49-37-248-63.loca.lt/api/history/59ff9e8d-e84d-4c6b-9916-ff14eee4a590";
+    "https://thin-rockets-heal-103-86-0-98.loca.lt/api/history/59ff9e8d-e84d-4c6b-9916-ff14eee4a590";
   const WAIT_TIME = 2000;
   // Allowed extensions for input file
-  const allowedExtensions = ["csv"];
+  // const allowedExtensions = ["csv"];
 
   React.useEffect(() => {
     const id = setInterval(() => {
@@ -26,7 +28,6 @@ function Tracker() {
         headers: {
           Accept: "application/json",
           "Content-Type": "application/json",
-          "Access-control-allow-origin": URL,
         },
       })
         .then((res) => res.json())
@@ -99,39 +100,45 @@ function Tracker() {
   // }
 
   return (
-    <React.Fragment>
-      <section id="trackerbg">
-        {location === "" ? (
-          <LoadingScreen load={load} />
-        ) : (
-          <LoadingScreen load={!load} />
-        )}
-        <div>
-          <Stepper activeStep={activeStep} orientation="vertical" id="stepper">
-            {path.map((label, index) => {
-              const stepProps = {};
-              const labelProps = {};
-              return (
-                <Step key={label} {...stepProps}>
-                  <StepLabel {...labelProps} id="stepLabel">
-                    {label}
-                  </StepLabel>
-                  <StepContent>
-                    <Typography id="stepDesc">
-                      {steps[index]["description"]}
-                    </Typography>
-                  </StepContent>
-                </Step>
-              );
-            })}
-          </Stepper>
-          {/* <CsvToHtmlTable
+    <div className="m-10">
+      <React.Fragment>
+        <section id="trackerbg">
+          {location === "" ? (
+            <LoadingScreen load={load} />
+          ) : (
+            <LoadingScreen load={!load} />
+          )}
+          <div>
+            <Stepper
+              activeStep={activeStep}
+              orientation="vertical"
+              id="stepper"
+            >
+              {path.map((label, index) => {
+                const stepProps = {};
+                const labelProps = {};
+                return (
+                  <Step key={label} {...stepProps}>
+                    <StepLabel {...labelProps} id="stepLabel">
+                      {label}
+                    </StepLabel>
+                    <StepContent>
+                      <Typography id="stepDesc">
+                        {steps[index]["description"]}
+                      </Typography>
+                    </StepContent>
+                  </Step>
+                );
+              })}
+            </Stepper>
+            {/* <CsvToHtmlTable
                     data={csvdata}
                     csvDelimiter=","
                   /> */}
-        </div>
-      </section>
-    </React.Fragment>
+          </div>
+        </section>
+      </React.Fragment>
+    </div>
   );
 }
 
