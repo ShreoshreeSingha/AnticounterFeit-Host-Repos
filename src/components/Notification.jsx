@@ -1,9 +1,60 @@
-import React from 'react'
+import React from "react";
+import { MdOutlineCancel } from "react-icons/md";
+
+import { chatData } from "../data/link";
+import Button from "./Button";
 
 const Notification = () => {
   return (
-    <div>Notification</div>
-  )
-}
+    <div className="nav-item absolute right-5 md:right-40 top-16 bg-white dark:bg-[#42464D] p-4 rounded-lg w-80">
+      <div className="flex justify-between items-center">
+        <div className="flex gap-3">
+          <p className="font-semibold text-lg dark:text-gray-200">
+            Notifications
+          </p>
+          <Button
+            type="button"
+            className="text-white text-xs rounded p-1 px-2 bg-orange-theme "
+          />{" "}
+          5 New
+        </div>
+        <Button
+          className="text-[rgb(153, 171, 180)] hover:bg-light-gray text-2xl rounded-full"
+          bgHoverColor="light-gray"
+          size="2xl"
+          borderRadius="50%"
+          icon={<MdOutlineCancel />}
+        />
+      </div>
+      <div className="mt-2 ">
+        {chatData?.map((item, index) => (
+          <div
+            key={index}
+            className="flex items-center leading-8 gap-3 border-b-1 border-color p-2"
+          >
+            <img
+              className="rounded-full h-10 w-10"
+              src={item.image}
+              alt={item.message}
+            />
+            <div>
+              <p className="font-semibold dark:text-gray-200">{item.message}</p>
+              <p className="text-gray-500 text-sm dark:text-gray-400">
+                {" "}
+                {item.desc}{" "}
+              </p>
+            </div>
+          </div>
+        ))}
+        <div className=" flex justify-center mt-5 bg-[#2e86ab] text-white rounded">
+          <Button
+            className="text-white rounded p-2"
+            text="See all notifications"
+          />
+        </div>
+      </div>
+    </div>
+  );
+};
 
-export default Notification
+export default Notification;

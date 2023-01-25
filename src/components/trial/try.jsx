@@ -11,18 +11,17 @@ import ProductMaster from "./pages/ProductMaster";
 import LocationMaster from "./pages/LocationMaster";
 import RouteMaster from "./pages/RouteMaster";
 import TransactionMaster from "./pages/TransactionData";
-import Tracker from "./Screens/Tracker";
 import BOD from "./pages/BOD";
 import "./App.css";
 
-const App = (props) => {
+const App = () => {
   const { activeMenu } = useStateContext();
 
   return (
     <div>
       <BrowserRouter>
         <div className="flex realtive">
-          <div className="w-24 fixed sidebar bg-sidebar-bg z-50">
+          <div className="w-24 fixed sidebar bg-sidebar-bg">
             <Sidebar />
           </div>
           <div className="dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-24 w-full ">
@@ -36,8 +35,7 @@ const App = (props) => {
               <Route path="/network" element={<Network />} />
               <Route path="/masterData" element={<MasterData />} />
               <Route path="/adminActivity" element={<AdminActivity />} />
-              {/* Components */}
-              <Route path="/tracker" element={<Tracker />} />
+
               {/* Master Data */}
               <Route path="/masterData/products" element={<ProductMaster />} />
               <Route
