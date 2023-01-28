@@ -13,6 +13,7 @@ import RouteMasterData from "./pages/RouteMasterData";
 import TransactionMaster from "./pages/TransactionData";
 import Tracker from "./Screens/Tracker";
 import BOD from "./pages/BOD";
+import Demo from "./components/Demo";
 import "./App.css";
 
 const App = (props) => {
@@ -22,7 +23,7 @@ const App = (props) => {
     <div>
       <BrowserRouter>
         <div className="flex realtive">
-          <div className="w-24 fixed sidebar bg-sidebar-bg z-50">
+          <div className="w-24 fixed sidebar bg-sidebar-bg z-50 text-clip">
             <Sidebar />
           </div>
           <div className="dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-24 w-full ">
@@ -45,11 +46,9 @@ const App = (props) => {
                 element={<LocationMaster />}
               />
               <Route path="/masterData/routes" element={<RouteMasterData />} />
-              <Route
-                path="/masterData/transaction"
-                element={<TransactionMaster />}
-              />
+              <Route path="/transaction" element={<TransactionMaster />} />
               <Route path="/masterData/bod" element={<BOD />} />
+              <Route path="/demo" element={<Demo />} />
             </Routes>
           </div>
         </div>

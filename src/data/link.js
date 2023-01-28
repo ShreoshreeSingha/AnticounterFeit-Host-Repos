@@ -1,10 +1,26 @@
 import React from "react";
-import { MdSpaceDashboard } from "react-icons/md";
-import { FaNetworkWired, FaUser, FaLock, FaMoneyBill } from "react-icons/fa";
+import {
+  MdSpaceDashboard,
+  MdOutlineLocationSearching,
+  MdOutlineHistory,
+} from "react-icons/md";
+import {
+  FaNetworkWired,
+  FaUser,
+  FaLock,
+  FaMoneyBill,
+  FaRoute,
+} from "react-icons/fa";
 import { FiDatabase } from "react-icons/fi";
-import { MdOutlineAdminPanelSettings } from "react-icons/md";
-import { RiArrowDownSFill } from "react-icons/ri";
-import { RiArrowUpSFill } from "react-icons/ri";
+import { TbFileDatabase } from "react-icons/tb";
+import { BsBox } from "react-icons/bs";
+import {
+  MdOutlineAdminPanelSettings,
+  MdOutlinePendingActions,
+} from "react-icons/md";
+import { VscTypeHierarchy, VscDatabase } from "react-icons/vsc";
+import { HiArrowsRightLeft } from "react-icons/hi2";
+
 import avatar from "./image/avatar.jpg";
 import avatar2 from "./image/avatar2.jpg";
 import avatar3 from "./image/avatar3.png";
@@ -19,7 +35,7 @@ export const routes = [
   {
     path: "/network",
     name: "network",
-    icon: <FaNetworkWired />,
+    icon: <VscTypeHierarchy />,
   },
   {
     path: "/masterData",
@@ -30,29 +46,29 @@ export const routes = [
       {
         path: "/masterData/products",
         name: "products ",
-        icon: <FaUser />,
+        icon: <BsBox />,
       },
       {
         path: "/masterData/locations",
         name: "locations",
-        icon: <FaLock />,
+        icon: <MdOutlineLocationSearching />,
       },
       {
         path: "/masterData/routes",
         name: "routes",
-        icon: <FaMoneyBill />,
-      },
-      {
-        path: "/masterData/transaction",
-        name: "transaction",
-        icon: <FaMoneyBill />,
+        icon: <FaRoute />,
       },
       {
         path: "/masterData/bod",
-        name: "bod",
-        icon: <FaMoneyBill />,
+        name: "BOD",
+        icon: <MdOutlinePendingActions />,
       },
     ],
+  },
+  {
+    path: "/transaction",
+    name: "transactions",
+    icon: <MdOutlineHistory />,
   },
   {
     path: "/admin",
@@ -111,5 +127,3 @@ export const chatData = [
 //     <p>{props.Status}</p>
 //   </div>
 // );
-
-

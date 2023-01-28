@@ -38,9 +38,9 @@ const menuItemAnimation = {
 
 const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
   const activeLink =
-    "flex items-center gap-1 pl-3 pr-3 pt-3 pb-2.5 rounded-lg text-black font-semibold text-md m-2 bg-active-bg";
+    "flex items-center gap-1 p-2 rounded-lg text-black font-semibold text-md m-2 bg-active-bg";
   const normalLink =
-    "flex items-center gap-1 pl-3 pr-3 pt-3 pb-2.5 rounded-lg text-md font-semibold text-white dark:text-gray-200 hover:text-[#2e86ab] m-2";
+    "flex items-center gap-1 p-2 rounded-lg text-md font-semibold text-white dark:text-gray-200 hover:text-[#2e86ab] m-2";
 
   const {
     activeMenu,
@@ -90,9 +90,9 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
           animate="show"
           exit="hidden"
           style={{
-            borderLeft: "0.2px solid black",
+            // borderLeft: "0.2px solid black",
             position: "absolute",
-            left: "5.975rem",
+            left: "5.8rem",
             top: "14rem",
             background: "#0B2853",
             paddingTop: "0.3rem",

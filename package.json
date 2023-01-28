@@ -18,7 +18,10 @@
     "@syncfusion/ej2-react-richtexteditor": "^19.4.50",
     "@syncfusion/ej2-react-schedule": "^19.4.50",
     "@table-library/react-table-library": "^4.0.23",
+    "axios": "^1.2.5",
+    "couchbase": "^4.2.0",
     "csvtojson": "^2.0.10",
+    "fs": "^0.0.1-security",
     "json-loader": "0.5.7",
     "material-table": "^2.0.3",
     "papaparse": "^5.3.2",
@@ -65,5 +68,10 @@
     "eslint-plugin-react-hooks": "^4.3.0",
     "postcss": "^8.4.6",
     "tailwindcss": "^3.0.19"
+  },
+  "browser": {
+    "fs": false,
+    "os": false,
+    "path": false
   }
 }

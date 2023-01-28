@@ -16,7 +16,7 @@ function Tracker() {
   const [load, upadateLoad] = React.useState(true);
   const [ccc, setCcc] = React.useState("");
   const URL =
-    "https://thin-rockets-heal-103-86-0-98.loca.lt/api/history/59ff9e8d-e84d-4c6b-9916-ff14eee4a590";
+    "https://tiny-kiwis-jog-49-37-248-63.loca.lt/api/history/59ff9e8d-e84d-4c6b-9916-ff14eee4a590";
   const WAIT_TIME = 2000;
   // Allowed extensions for input file
   // const allowedExtensions = ["csv"];
