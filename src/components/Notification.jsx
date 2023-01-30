@@ -2,23 +2,23 @@ import React from "react";
 import { MdOutlineCancel } from "react-icons/md";
 
 import { chatData } from "../data/link";
-import Button from "./Button";
+import Btn from "./Btn";
 
 const Notification = () => {
   return (
-    <div className="nav-item absolute right-5 md:right-40 top-16 bg-white dark:bg-[#42464D] p-4 rounded-lg w-80 z-50">
+    <div className="nav-item absolute right-5 md:right-40 top-16 bg-white p-4 rounded-lg w-80 z-50 shadow-lg shadow-gray">
       <div className="flex justify-between items-center">
         <div className="flex gap-3">
           <p className="font-semibold text-lg dark:text-gray-200">
             Notifications
           </p>
-          <Button
+          <Btn
             type="button"
             className="text-white text-xs rounded p-1 px-2 bg-orange-theme "
           />{" "}
           5 New
         </div>
-        <Button
+        <Btn
           className="text-[rgb(153, 171, 180)] hover:bg-light-gray text-2xl rounded-full"
           bgHoverColor="light-gray"
           size="2xl"
@@ -47,7 +47,7 @@ const Notification = () => {
           </div>
         ))}
         <div className=" flex justify-center mt-5 bg-[#2e86ab] text-white rounded">
-          <Button
+          <Btn
             className="text-white rounded p-2"
             text="See all notifications"
           />

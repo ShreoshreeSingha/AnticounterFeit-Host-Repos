@@ -1,21 +1,26 @@
-import React from "react";
+import React, {useContext} from "react";
 import { MdOutlineCancel } from "react-icons/md";
 
-import Button from "../components/Button";
+import Btn from "./Btn";
+import Button from "./UI/Button/Button";
 import { userProfileData } from "../data/dummy";
 import avatar from "../data/image/avatar.jpg";
+import { AuthContext } from "../contexts/auth-context";
+
 
 const UserProfile = () => {
+  const { logout } = useContext(AuthContext);
+
   return (
-    <div className="nav-item absolute right-1 top-16 bg-white dark:bg-[#42464D] p-4 rounded-lg w-80 z-50">
+    <div className="nav-item absolute right-4 top-16 bg-white dark:bg-[#42464D] p-4 rounded-lg w-80 z-50 shadow-lg shadow-gray">
       <div className="flex justify-between items-center">
         <p className="font-semibold text-lg dark:text-gray-200">User Profile</p>
-        <Button
-          icon={<MdOutlineCancel />}
-          color="rgb(153, 171, 180)"
+        <Btn
+          className="text-[rgb(153, 171, 180)] hover:bg-light-gray text-2xl rounded-full"
           bgHoverColor="light-gray"
           size="2xl"
           borderRadius="50%"
+          icon={<MdOutlineCancel />}
         />
       </div>
       <div className="flex gap-5 items-center border-color border-b-1 pb-6">
@@ -43,7 +48,7 @@ const UserProfile = () => {
         {userProfileData.map((item, index) => (
           <div
             key={index}
-            className="flex gap-5 border-b-1 border-color p-4 hover:bg-light-gray cursor-pointer  dark:hover:bg-[#42464D]"
+            className="flex gap-5 border-color p-4 hover:bg-light-gray cursor-pointer  dark:hover:bg-[#42464D]"
           >
             <button
               type="button"
@@ -62,14 +67,11 @@ const UserProfile = () => {
           </div>
         ))}
       </div>
-      <div className="mt-5">
+      <div className="mt-5 flex justify-center">
         <Button
-          color="white"
-          bgColor="#2e86ab"
-          text="Logout"
-          borderRadius="10px"
-          width="full"
-        />
+          onClick={logout}
+          className="w-72"
+        >Logout</Button>
       </div>
     </div>
   );

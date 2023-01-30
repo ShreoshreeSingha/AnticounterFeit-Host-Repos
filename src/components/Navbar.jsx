@@ -30,7 +30,7 @@ const Navbar = () => {
 
   return (
     <div className="flex justify-end w-full bg-navbar-bg p-2">
-      <div className="flex">
+      <div className="flex pr-2">
         <NavButton
           title="Notification"
           dotColor="rgb(254, 201, 15)"

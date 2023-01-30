@@ -22,37 +22,37 @@ function Tracker() {
   // const allowedExtensions = ["csv"];
 
   React.useEffect(() => {
-    const id = setInterval(() => {
-      fetch(URL, {
-        method: "GET",
-        headers: {
-          Accept: "application/json",
-          "Content-Type": "application/json",
-        },
-      })
-        .then((res) => res.json())
-        .then((data) => {
-          const { response } = data;
-          const route = JSON.stringify(response)
-            .slice(1, -1)
-            .replace(/\\/g, "");
-          const routeArr = JSON.parse(route)[0]["Value"]["route"];
+    // const id = setInterval(() => {
+    //   fetch(URL, {
+    //     method: "GET",
+    //     headers: {
+    //       Accept: "application/json",
+    //       "Content-Type": "application/json",
+    //     },
+    //   })
+    //     .then((res) => res.json())
+    //     .then((data) => {
+    //       const { response } = data;
+    //       const route = JSON.stringify(response)
+    //         .slice(1, -1)
+    //         .replace(/\\/g, "");
+    //       const routeArr = JSON.parse(route)[0]["Value"]["route"];
 
-          setPath(routeArr);
-          path.map((loc) => {
-            if (location === loc) {
-              setActiveStep(path.indexOf(location));
-            }
-          });
-          setLocation(JSON.parse(route)[0]["Value"]["currentLocation"]);
-        })
-        .catch((err) => {
-          console.log(err);
-        });
-    }, WAIT_TIME);
-    return () => clearInterval(id);
-    // const rec = require('../assets/Product_Master.csv')
-    // csvtojson(rec);
+    //       setPath(routeArr);
+    //       path.map((loc) => {
+    //         if (location === loc) {
+    //           setActiveStep(path.indexOf(location));
+    //         }
+    //       });
+    //       setLocation(JSON.parse(route)[0]["Value"]["currentLocation"]);
+    //     })
+    //     .catch((err) => {
+    //       console.log(err);
+    //     });
+    // }, WAIT_TIME);
+    // return () => clearInterval(id);
+    // // const rec = require('../assets/Product_Master.csv')
+    // // csvtojson(rec);
   }, [path, location, activeStep]);
 
   const steps = [

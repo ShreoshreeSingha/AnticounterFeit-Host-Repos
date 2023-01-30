@@ -11,14 +11,40 @@ import {
   Sort,
   Filter,
 } from "@syncfusion/ej2-react-grids";
-
-import data from "../data/locationMasterData.json";
 import Header from "../components/Header";
 
-const ProductMaster = () => {
+const url = 'https://honest-rabbits-juggle-103-86-0-98.loca.lt/api/data/location';
+
+const LocationMaster = () => {
+  
   const selectionsettings = { persistSelection: true };
   const toolbarOptions = ["Delete"];
   const editing = { allowDeleting: true, allowEditing: true };
+  const [data, setData] = React.useState([])
+
+  React.useEffect(async () => {
+    await fetch(url, {
+      method: "GET",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+    })
+      .then((res) => res.json())
+      .then((d) => {
+        const { response } = d;
+        const resData = JSON.stringify(response)
+          .slice(1, -1)
+          .replace(/\\/g, "");
+        // console.log("response data : " + resData)
+        const dat = JSON.parse(resData).data
+        console.log("DATA : " + JSON.stringify(dat[0]))
+        setData(dat);
+      })
+      .catch((err) => {
+        console.log(err);
+      });
+  }, [])
 
   return (
     <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
@@ -37,60 +63,60 @@ const ProductMaster = () => {
           {/* eslint-disable-next-line react/jsx-props-no-spreading */}
           <ColumnDirective type="checkbox" width="50" />
           <ColumnDirective
-            field="Location ID"
+            field="locationId"
             width="100"
             textAlign="Center"
             headerText="Location ID"
           />
           <ColumnDirective
-            field="Location Name"
+            field="locationName"
             width="100"
             textAlign="Center"
             headerText="Location Name"
           />
           <ColumnDirective
-            field="Location Type"
+            field="locationType"
             width="100"
             textAlign="Center"
             headerText="Location Type"
           />
           <ColumnDirective
-            field="Street Address"
+            field="streetAddress"
             width="100"
             format="C2"
             textAlign="Center"
             headerText="Street Address"
           />
           <ColumnDirective
-            field="City"
+            field="city"
             width="100"
             format="C2"
             textAlign="Center"
             headerText="City"
           />
           <ColumnDirective
-            field="State"
+            field="state"
             width="100"
             format="C2"
             textAlign="Center"
             headerText="State"
           />
           <ColumnDirective
-            field="Country"
+            field="country"
             width="100"
             format="C2"
             textAlign="Center"
             headerText="Country"
           />
           <ColumnDirective
-            field="Storage Capacity"
+            field="storageCapacity"
             width="100"
             format="C2"
             textAlign="Center"
             headerText="Storage Capacity"
           />
           <ColumnDirective
-            field="Status"
+            field="status"
             width="100"
             format="C2"
             textAlign="Center"
@@ -103,4 +129,4 @@ const ProductMaster = () => {
   );
 };
 
-export default ProductMaster;
+export default LocationMaster;

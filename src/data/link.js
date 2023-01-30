@@ -5,21 +5,16 @@ import {
   MdOutlineHistory,
 } from "react-icons/md";
 import {
-  FaNetworkWired,
-  FaUser,
-  FaLock,
-  FaMoneyBill,
   FaRoute,
 } from "react-icons/fa";
 import { FiDatabase } from "react-icons/fi";
-import { TbFileDatabase } from "react-icons/tb";
 import { BsBox } from "react-icons/bs";
 import {
   MdOutlineAdminPanelSettings,
   MdOutlinePendingActions,
 } from "react-icons/md";
-import { VscTypeHierarchy, VscDatabase } from "react-icons/vsc";
-import { HiArrowsRightLeft } from "react-icons/hi2";
+import { VscTypeHierarchy } from "react-icons/vsc";
+
 
 import avatar from "./image/avatar.jpg";
 import avatar2 from "./image/avatar2.jpg";
@@ -71,7 +66,7 @@ export const routes = [
     icon: <MdOutlineHistory />,
   },
   {
-    path: "/admin",
+    path: "/adminActivity",
     name: "admin",
     icon: <MdOutlineAdminPanelSettings />,
   },

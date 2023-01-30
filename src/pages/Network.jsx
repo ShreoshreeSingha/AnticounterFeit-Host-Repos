@@ -2,6 +2,7 @@ import Graph from "react-graph-vis";
 import React, { useState } from "react";
 import ReactDOM from "react-dom";
 import { SiShopware } from "react-icons/si";
+import Header from "../components/Header";
 
 var DIR = "../data/image";
 
@@ -215,6 +216,7 @@ const Network = () => {
   const { graph, events } = state;
   return (
     <div>
+      <Header category="Page" title="Network" />
       <Graph
         graph={graph}
         options={options}

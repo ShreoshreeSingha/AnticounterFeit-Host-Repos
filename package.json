@@ -19,6 +19,7 @@
     "@syncfusion/ej2-react-schedule": "^19.4.50",
     "@table-library/react-table-library": "^4.0.23",
     "axios": "^1.2.5",
+    "base-64": "^1.0.0",
     "couchbase": "^4.2.0",
     "csvtojson": "^2.0.10",
     "fs": "^0.0.1-security",
