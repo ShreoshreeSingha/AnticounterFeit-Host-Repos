@@ -22,8 +22,9 @@ import {
   BsCurrencyDollar,
   BsShield,
   BsChatLeft,
+  BsBarChartLine,
 } from "react-icons/bs";
-import { BiColorFill } from "react-icons/bi";
+import { BiColorFill, BiQrScan } from "react-icons/bi";
 import { IoMdContacts } from "react-icons/io";
 import { RiContactsLine, RiStockLine } from "react-icons/ri";
 import { MdOutlineSupervisorAccount } from "react-icons/md";
@@ -31,6 +32,7 @@ import { HiOutlineRefresh } from "react-icons/hi";
 import { TiTick } from "react-icons/ti";
 import { GiLouvrePyramid } from "react-icons/gi";
 import { GrLocation } from "react-icons/gr";
+import { CgProfile, CgDanger } from "react-icons/cg";
 import avatar from "../data/image/avatar.jpg";
 import avatar2 from "../data/image/avatar2.jpg";
 import avatar3 from "../data/image/avatar3.png";
@@ -650,40 +652,40 @@ export const chatData = [
 
 export const earningData = [
   {
-    icon: <MdOutlineSupervisorAccount />,
+    icon: <BiQrScan />,
     amount: "39,354",
     percentage: "-4%",
-    title: "Customers",
+    title: "Total Scans",
     iconColor: "#03C9D7",
-    iconBg: "#E5FAFB",
-    pcColor: "red-600",
+    iconBg: "#ffffff",
+    pcColor: "red",
   },
   {
-    icon: <BsBoxSeam />,
+    icon: <CgDanger />,
     amount: "4,396",
     percentage: "+23%",
-    title: "Products",
-    iconColor: "rgb(255, 244, 229)",
-    iconBg: "rgb(254, 201, 15)",
+    title: "Fake Products",
+    iconColor: "red",
+    iconBg: "#ffffff",
     pcColor: "green-600",
   },
   {
-    icon: <FiBarChart />,
+    icon: <TiTick />,
     amount: "423,39",
     percentage: "+38%",
-    title: "Sales",
-    iconColor: "rgb(228, 106, 118)",
-    iconBg: "rgb(255, 244, 229)",
+    title: "Genuine Products",
+    iconColor: "blue",
+    iconBg: "#ffffff",
 
     pcColor: "green-600",
   },
   {
-    icon: <HiOutlineRefresh />,
+    icon: <FiBarChart />,
     amount: "39,354",
     percentage: "-12%",
-    title: "Refunds",
-    iconColor: "rgb(0, 194, 146)",
-    iconBg: "rgb(235, 250, 242)",
+    title: "Products Sold",
+    iconColor: "green",
+    iconBg: "#ffffff",
     pcColor: "red-600",
   },
 ];
@@ -874,19 +876,19 @@ export const themeColors = [
 
 export const userProfileData = [
   {
-    icon: <BsCurrencyDollar />,
+    icon: <CgProfile />,
     title: "My Profile",
     desc: "Account Settings",
     iconColor: "#03C9D7",
     iconBg: "#E5FAFB",
   },
-  {
-    icon: <BsShield />,
-    title: "My Inbox",
-    desc: "Messages & Emails",
-    iconColor: "rgb(0, 194, 146)",
-    iconBg: "rgb(235, 250, 242)",
-  },
+  // {
+  //   icon: <BsShield />,
+  //   title: "My Inbox",
+  //   desc: "Messages & Emails",
+  //   iconColor: "rgb(0, 194, 146)",
+  //   iconBg: "rgb(235, 250, 242)",
+  // },
   // {
   //   icon: <FiCreditCard />,
   //   title: "My Tasks",
@@ -2995,13 +2997,10 @@ export const lineCustomSeries = [
 ];
 
 export const pieChartData = [
-  { x: "Labour", y: 18, text: "18%" },
-  { x: "Legal", y: 8, text: "8%" },
-  { x: "Production", y: 15, text: "15%" },
-  { x: "License", y: 11, text: "11%" },
-  { x: "Facilities", y: 18, text: "18%" },
-  { x: "Taxes", y: 14, text: "14%" },
-  { x: "Insurance", y: 16, text: "16%" },
+  { x: "Retailer", y: 45, text: "45%" },
+  { x: "Distributor", y: 25, text: "25%" },
+  { x: "Warehouse", y: 15, text: "15%" },
+  { x: "Manufacturer", y: 10, text: "10%" },
 ];
 
 export const contextMenuItems = [

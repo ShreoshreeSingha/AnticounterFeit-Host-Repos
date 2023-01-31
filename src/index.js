@@ -7,10 +7,10 @@ import { ContextProvider } from "./contexts/ContextProvider";
 import { AuthContextProvider } from "./contexts/auth-context";
 
 ReactDOM.render(
-  <ContextProvider>
-    <AuthContextProvider>
+  <AuthContextProvider>
+    <ContextProvider>
       <App />
-    </AuthContextProvider>
-  </ContextProvider>,
+    </ContextProvider>
+  </AuthContextProvider>,
   document.getElementById("root")
 );

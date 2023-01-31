@@ -3,12 +3,17 @@ import {
   MdSpaceDashboard,
   MdOutlineLocationSearching,
   MdOutlineHistory,
+  MdAddLocation,
 } from "react-icons/md";
 import {
   FaRoute,
 } from "react-icons/fa";
 import { FiDatabase } from "react-icons/fi";
 import { BsBox } from "react-icons/bs";
+import { IoMdPersonAdd } from "react-icons/io";
+import { TbRoute } from "react-icons/tb";
+import { CgTrack } from "react-icons/cg";
+import { BiDetail } from "react-icons/bi"
 import {
   MdOutlineAdminPanelSettings,
   MdOutlinePendingActions,
@@ -20,6 +25,34 @@ import avatar from "./image/avatar.jpg";
 import avatar2 from "./image/avatar2.jpg";
 import avatar3 from "./image/avatar3.png";
 import avatar4 from "./image/avatar4.jpg";
+
+export const quickLinks = [
+  {
+    path: "/",
+    name: "Add Member",
+    icon: <IoMdPersonAdd />,
+  },
+  {
+    path: "/",
+    name: "Add Route",
+    icon: <TbRoute />,
+  },
+  {
+    path: "/",
+    name: "Add Location",
+    icon: <MdAddLocation />,
+  },
+  {
+    path: "/",
+    name: "Tracking",
+    icon: <CgTrack />,
+  },
+  {
+    path: "/",
+    name: "Order Details",
+    icon: <BiDetail />,
+  },
+]
 
 export const routes = [
   {

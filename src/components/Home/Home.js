@@ -14,6 +14,7 @@ import Tracker from "../../Screens/Tracker";
 import BOD from "../../pages/BOD";
 import Demo from "../../components/Demo";
 import Login from "../../components/Login/Login"
+import Pie from "../../pages/charts/Pie";
 import { AuthContext } from "../../contexts/auth-context";
 
 import "../../App.css";
@@ -44,6 +45,8 @@ const Home = () => {
               <Route path="/adminActivity" element={<AdminActivity />} />
               {/* Components */}
               <Route path="/tracker" element={<Tracker />} />
+              {/* Charts */}
+              <Route path="/pie" element={<Pie />} />
               {/* Master Data */}
               <Route path="/masterData/products" element={<ProductMaster />} />
               <Route

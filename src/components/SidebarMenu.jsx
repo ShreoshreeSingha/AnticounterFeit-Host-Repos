@@ -1,5 +1,3 @@
-import React, { useState, useEffect } from "react";
-import { FaAngleDown, FaAngleRight } from "react-icons/fa";
 import { NavLink } from "react-router-dom";
 
 import { useStateContext } from "../contexts/ContextProvider";
@@ -93,7 +91,7 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
             // borderLeft: "0.2px solid black",
             position: "absolute",
             left: "5.8rem",
-            top: "14rem",
+            top: "13rem",
             background: "#0B2853",
             paddingTop: "0.3rem",
             borderRadius: "0rem 0.5rem 0.5rem 0rem",
