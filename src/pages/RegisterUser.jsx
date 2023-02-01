@@ -91,7 +91,7 @@ const RegisterUser = ()=>{
                                     <option value="mango">Mango</option>
                                 </select> */}
 
-                            <button type="submit">Add User</button>
+                            <button className="Submit_bttn" type="submit">Add User</button>
                         </form> 
                 </div>
             </div>
