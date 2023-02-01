@@ -16,6 +16,7 @@ import Demo from "../../components/Demo";
 import Login from "../../components/Login/Login"
 import Pie from "../../pages/charts/Pie";
 import { AuthContext } from "../../contexts/auth-context";
+import Registeruser from "../../pages/RegisterUser";
 
 import "../../App.css";
 
@@ -43,6 +44,7 @@ const Home = () => {
               <Route path="/network" element={<Network />} />
               <Route path="/masterData" element={<MasterData />} />
               <Route path="/adminActivity" element={<AdminActivity />} />
+              <Route path="/registerUser" element={<Registeruser />} />
               {/* Components */}
               <Route path="/tracker" element={<Tracker />} />
               {/* Charts */}
