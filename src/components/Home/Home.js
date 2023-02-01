@@ -17,6 +17,7 @@ import Login from "../../components/Login/Login"
 import Pie from "../../pages/charts/Pie";
 import { AuthContext } from "../../contexts/auth-context";
 import Registeruser from "../../pages/RegisterUser";
+import ProdTracker from "../../Screens/ProdTracker";
 
 import "../../App.css";
 
@@ -47,6 +48,7 @@ const Home = () => {
               <Route path="/registerUser" element={<Registeruser />} />
               {/* Components */}
               <Route path="/tracker" element={<Tracker />} />
+              <Route path="/prodTracker" element={<ProdTracker />} />
               {/* Charts */}
               <Route path="/pie" element={<Pie />} />
               {/* Master Data */}
