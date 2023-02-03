@@ -4,6 +4,7 @@ import {
   MdOutlineLocationSearching,
   MdOutlineHistory,
   MdAddLocation,
+  MdOutlineNoteAdd,
 } from "react-icons/md";
 import {
   FaRoute,
@@ -19,6 +20,10 @@ import {
   MdOutlinePendingActions,
 } from "react-icons/md";
 import { VscTypeHierarchy } from "react-icons/vsc";
+import CreateBatchForm from "../components/forms/CreateBatchForm";
+import Tracker from "../Screens/Tracker";
+import CreateBatch from "../pages/CreateBatch";
+import RegisterUser from "../pages/RegisterUser"
 
 
 import avatar from "./image/avatar.jpg";
@@ -28,30 +33,40 @@ import avatar4 from "./image/avatar4.jpg";
 
 export const quickLinks = [
   {
-    path: "/",
-    name: "Add Member",
+    path: "/createBatch",
+    element: <CreateBatch />,
+    name: "Create new Batch",
+    icon: <MdOutlineNoteAdd />,
+  },
+  {
+    path: "/registerUser",
+    element: <RegisterUser />,
+    name: "Add User",
     icon: <IoMdPersonAdd />,
   },
   {
     path: "/",
+    element: "Add Route",
     name: "Add Route",
     icon: <TbRoute />,
   },
   {
     path: "/",
+    element: "Add Location",
     name: "Add Location",
     icon: <MdAddLocation />,
   },
   {
     path: "/",
+    element: <Tracker />,
     name: "Tracking",
     icon: <CgTrack />,
   },
-  {
-    path: "/",
-    name: "Order Details",
-    icon: <BiDetail />,
-  },
+  // {
+  //   path: "/",
+  //   name: "Order Details",
+  //   icon: <BiDetail />,
+  // },
 ]
 
 export const routes = [

@@ -4,23 +4,25 @@ import "./AdminActivity.css";
 import ROUTE from "../data/GIF/way.gif";
 import EMP from "../data/GIF/user.gif";
 import USER from "../data/GIF/customer.gif";
+import { NavLink } from "react-router-dom";
 
 
 
 const cardList = [
   {
       icon: EMP,
-      name: "generate user ID",
+      name: "Add New User",
+      path: "/registerUser"
       
   },
   {
     icon: ROUTE,
-    name: "RE-Route",
+    name: "Re-Route",
    
   },
   {
     icon: USER,
-    name: "User Details",
+    name: "Users Details",
     
   },
 ]
@@ -33,17 +35,20 @@ const AdminActivity = () => {
       <div>
           <div className="container">
             {cardList.map((item, index) => (
-                <div className="card">
+              <div>
+                <NavLink className="card" key={index} to={item.path}>
                   <div className="content">
                     <div className="imgBx">
                     <img src={item.icon}></img>
                     </div> 
                   </div> 
-                  <ul className="sci">
-                    <li>
-                      <a href="/registerUser">{item.name}</a>
-                    </li>
-                  </ul>
+                  <div className="sci">
+                    <p>
+                        <h1>{item.name}</h1>
+                    </p>
+                  </div>
+                </NavLink>
+                {/* <h1>{item.name}</h1> */}
                 </div>
               ))}
           </div>

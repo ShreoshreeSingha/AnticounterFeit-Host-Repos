@@ -13,6 +13,7 @@ export const ContextProvider = ({ children }) => {
   const [screenSize, setScreenSize] = useState(undefined);
   const [isHovering, setIsHovering] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
+  const [showPopup, setShowPopup] = useState(false);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -73,6 +74,7 @@ export const ContextProvider = ({ children }) => {
         handleMouseEnter,
         handleMouseLeave,
         handleClickLeave,
+        showPopup, setShowPopup,
       }}
     >
       {children}
