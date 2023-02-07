@@ -19,6 +19,9 @@ import CreateBatch from "../../pages/CreateBatch";
 import { AuthContext } from "../../contexts/auth-context";
 import Registeruser from "../../pages/RegisterUser";
 import ProdTracker from "../../Screens/ProdTracker";
+import RouteUpdate from "../../pages/RouteUpdate";
+import AddRoute from "../../pages/AddRoute";
+import UserDetails from "../../pages/UserDetails";
 
 import "../../App.css";
 
@@ -48,6 +51,8 @@ const Home = () => {
                 <Route path="/masterData" element={<MasterData />} />
                 <Route path="/adminActivity" element={<AdminActivity />} />
                 <Route path="/registerUser" element={<Registeruser />} />
+                <Route path="/routeUpdate" element={<RouteUpdate />} />
+                <Route path="/userDetails" element={<UserDetails />} />
                 {/* Components */}
                 <Route path="/tracker" element={<Tracker />} />
                 <Route path="/prodTracker" element={<ProdTracker />} />
@@ -55,6 +60,8 @@ const Home = () => {
                 <Route path="/pie" element={<Pie />} />
                 {/* Quick Links */}
                 <Route path="/createBatch" element={<CreateBatch route = {route} />} />
+                <Route path="/addRoute" element={<AddRoute />} />
+                
                 {/* Master Data */}
                 <Route
                   path="/masterData/products"

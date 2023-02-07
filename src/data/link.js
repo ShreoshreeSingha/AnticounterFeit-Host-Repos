@@ -23,7 +23,8 @@ import { VscTypeHierarchy } from "react-icons/vsc";
 import CreateBatchForm from "../components/forms/CreateBatchForm";
 import Tracker from "../Screens/Tracker";
 import CreateBatch from "../pages/CreateBatch";
-import RegisterUser from "../pages/RegisterUser"
+import RegisterUser from "../pages/RegisterUser";
+import AddRoute from "../pages/AddRoute";
 
 
 import avatar from "./image/avatar.jpg";
@@ -45,8 +46,8 @@ export const quickLinks = [
     icon: <IoMdPersonAdd />,
   },
   {
-    path: "/",
-    element: "Add Route",
+    path: "/addRoute",
+    element: <AddRoute/>,
     name: "Add Route",
     icon: <TbRoute />,
   },

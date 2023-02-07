@@ -125,7 +125,7 @@ section::after {
 	color: #2e86ab;
 }
 
-.container .card .sci p a {
+.container .card .sci p h1 {
 	color: rgb(0, 0, 0);
 	font-size: 20px;
 }
