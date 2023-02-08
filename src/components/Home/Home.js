@@ -19,10 +19,13 @@ import CreateBatch from "../../pages/CreateBatch";
 import { AuthContext } from "../../contexts/auth-context";
 import Registeruser from "../../pages/RegisterUser";
 import ProdTracker from "../../Screens/ProdTracker";
+import RouteUpdate from "../../pages/RouteUpdate";
+import AddRoute from "../../pages/AddRoute";
+import UserDetails from "../../pages/UserDetails";
+import AddLocation from "../../pages/AddLocation"
 
 import "../../App.css";
-import AddLocation from "../../pages/AddLocation";
-import AddRoute from "../../pages/AddRoute";
+
 
 const Home = () => {
   const { isAuth, login } = useContext(AuthContext);
@@ -87,12 +90,19 @@ const Home = () => {
                   <Route path="/demo" element={<Demo />} />
                   {/* MASTER DATA ENDS */}
 
+                  {/* ADMIN ACTIVITY STARTS */}
+                  <Route path="/adminActivity" element={<AdminActivity />} />
+                <Route path="/registerUser" element={<Registeruser />} />
+                <Route path="/routeUpdate" element={<RouteUpdate />} />
+                <Route path="/userDetails" element={<UserDetails />} />
+                  {/* ADMIN ACTIVITY ENDS */}
+
                 </Routes>
               </div>
             </div>
           </div>
         </BrowserRouter>
-      )}
+      )}  
     </div>
   );
 };

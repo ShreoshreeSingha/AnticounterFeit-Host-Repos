@@ -16,14 +16,15 @@ const cardList = [
       
   },
   {
-    icon: ROUTE,
-    name: "Re-Route",
+      icon: ROUTE,
+      name: "Re-Route",
+      path: "/routeUpdate"
    
   },
   {
-    icon: USER,
-    name: "Users Details",
-    
+      icon: USER,
+      name: "Users Details",
+      path: "/userDetails"
   },
 ]
 
