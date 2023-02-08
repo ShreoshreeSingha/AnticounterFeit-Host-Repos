@@ -1,5 +1,4 @@
 import { Link, NavLink } from "react-router-dom";
-import { useState } from "react";
 import SidebarMenu from "./SidebarMenu";
 import { routes } from "../data/link";
 
@@ -11,7 +10,7 @@ const SideBar = () => {
 
   return (
     <>
-      <div className="h-screen md:overflow-hidden overflow-hidden md:hover:overflow-auto pb-10 pt-2 z-50">
+      <div className="h-screen pb-10 pt-2 z-50 sm:hidden">
         <div className="flex justify-center items-center">
           <Link>
             <img

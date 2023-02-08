@@ -21,57 +21,74 @@ import Registeruser from "../../pages/RegisterUser";
 import ProdTracker from "../../Screens/ProdTracker";
 
 import "../../App.css";
+import AddLocation from "../../pages/AddLocation";
+import AddRoute from "../../pages/AddRoute";
 
 const Home = () => {
   const { isAuth, login } = useContext(AuthContext);
-
-  const route = ["Manufacturer", "Storage-96", "Distributor-15", "Retailer-99"];
 
   return (
     <div>
       {!isAuth && <Login onLogin={login} />}
       {isAuth && (
         <BrowserRouter>
-          <div className="flex realtive">
-            <div className="w-24 fixed sidebar bg-sidebar-bg z-50 text-clip">
+          <div className="flex relative">
+            <div className="w-[8%] fixed sidebar bg-sidebar-bg z-50 text-clip">
               <Sidebar />
             </div>
-            <div className="dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-24 w-full ">
-              <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
+            <div className="bg-main-bg absolute left-[8%] w-[92%]">
+              <div className="fixed w-[92%] z-[5]">
                 <Navbar />
               </div>
-              <Routes>
-                {/* Dashboard */}
-                <Route path="/" element={<Dashboard />} />
-                <Route path="/dashboard" element={<Dashboard />} />
-                <Route path="/network" element={<Network />} />
-                <Route path="/masterData" element={<MasterData />} />
-                <Route path="/adminActivity" element={<AdminActivity />} />
-                <Route path="/registerUser" element={<Registeruser />} />
-                {/* Components */}
-                <Route path="/tracker" element={<Tracker />} />
-                <Route path="/prodTracker" element={<ProdTracker />} />
-                {/* Charts */}
-                <Route path="/pie" element={<Pie />} />
-                {/* Quick Links */}
-                <Route path="/createBatch" element={<CreateBatch route = {route} />} />
-                {/* Master Data */}
-                <Route
-                  path="/masterData/products"
-                  element={<ProductMaster />}
-                />
-                <Route
-                  path="/masterData/locations"
-                  element={<LocationMaster />}
-                />
-                <Route
-                  path="/masterData/routes"
-                  element={<RouteMasterData />}
-                />
-                <Route path="/transaction" element={<TransactionMaster />} />
-                <Route path="/masterData/bod" element={<BOD />} />
-                <Route path="/demo" element={<Demo />} />
-              </Routes>
+              <div className="z-[1] bg-main-bg absolute top-14 min-h-[90vh] w-full ">
+                <Routes>
+                  {/* DASHBOARD SECTION STARTS */}
+                  <Route path="/" element={<Dashboard />} />
+                  <Route path="/dashboard" element={<Dashboard />} />
+                  <Route path="/network" element={<Network />} />
+                  <Route path="/masterData" element={<MasterData />} />
+                  <Route path="/adminActivity" element={<AdminActivity />} />
+                  <Route path="/registerUser" element={<Registeruser />} />
+                  {/* DASHBOARD SECTION ENDS */}
+
+                  {/* COMPONENTS STARTS */}
+                  <Route path="/tracker" element={<Tracker />} />
+                  <Route path="/prodTracker" element={<ProdTracker />} />
+                  {/* COMPONENTS ENDS */}
+
+                  {/* CHARTS STARTS */}
+                  <Route path="/pie" element={<Pie />} />
+                  {/* CHARTS ENDS */}
+
+                  {/* QUICK LINKS STARTS */}
+                  <Route
+                    path="/createBatch"
+                    element={<CreateBatch />}
+                  />
+                  <Route path="/addLocation" element={<AddLocation/>} />
+                  <Route path="/addRoute" element={<AddRoute/>} />
+                  {/* QUICK LINKS ENDS */}
+
+                  {/* MASTER DATA STARTS */}
+                  <Route
+                    path="/masterData/products"
+                    element={<ProductMaster />}
+                  />
+                  <Route
+                    path="/masterData/locations"
+                    element={<LocationMaster />}
+                  />
+                  <Route
+                    path="/masterData/routes"
+                    element={<RouteMasterData />}
+                  />
+                  <Route path="/transaction" element={<TransactionMaster />} />
+                  <Route path="/masterData/bod" element={<BOD />} />
+                  <Route path="/demo" element={<Demo />} />
+                  {/* MASTER DATA ENDS */}
+
+                </Routes>
+              </div>
             </div>
           </div>
         </BrowserRouter>

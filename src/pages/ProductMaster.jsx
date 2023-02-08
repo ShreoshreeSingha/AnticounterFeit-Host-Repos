@@ -14,14 +14,14 @@ import {
 
 import Header from "../components/Header";
 
-
-const url = 'https://honest-rabbits-juggle-103-86-0-98.loca.lt/api/data/product';
+const url =
+  "https://honest-rabbits-juggle-103-86-0-98.loca.lt/api/data/product";
 
 const ProductMaster = () => {
   const selectionsettings = { persistSelection: true };
   const toolbarOptions = ["Delete"];
   const editing = { allowDeleting: true, allowEditing: true };
-  const [data, setData] = React.useState([])
+  const [data, setData] = React.useState([]);
 
   React.useEffect(async () => {
     await fetch(url, {
@@ -38,74 +38,77 @@ const ProductMaster = () => {
           .slice(1, -1)
           .replace(/\\/g, "");
         // console.log("response data : " + resData)
-        const dat = JSON.parse(resData).data
-        console.log("DATA : " + JSON.stringify(dat[0]))
+        const dat = JSON.parse(resData).data;
+        console.log("DATA : " + JSON.stringify(dat[0]));
         setData(dat);
       })
       .catch((err) => {
         console.log(err);
       });
-  }, [])
+  }, []);
 
   return (
-    <div className="m-2 md:m-10 mt-24 p-2 md:p-10 bg-white rounded-3xl">
+    <>
       <Header category="Page" title="Product Master" />
-      <GridComponent
-        dataSource={data}
-        enableHover={false}
-        allowPaging
-        pageSettings={{ pageCount: 5 }}
-        selectionSettings={selectionsettings}
-        toolbar={toolbarOptions}
-        editSettings={editing}
-        allowSorting
-      >
-        <ColumnsDirective>
-          {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-          <ColumnDirective type="checkbox" width="50" />
-          <ColumnDirective
-            field="productId"
-            width="100"
-            textAlign="Center"
-            headerText="Product ID"
-          />
-          <ColumnDirective
-            field="productName"
-            width="100"
-            textAlign="Center"
-            headerText="Product Name"
-          />
-          <ColumnDirective
-            field="productCategory"
-            width="100"
-            textAlign="Center"
-            headerText="Product Category"
-          />
-          <ColumnDirective
-            field="manufacturingDate"
-            width="100"
-            format="C2"
-            textAlign="Center"
-            headerText="Manufacturing Date"
-          />
-          <ColumnDirective
-            field="manufacturingLocation"
-            width="100"
-            format="C2"
-            textAlign="Center"
-            headerText="Manufacturing Location"
-          />
-          <ColumnDirective
-            field="mrp"
-            width="100"
-            format="C2"
-            textAlign="Center"
-            headerText="MRP (USD)"
-          />
-        </ColumnsDirective>
-        <Inject services={[Page, Selection, Toolbar, Edit, Sort, Filter]} />
-      </GridComponent>
-    </div>
+      <div className="p-4 bg-white m-2 rounded-lg">
+        <GridComponent
+          dataSource={data}
+          enableHover={false}
+          allowPaging
+          pageSettings={{ pageCount: 5 }}
+          selectionSettings={selectionsettings}
+          toolbar={toolbarOptions}
+          editSettings={editing}
+          allowSorting
+          className="rounded-lg"
+        >
+          <ColumnsDirective>
+            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
+            <ColumnDirective type="checkbox" width="50" />
+            <ColumnDirective
+              field="productId"
+              width="100"
+              textAlign="Center"
+              headerText="Product ID"
+            />
+            <ColumnDirective
+              field="productName"
+              width="100"
+              textAlign="Center"
+              headerText="Product Name"
+            />
+            <ColumnDirective
+              field="productCategory"
+              width="100"
+              textAlign="Center"
+              headerText="Product Category"
+            />
+            <ColumnDirective
+              field="manufacturingDate"
+              width="100"
+              format="C2"
+              textAlign="Center"
+              headerText="Manufacturing Date"
+            />
+            <ColumnDirective
+              field="manufacturingLocation"
+              width="100"
+              format="C2"
+              textAlign="Center"
+              headerText="Manufacturing Location"
+            />
+            <ColumnDirective
+              field="mrp"
+              width="100"
+              format="C2"
+              textAlign="Center"
+              headerText="MRP (USD)"
+            />
+          </ColumnsDirective>
+          <Inject services={[Page, Selection, Toolbar, Edit, Sort, Filter]} />
+        </GridComponent>
+      </div>
+    </>
   );
 };
 

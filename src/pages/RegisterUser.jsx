@@ -1,102 +1,204 @@
-import React, {useState} from "react";
+import React, { useState } from "react";
 import Header from "../components/Header";
+import Button from "../components/UI/Button/Button";
 import "./RegisterUser.css";
 // import Col from 'react-bootstrap/Col';
 // import Form from 'react-bootstrap/Form';
 // import Row from 'react-bootstrap/Row';
 
+const RegisterUser = () => {
+  const [formData, setFormData] = useState({
+    firstName: "",
+    lastName: "",
+    email: "",
+    password: "",
+    phonenumber: "",
+    confirmpass: "",
+  });
 
-const RegisterUser = ()=>{
-    
-    const [formData, setFormData] = useState({
-        firstName: "",
-        lastName: "",
-        email: "",
-        password: "",
-        phonenumber:"",
-        confirmpass:""
-      });
-    
-      const updateFormData = event =>
-        setFormData({
-          ...formData,
-          [event.target.name]: event.target.value
-        });
+  const updateFormData = (event) =>
+    setFormData({
+      ...formData,
+      [event.target.name]: event.target.value,
+    });
 
-        const { firstName, lastName, email, password, phonenumber, confirmpass } = formData;
+  const { firstName, lastName, email, password, phonenumber, confirmpass } =
+    formData;
 
+//   handleChange(event) {
+//       this.setState({value: event.target.value});
+//     }
 
-        // handleChange(event) {
-        //     this.setState({value: event.target.value});
-        //   }
-
-    return(
-        <>
-            <div>
-                <Header category="Page" title="Generate User Id" />
-                <div className="Form_content">
-                         <form>
-                                <input
-                                    value={firstName}
-                                    onChange={e => updateFormData(e)}
-                                    placeholder="First name"
-                                    type="text"
-                                    name="firstName"
-                                    required
-                                />
-                                <input
-                                    value={lastName}
-                                    onChange={e => updateFormData(e)}
-                                    placeholder="Last name"
-                                    type="text"
-                                    name="lastName"
-                                    required
-                                />
-                                <input
-                                    value={email}
-                                    onChange={e => updateFormData(e)}
-                                    placeholder="Email address"
-                                    type="email"
-                                    name="email"
-                                    required
-                                />
-                                <input
-                                    value={phonenumber}
-                                    onChange={e => updateFormData(e)}
-                                    placeholder="Phone Number"
-                                    type="text"
-                                    name="phonenumber"
-                                    required
-                                />
-                                <input
-                                    value={password}
-                                    onChange={e => updateFormData(e)}
-                                    placeholder="Password"
-                                    type="password"
-                                    name="password"
-                                    required
-                                />
-                                <input
-                                    value={confirmpass}
-                                    onChange={e => updateFormData(e)}
-                                    placeholder="Confirm Password"
-                                    type="password"
-                                    name="password"
-                                    required
-                                />
-                                {/* <select value={this.state.value} onChange={this.handleChange}>
-                                    <option value="grapefruit">Grapefruit</option>
-                                    <option value="lime">Lime</option>
-                                    <option value="coconut">Coconut</option>
-                                    <option value="mango">Mango</option>
-                                </select> */}
-
-                            <button className="Submit_bttn" type="submit">Add User</button>
-                        </form> 
-                </div>
+  return (
+    <>
+      <Header category="Page" title="Generate User Id" />
+      <div class="block px-12 py-6 rounded-lg shadow-lg bg-white max-w-3xl absolute left-1/4">
+        <form>
+          <div class="grid grid-cols-2 gap-4">
+            <div class="form-group mb-6">
+              <input
+                type="text"
+                class="form-control
+          block
+          w-full
+          px-3
+          py-1.5
+          text-base
+          font-normal
+          text-gray-700
+          bg-white bg-clip-padding
+          border border-solid border-gray-300
+          rounded
+          transition
+          ease-in-out
+          m-0
+          focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                id="exampleInput123"
+                aria-describedby="emailHelp123"
+                placeholder="First name"
+                onChange={(e) => updateFormData(e)}
+              />
             </div>
-        </>
-    );
+            <div class="form-group mb-6">
+              <input
+                type="text"
+                class="form-control
+          block
+          w-full
+          px-3
+          py-1.5
+          text-base
+          font-normal
+          text-gray-700
+          bg-white bg-clip-padding
+          border border-solid border-gray-300
+          rounded
+          transition
+          ease-in-out
+          m-0
+          focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+                id="exampleInput124"
+                aria-describedby="emailHelp124"
+                placeholder="Last name"
+                onChange={(e) => updateFormData(e)}
+              />
+            </div>
+          </div>
+          <div class="form-group mb-6">
+            <input
+              type="email"
+              class="form-control block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              id="exampleInput125"
+              placeholder="Phone Number"
+              onChange={(e) => updateFormData(e)}
+            />
+          </div>
+          <div class="form-group mb-6">
+            <input
+              type="email"
+              class="form-control block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              id="exampleInput125"
+              placeholder="Email address"
+              onChange={(e) => updateFormData(e)}
+            />
+          </div>
+          <div class="form-group mb-6">
+            <input
+              type="password"
+              class="form-control block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              id="exampleInput126"
+              placeholder="Password"
+              onChange={(e) => updateFormData(e)}
+            />
+          </div>
+          <div class="form-group mb-6">
+            <input
+              type="password"
+              class="form-control block
+        w-full
+        px-3
+        py-1.5
+        text-base
+        font-normal
+        text-gray-700
+        bg-white bg-clip-padding
+        border border-solid border-gray-300
+        rounded
+        transition
+        ease-in-out
+        m-0
+        focus:text-gray-700 focus:bg-white focus:border-blue-600 focus:outline-none"
+              id="exampleInput126"
+              placeholder="Confirm Password"
+              onChange={(e) => updateFormData(e)}
+            />
+          </div>
+          <Button
+            type="submit"
+            class="
+      w-full
+      px-6
+      py-2.5
+      bg-blue-600
+      text-white
+      font-medium
+      text-xs
+      leading-tight
+      uppercase
+      rounded
+      shadow-md
+      hover:bg-blue-700 hover:shadow-lg
+      focus:bg-blue-700 focus:shadow-lg focus:outline-none focus:ring-0
+      active:bg-blue-800 active:shadow-lg
+      transition
+      duration-150
+      ease-in-out"
+          >
+            Add 
+          </Button>
+        </form>
+      </div>
+    </>
+  );
 };
 
 export default RegisterUser;

@@ -57,7 +57,7 @@ const Dashboard = () => {
           {earningData.map((item) => (
             <div
               key={item.title}
-              className="bg-white h-36 dark:text-gray-200 dark:bg-secondary-dark-bg md:w-56 p-2 rounded-2xl shadow-md "
+              className="bg-white h-36 dark:text-gray-200 dark:bg-secondary-dark-bg md:w-40 lg:w-44 p-2 rounded-2xl shadow-md "
             >
               <button
                 type="button"
@@ -76,30 +76,24 @@ const Dashboard = () => {
             </div>
           ))}
 
-          <div class="bg-white rounded-lg row-span-2">
+          {/* Quick Actions Starts */}
+          <div className="bg-white rounded-lg row-span-2">
             <div className="bg-sidebar-bg rounded-t-lg p-4 text-white font-semibold">
-              Quick Actions
+              Quick Action
             </div>
-
-            <div>
-            {quickLinks.map((item) => (
-                  <button
-                    key={item.name}
-                    onClick={() => handleClick(item.element)}
-                    className="flex items-center gap-1 p-1.5 rounded-lg text-md font-semibold text-black dark:text-gray-200 hover:text-[#2e86ab] m-2"
-                  >
-                    {item.icon}
-                    <span className="pl-4">{item.name}</span>
-                  </button>
-                ))}
-                {showPopup && (
-                  <Popup
-                    item={selectedItem}
-                    onClose={() => setShowPopup(false)}
-                  />
-                )}
-            </div>
+            {quickLinks.map((link, index) => (
+              <NavLink
+                to={link.path}
+                key={index}
+                className="flex items-center gap-1 pl-2 pt-1.5 pb-1.5 rounded-lg text-md font-semibold text-black dark:text-gray-200 hover:text-[#2e86ab] m-2"
+              >
+                {link.icon}
+                <span className="pl-6">{link.name}</span>
+                {/* <MdKeyboardArrowRight className="" /> */}
+              </NavLink>
+            ))}
           </div>
+          {/* Quick Actions Ends */}
           <div class="bg-white rounded-lg col-span-3 row-span-3">6</div>
           <div class="bg-white rounded-lg row-span-3">
             <Pie />

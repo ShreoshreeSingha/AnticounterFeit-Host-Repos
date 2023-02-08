@@ -29,7 +29,7 @@ const Navbar = () => {
   const { handleClick, isClicked } = useStateContext();
 
   return (
-    <div className="flex justify-end w-full bg-navbar-bg p-2">
+    <div className="flex justify-end w-full bg-navbar-bg p-2 rounded-b-lg">
       <div className="flex pr-2">
         <NavButton
           title="Notification"

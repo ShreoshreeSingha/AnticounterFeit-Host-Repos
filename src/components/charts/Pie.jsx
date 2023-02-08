@@ -9,11 +9,12 @@ const PieChart = ({ id, data, legendVisiblity, height }) => {
       height={height}
       background={'#fff'}
       tooltip={{ enable: true }}
+      title='Network Statistics'
     >
       <Inject services={[AccumulationLegend, PieSeries, AccumulationDataLabel, AccumulationTooltip]} />
       <AccumulationSeriesCollectionDirective>
         <AccumulationSeriesDirective
-          nam e="Total"
+          name="Total"
           dataSource={data}
           xName="x"
           yName="y"

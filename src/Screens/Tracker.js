@@ -4,7 +4,7 @@ import { GiConsoleController } from "react-icons/gi";
 import ProgressBar from "../components/progress";
 
 const URL =
-  "https://khaki-ants-invent-103-5-135-2.loca.lt/api/history/c8fc9dc7e190b3de22d71449b102bd59d04f69ff";
+  "http://20.193.146.8:8080/api/history/c8fc9dc7e190b3de22d71449b102bd59d04f69ff";
 
 const Tracker = () => {
   const [currentLocation, setCurrentLocation] = React.useState("");
