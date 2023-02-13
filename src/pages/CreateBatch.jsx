@@ -2,6 +2,7 @@ import React, {useState} from "react";
 import Button from "../components/UI/Button/Button";
 import QRCode from "qrcode.react";
 import Header from "../components/Header";
+
 import { routeLists } from "../data/link";
 import LoadingScreen from "../components/LoadingScreen";
 
@@ -13,7 +14,7 @@ const CreateBatch = () => {
   const [msg, setMsg] = React.useState("");
   const [batchId, setbatchId] = React.useState("");
   const [base64, setbase64] = React.useState("");
-  const route = inputValue;
+  const route = ["Manufacturer", "Distributor-1", "Storage-2", "Retailer-4"];
   const apiUrl = "http://20.193.146.8:8080/api/addbatch";
 
   const handleChange = (event) => {

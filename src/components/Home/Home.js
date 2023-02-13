@@ -25,6 +25,7 @@ import UserDetails from "../../pages/UserDetails";
 import AddLocation from "../../pages/AddLocation"
 
 import "../../App.css";
+import TrackerForm from "../../pages/TrackerForm";
 
 
 const Home = () => {
@@ -33,6 +34,7 @@ const Home = () => {
   return (
     <div>
       {!isAuth && <Login onLogin={login} />}
+      
       {isAuth && (
         <BrowserRouter>
           <div className="flex relative">
@@ -56,7 +58,7 @@ const Home = () => {
 
                   {/* COMPONENTS STARTS */}
                   <Route path="/tracker" element={<Tracker />} />
-                  <Route path="/prodTracker" element={<ProdTracker />} />
+                  <Route path="/prodTracker/:id" element={<ProdTracker />} />
                   {/* COMPONENTS ENDS */}
 
                   {/* CHARTS STARTS */}
@@ -69,7 +71,7 @@ const Home = () => {
                     element={<CreateBatch />}
                   />
                   <Route path="/addLocation" element={<AddLocation/>} />
-                  <Route path="/addRoute" element={<AddRoute/>} />
+                  <Route path="/addRoute" element={<AddRoute />} />
                   {/* QUICK LINKS ENDS */}
 
                   {/* MASTER DATA STARTS */}
@@ -96,6 +98,8 @@ const Home = () => {
                 <Route path="/routeUpdate" element={<RouteUpdate />} />
                 <Route path="/userDetails" element={<UserDetails />} />
                   {/* ADMIN ACTIVITY ENDS */}
+
+                  <Route path="/trackerForm" element={<TrackerForm />} />
 
                 </Routes>
               </div>

@@ -1,135 +1,210 @@
 import React, { useState } from "react";
 import { IoMdAdd } from "react-icons/io";
-import { AiFillMinusCircle, AiOutlineMinus, AiOutlineArrowRight } from "react-icons/ai";
+import {
+  AiFillMinusCircle,
+  AiOutlineMinus,
+  AiOutlineArrowRight,
+} from "react-icons/ai";
 import Header from "../components/Header";
 import Button from "../components/UI/Button/Button";
+import Warning from "../components/Warning";
+import { bodData } from "../data/bodData";
+
+const apiPostUrl = "http://20.193.146.8:8080/api/data/bod";
+const apiGetUrl = "http://20.193.146.8:8080/api/updateRoute";
+
+const WAIT_TIME = 2000;
 
 const AddRoute = () => {
-  const [selectCount, setSelectCount] = useState(1);
-  const [options, setOptions] = useState([
-    { value: "Option 1", label: "Option 1" },
-    { value: "Option 2", label: "Option 2" },
-    { value: "Option 3", label: "Option 3" },
-  ]);
+  const [numSelects, setNumSelects] = useState(2);
+  const [selectedValues, setSelectedValues] = useState([]);
+  const [showWarning, setShowWarning] = React.useState(false);
+  const [data, setData] = useState([]);
+  const [responseData, setResponseData] = useState([]);
+  const [routeId, setRouteId] = React.useState("");
+  const [checkpoints, setCheckpoints] = React.useState("");
+  const [totalDistance, setTotalDistance] = React.useState("");
+  const [avgTimeTaken, setAvgTimeTaken] = React.useState("");
+
+  const options = [
+    { value: "option1", label: "Option 1" },
+    { value: "option2", label: "Option 2" },
+    { value: "option3", label: "Option 3" },
+    { value: "option4", label: "Option 4" },
+    { value: "option5", label: "Option 5" },
+    { value: "option6", label: "Option 6" },
+  ];
 
   const addSelect = () => {
-    setSelectCount(selectCount + 1);
+    setShowWarning(false);
+    setNumSelects(numSelects + 1);
+    setSelectedValues([selectedValues.slice(-1, 0)]);
+    console.log("INSIDE ADD SELECT");
   };
 
   const removeSelect = () => {
-    setSelectCount(selectCount - 1);
+    if (numSelects <= 2) {
+      setShowWarning(true);
+    }
+    if (numSelects > 2) {
+      setNumSelects(numSelects - 1);
+      setSelectedValues([selectedValues.slice(0, -1)]);
+    }
+    console.log("INSIDE REMOVE SELECT");
+  };
+
+  const handleChange = (index) => (event) => {
+    const newSelectedValues = [...selectedValues];
+    newSelectedValues[index] = event.target.value;
+    setSelectedValues(newSelectedValues);
+    console.log("INSIDE HANDLE CHANGE");
+  };
+
+  const handleSubmit = (event) => {
+    event.preventDefault();
+    console.log("Selected values:", selectedValues);
+  };
+
+  const route = ["Manufacturer", "Distributor-1", "Storage-2", "Retailer-4"];
+  // const totalDistance = "100Kms";
+  // const avgTimeTaken = "78hrs";
+
+  const jsonBody = {
+    route : route,
+    totalDistance: "100Kms",
+    avgTimeTaken: "78hrs",
+  }
+
+  React.useEffect(() => {
+    const fetchData = async () => {
+      const response = await fetch(apiPostUrl);
+      const json = await response.json();
+      setData(json.data);
+      console.log("DATA : " + JSON.stringify(data.data[0].startingPoint));
+    };
+    fetchData();
+  }, []);
+
+  const apicall = () => {
+    //API CALL
+    fetch(apiGetUrl, {
+      method: "POST",
+      headers: {
+        Accept: "application/json",
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(jsonBody),
+    })
+      .then((res) => res.json())
+      .then((d) => {
+        setResponseData(d);
+        // setRouteId(d.routeId);
+        // setCheckpoints(d.checkpoints);
+        // setTotalDistance(d.totalDistance);
+        // setAvgTimeTaken(d.avgTimeTaken);
+        console.log("DATA TYPE OF : " + typeof responseData);
+        console.log(d);
+      });
   };
 
   return (
     <>
-      <Header category="Page" title="Add Route" />
-      <div>
-      <div className="m-12">
-          <button
-            onClick={removeSelect}
-            className="rounded-full bg-hover-bg p-1 hover:bg-[#3497c1] mr-2 "
+      {routeId == "" ? (
+        <>
+          <Header category="Page" title="Add Route" />
+          <div className="mx-12 my-4">
+            {data ? (
+              <form onSubmit={handleSubmit}>
+                <button
+                  className="rounded-full bg-hover-bg p-1 hover:bg-[#3497c1] mr-2 "
+                  onClick={removeSelect}
+                >
+                  {" "}
+                  <AiOutlineMinus className="text-3xl" />
+                </button>
+                <button
+                  className="rounded-full bg-hover-bg p-1 hover:bg-[#3497c1] mr-2"
+                  onClick={addSelect}
+                >
+                  <IoMdAdd className="text-3xl" />
+                </button>
+                <br />
+                <br />
+                {showWarning && (
+                  <div>
+                    <Warning content="Warning: You must add atleast 2 location." />
+                  </div>
+                )}
+                {Array.from({ length: numSelects }, (_, i) => (
+                  <>
+                    <select
+                      key={i}
+                      value={selectedValues[i]}
+                      onChange={handleChange(i)}
+                      className="rounded-lg text-base md:text-lg px-[5%] py-3 mr-2 mt-2"
+                    >
+                      {data.map((option) => (
+                        <option
+                          key={option.startingPoint}
+                          value={option.startingPoint}
+                        >
+                          {option.startingPoint}
+                        </option>
+                      ))}
+                    </select>
+                  </>
+                ))}
+                <br />
+                <br />
+                <h1 className="font-semibold">
+                  Selected values: [{selectedValues.join(", ")}]
+                </h1>
+                <h1 className="font-semibold">
+                  Total checkpoints: {numSelects}
+                </h1>
+              </form>
+            ) : (
+              <p>Loading...</p>
+            )}
+          </div>
+          <Button
+            type="submit"
+            className="absolute bottom-0 left-0 m-12"
+            // onClick={handleSubmit}
+            onClick={() =>
+              apicall({
+                route: JSON.stringify(route),
+                totalDistance: JSON.stringify(totalDistance),
+                avgTimeTaken: JSON.stringify(avgTimeTaken),
+              })
+            }
           >
-            <AiOutlineMinus className="text-3xl" />
-          </button>
-          <button
-            onClick={addSelect}
-            className="rounded-full bg-hover-bg p-1 hover:bg-[#3497c1] mr-2"
-          >
-            <IoMdAdd className="text-3xl" />
-          </button>
-        </div>
-        <form className="ml-12 flex flex-wrap">
-          {Array.from({ length: selectCount }, (_, index) => (
-            <>
-            <select
-              key={index}
-              className="rounded-lg text-base md:text-lg px-[5%] py-4 mr-2 mt-2"
-            >
-              {options.map((option) => (
-                <option key={option.value} value={option.value}>
-                  {option.label}
-                </option>
-              ))}
-            </select>
+            Create
+          </Button>
+        </>
+      ) : (
+        <>
+          <div className="flex-col flex text-center mx-24 absolute top-1/8 left-1/8">
             <div>
-            < AiOutlineArrowRight className="relative left-0 top-7 text-md"/>
+            <p className="mt-16">Response Message : </p>
+          </div>
+            <div>
+              {/* <p className="mt-4">Route Id : {routeId}</p>
+              <p className="mt-4">Checkpoints : {checkpoints}</p>
+              <p className="mt-4">Total Distance : {totalDistance}</p>
+              <p className="mt-4">Average Time Taken : {avgTimeTaken}</p> */}
             </div>
-            </>
-          ))}
-        </form>
-      </div>
-      <Button
-        type="submit"
-        className="absolute bottom-0 left-0 m-12"
-        onClick={() => apicall({ route: JSON.stringify(route) })}
-      >
-        Create
-      </Button>
+            <div className="pt-10 ml-[29%]">
+              {batchId === null ? (
+                "Generated Route Details Will be Displayed Here"
+              ) : (
+                <QRCode value={batchId} size={200} />
+              )}
+            </div>
+          </div>
+        </>
+      )}
     </>
-    // <>
-    //     <div>
-    //       <Header category="Page" title="Add Route" />
-    //       <h1 className="pl-12 pt-6 pb-4">Select Route</h1>
-    //       <div>
-    //         <form className="inline-flex items-center w-1/2 ml-12" onSubmit={handleSubmit}>
-    //         <select>
-    //     {options.map(option => (
-    //       <option key={option.value} value={option.value}>
-    //         {option.label}
-    //       </option>
-    //     ))}
-    //   </select>
-    //         {/* <select className="rounded-lg text-base md:text-lg px-[5%] py-4 mr-12 "
-    //         value={inputValue} onChange={handleChange}
-    //         >
-    //           <option>1</option>
-    //           <option>2</option>
-    //           <option>3</option>
-    //         </select>
-    //         <select className="rounded-lg text-base md:text-lg px-[5%] py-4 mr-12 "
-    //         value={inputValue} onChange={handleChange}
-    //         >
-    //           <option>1</option>
-    //           <option>2</option>
-    //           <option>3</option>
-    //         </select>
-    //         <select className="rounded-lg text-base md:text-lg px-[5%] py-4 mr-12 "
-    //         value={inputValue} onChange={handleChange}
-    //         >
-    //           <option>1</option>
-    //           <option>2</option>
-    //           <option>3</option>
-    //         </select>
-    //         <select className="rounded-lg text-base md:text-lg px-[5%] py-4 mr-12 "
-    //         value={inputValue} onChange={handleChange}
-    //         >
-    //           <option>1</option>
-    //           <option>2</option>
-    //           <option>3</option>
-    //         </select> */}
-    //         <button
-    //           type="submit"
-    //           className="rounded-full bg-hover-bg p-2 hover:bg-[#3497c1] m-2"
-    //         >
-    //           <AiOutlineMinus className="text-3xl" />
-    //         </button>
-    //         <button
-    //           type="submit"
-    //           className="rounded-full bg-hover-bg p-2 hover:bg-[#3497c1] m-2 "
-    //         >
-    //           <IoMdAdd className="text-3xl" />
-    //         </button>
-    //         </form>
-    //       </div>
-    //       <Button
-    //           type="submit"
-    //           className="absolute bottom-0 left-0 m-12"
-    //           onClick={() => apicall({ route: JSON.stringify(route) })}
-    //         >
-    //           Create
-    //         </Button>
-    //     </div>
-    // </>
   );
 };
 

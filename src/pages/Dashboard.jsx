@@ -28,26 +28,8 @@ const quickViews = [
   },
 ];
 
-function Popup({ item, onClose }) {
-  console.log(item);
-  return (
-    <div className="bg-white shadow-lg rounded-lg w-1/2 h-2/3 fixed top-[20%] left-[25%] z-[5]">
-      <button className="absolute top-0 right-0 p-4 text-3xl" onClick={onClose}>
-        <AiOutlineCloseCircle />
-      </button>
-      {item}
-    </div>
-  );
-}
-
 const Dashboard = () => {
-  const [showPopup, setShowPopup] = useState(false);
-  const [selectedItem, setSelectedItem] = useState({});
 
-  const handleClick = (item) => {
-    setSelectedItem(item);
-    setShowPopup(true);
-  };
   return (
     <>
       <div>

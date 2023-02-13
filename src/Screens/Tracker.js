@@ -4,7 +4,7 @@ import { GiConsoleController } from "react-icons/gi";
 import ProgressBar from "../components/progress";
 
 const URL =
-  "http://20.193.146.8:8080/api/history/c8fc9dc7e190b3de22d71449b102bd59d04f69ff";
+  "http://20.193.146.8:8080/api/history/ffe20abfb5da1497f079cd44a422a1846c9eee98";
 
 const Tracker = () => {
   const [currentLocation, setCurrentLocation] = React.useState("");
@@ -81,7 +81,7 @@ const Tracker = () => {
   return (
     <>
       <div
-        class="grid grid-rows-3 grid-cols-6 h-[75%] w-[75%]"
+        class="grid grid-rows-3 grid-cols-6 h-[75%] w-[75%] mt-8"
         style={{ position: "relative", left: "10%", right: "15%", top: "10%" }}
       >
         {/* ONE */}
@@ -224,7 +224,7 @@ const Tracker = () => {
               height: "10%",
               width: "45%",
               backgroundColor: distributorColor,
-              marginTop: "45%",
+              marginTop: "55.5%",
               position: "relative",
               zIndex: "999",
             }}
@@ -265,7 +265,7 @@ const Tracker = () => {
               width: "100%",
               height: "10%",
               backgroundColor: retailerColor,
-              marginTop: "45%",
+              marginTop: "55.5%",
             }}
           />
         </div>
@@ -277,7 +277,7 @@ const Tracker = () => {
               height: "10%",
               width: "45%",
               backgroundColor: retailerColor,
-              marginTop: "45%",
+              marginTop: "55.5%",
               position: "relative",
               zIndex: "999",
             }}

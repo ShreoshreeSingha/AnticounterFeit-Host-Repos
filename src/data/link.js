@@ -54,7 +54,7 @@ export const quickLinks = [
     icon: <MdAddLocation />,
   },
   {
-    path: "/tracker",
+    path: "/trackerForm",
     name: "Tracking",
     icon: <CgTrack />,
   },
@@ -146,7 +146,7 @@ export const chatData = [
 export const routeLists = [
   {
       "Route ID": "7f900c9a-4655-4b01-84f5-d486d8ffb31e",
-      "Checkpoints": "[Manufacturer-109, Storage-96, Distributor-15, Retailer-99]",
+      "Checkpoints": "[Manufacturer, Storage, Distributor, Retailer]",
       "Total Distance (Kms)": 923,
       "Avg Time Taken (Hrs)": 95.1
   },
