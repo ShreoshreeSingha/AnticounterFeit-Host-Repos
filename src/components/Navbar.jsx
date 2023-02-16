@@ -1,7 +1,7 @@
 import React from "react";
 import { RiNotification3Line } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
-import { TooltipComponent } from "@syncfusion/ej2-react-popups";
+// import { TooltipComponent } from "@syncfusion/ej2-react-popups";
 
 import avatar from "../data/image/avatar.jpg";
 import Notification from "../components/Notification";
@@ -9,7 +9,7 @@ import UserProfile from "../components/UserProfile";
 import { useStateContext } from "../contexts/ContextProvider";
 
 const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
-  <TooltipComponent content={title} position="BottomCenter">
+  <div content={title} position="BottomCenter">
     <button
       type="button"
       onClick={() => customFunc()}
@@ -22,7 +22,7 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
       />
       {icon}
     </button>
-  </TooltipComponent>
+  </div>
 );
 
 const Navbar = () => {
@@ -38,7 +38,7 @@ const Navbar = () => {
           color="#2e86ab"
           icon={<RiNotification3Line />}
         />
-        <TooltipComponent content="Profile" position="BottomCenter">
+        <div content="Profile" position="BottomCenter">
           <div
             className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
             onClick={() => handleClick("userProfile")}
@@ -56,7 +56,7 @@ const Navbar = () => {
             </p>
             <MdKeyboardArrowDown className="text-gray-400 text-14" />
           </div>
-        </TooltipComponent>
+        </div>
 
         {isClicked.notification && <Notification />}
         {isClicked.userProfile && <UserProfile />}

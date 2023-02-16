@@ -14,6 +14,9 @@ export const ContextProvider = ({ children }) => {
   const [isHovering, setIsHovering] = useState(false);
   const [isMenuOpen, setIsMenuOpen] = useState(false);
   const [showPopup, setShowPopup] = useState(false);
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [displayedData, setDisplayedData] = useState([]);
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -75,6 +78,12 @@ export const ContextProvider = ({ children }) => {
         handleMouseLeave,
         handleClickLeave,
         showPopup, setShowPopup,
+        currentPage,
+        setCurrentPage,
+        totalPages,
+        setTotalPages,
+        displayedData,
+        setDisplayedData,
       }}
     >
       {children}

@@ -1,18 +1,18 @@
 import React from "react";
-import {
-  GridComponent,
-  ColumnsDirective,
-  ColumnDirective,
-  CommandColumn,
-  ExcelExport,
-  Page,
-  Selection,
-  Inject,
-  Edit,
-  Toolbar,
-  Sort,
-  Filter,
-} from "@syncfusion/ej2-react-grids";
+// import {
+//   GridComponent,
+//   ColumnsDirective,
+//   ColumnDirective,
+//   CommandColumn,
+//   ExcelExport,
+//   Page,
+//   Selection,
+//   Inject,
+//   Edit,
+//   Toolbar,
+//   Sort,
+//   Filter,
+// } from "@syncfusion/ej2-react-grids";
 
 import Header from "../components/Header";
 import { userData } from "../data/userData";
@@ -89,7 +89,7 @@ const UserDetails = () => {
     <>
       <Header category="Page" title="User-Details" />
       <div className="p-4 bg-white m-2 rounded-lg">
-        <GridComponent
+        {/* <GridComponent
           id="grid"
           dataSource={userData}
           enableHover={false}
@@ -103,10 +103,10 @@ const UserDetails = () => {
           allowExcelExport={true}
         >
           <ColumnsDirective>
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-            {/* {routeGrid.map((item, index) => (
+            eslint-disable-next-line react/jsx-props-no-spreading
+            {routeGrid.map((item, index) => (
             <ColumnDirective key={index} {...item} allowEditing={item.field == 'RouteID' ? true : false}/> 
-          ))} */}
+          ))}
             <ColumnDirective
               field="fname"
               width="100"
@@ -142,7 +142,7 @@ const UserDetails = () => {
             />
           </ColumnsDirective>
           <Inject services={[Edit, CommandColumn, ExcelExport, Toolbar]} />
-        </GridComponent>
+        </GridComponent> */}
       </div>
     </>
   );

@@ -1,59 +1,53 @@
-import React from "react";
-import { BrowserRouter, Routes, Route } from "react-router-dom";
-import { ContextProvider, useStateContext } from "./contexts/ContextProvider";
-import AdminActivity from "./pages/AdminActivity";
-import Dashboard from "./pages/Dashboard";
-import MasterData from "./pages/MasterData";
-import Network from "./pages/Network";
-import Sidebar from "./components/Sidebar";
-import Navbar from "./components/Navbar";
-import ProductMaster from "./pages/ProductMaster";
-import LocationMaster from "./pages/LocationMaster";
-import RouteMaster from "./pages/RouteMaster";
-import TransactionMaster from "./pages/TransactionData";
-import BOD from "./pages/BOD";
-import "./App.css";
+import React, { useState, useEffect } from 'react';
 
-const App = () => {
-  const { activeMenu } = useStateContext();
+const Try = ({ data, pageSize }) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [displayedData, setDisplayedData] = useState([]);
+
+  useEffect(() => {
+    setTotalPages(Math.ceil(data.length / pageSize));
+    setDisplayedData(data.slice((currentPage - 1) * pageSize, currentPage * pageSize));
+  }, [data, currentPage, pageSize]);
+
+  useEffect(() => {
+    setTotalPages(Math.ceil(data.length / pageSize));
+    setDisplayedData(data.slice((currentPage - 1) * pageSize, currentPage * pageSize));
+  }, [data, currentPage, pageSize]);
+
+  const handlePageChange = (page) => {
+    setCurrentPage(page);
+  };
 
   return (
     <div>
-      <BrowserRouter>
-        <div className="flex realtive">
-          <div className="w-24 fixed sidebar bg-sidebar-bg">
-            <Sidebar />
-          </div>
-          <div className="dark:bg-main-dark-bg  bg-main-bg min-h-screen md:ml-24 w-full ">
-            <div className="fixed md:static bg-main-bg dark:bg-main-dark-bg navbar w-full">
-              <Navbar />
-            </div>
-            <Routes>
-              {/* Dashboard */}
-              <Route path="/" element={<Dashboard />} />
-              <Route path="/dashboard" element={<Dashboard />} />
-              <Route path="/network" element={<Network />} />
-              <Route path="/masterData" element={<MasterData />} />
-              <Route path="/adminActivity" element={<AdminActivity />} />
-
-              {/* Master Data */}
-              <Route path="/masterData/products" element={<ProductMaster />} />
-              <Route
-                path="/masterData/locations"
-                element={<LocationMaster />}
-              />
-              <Route path="/masterData/routes" element={<RouteMaster />} />
-              <Route
-                path="/masterData/transaction"
-                element={<TransactionMaster />}
-              />
-              <Route path="/masterData/bod" element={<BOD />} />
-            </Routes>
-          </div>
-        </div>
-      </BrowserRouter>
+      <table>
+        <thead>
+          <tr>
+            <th>Column 1</th>
+            <th>Column 2</th>
+            <th>Column 3</th>
+          </tr>
+        </thead>
+        <tbody>
+          {displayedData.map((row) => (
+            <tr key={row.id}>
+              <td>{row.column1}</td>
+              <td>{row.column2}</td>
+              <td>{row.column3}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+      <div>
+        {Array.from(Array(totalPages)).map((_, index) => (
+          <button key={index} onClick={() => handlePageChange(index + 1)}>
+            {index + 1}
+          </button>
+        ))}
+      </div>
     </div>
   );
 };
 
-export default App;
+export default Try;

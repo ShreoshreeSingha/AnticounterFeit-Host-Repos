@@ -32,12 +32,12 @@ const CreateBatchForm = () => {
       </div>
       <h1 className="pl-10">Select Route</h1>
       <div className="inline-flex items-center ml-10">
-        <select class="border-l border-t border-b border-gray-200 rounded-l-md w-1/2 text-base md:text-lg px-80 py-3 mr-8">
+        <select className="border-l border-t border-b border-gray-200 rounded-l-md w-1/2 text-base md:text-lg px-80 py-3 mr-8">
           <option>1</option>
           <option>2</option>
           <option>3</option>
         </select>
-        <Button class="bg-orange-500 h-12 hover:bg-orange-600 hover:border-orange-600 text-white font-bold capitalize px-3 py-2 text-base md:text-lg rounded-r-md border-t border-r border-b border-orange-500"
+        <Button className="bg-orange-500 h-12 hover:bg-orange-600 hover:border-orange-600 text-white font-bold capitalize px-3 py-2 text-base md:text-lg rounded-r-md border-t border-r border-b border-orange-500"
         onClick={() => {}}
         >
           Create

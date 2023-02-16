@@ -1,0 +1,64 @@
+import React, { useState, useEffect } from "react";
+import { GrFormNext, GrFormPrevious } from "react-icons/gr";
+
+const TablePagigation = (props) => {
+  const [currentPage, setCurrentPage] = useState(1);
+  const [totalPages, setTotalPages] = useState(0);
+  const [displayedData, setDisplayedData] = useState([]);
+
+  const data = props.data;
+  const pageSize = props.pageSize
+  const handleData = props.onDataReceived;
+
+  useEffect(() => {
+    setTotalPages(Math.ceil(data.length / pageSize));
+    setDisplayedData(
+      data.slice((currentPage - 1) * pageSize, currentPage * pageSize)
+    );
+    handleData(displayedData);
+  }, [data, currentPage, pageSize, handleData]);
+
+  const handlePageChange_next = () => {
+    if(currentPage < totalPages)
+    {
+    setCurrentPage(currentPage + 1);
+    const newData = displayedData; // your new data here 
+    handleData(newData); // call the callback function with the new data
+    }
+  };
+
+  const handlePageChange_prev = () => {
+    if(currentPage >= 2 )
+    {
+    setCurrentPage(currentPage - 1);
+    const newData = displayedData; // your new data here 
+    handleData(newData); // call the callback function with the new data
+    }
+  };
+
+  return (
+    <div className="p-4 text-md flex content-center border-b-1 justify-between bg-white">
+      <div>
+        <label>Rows per page: </label>
+        <select>
+          <option>5</option>
+          <option>10</option>
+          <option>25</option>
+        </select>
+      </div>
+      <div className="inline-flex ">
+        <div>
+          {currentPage} to {pageSize} of {totalPages}
+        </div>
+        <button onClick={handlePageChange_prev} className="px-4 text-red-400">
+          <GrFormPrevious />
+        </button>
+        <button onClick={handlePageChange_next} className="px-4 text-red-400">
+          <GrFormNext />
+        </button>
+      </div>
+    </div>
+  );
+};
+
+export default TablePagigation;

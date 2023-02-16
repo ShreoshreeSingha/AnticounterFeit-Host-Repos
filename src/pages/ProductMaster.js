@@ -3,13 +3,16 @@ import Header from "../components/Header";
 import TablePagination from "../components/UI/TablePagination";
 import { AiOutlineImport, AiOutlineExport } from "react-icons/ai";
 import FileUpload from "../components/UI/FileUpload";
+import LoadingSpinner from "../components/LoadingSpinner";
 
 const URL = "http://20.193.146.8:8080/api/data/product";
 
-const BODMaster = () => {
+const ProductMaster = () => {
   const [data, setData] = React.useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
+
+  React.useEffect(() => {},[displayedData])
 
   var pageSize = 5;
 
@@ -58,7 +61,7 @@ const BODMaster = () => {
           onCloseRecieved={closePopup}
         />
       )}
-      <Header category="Page" title="BOD Master" />
+      <Header category="Page" title="Product Master" />
       <div className="m-2 rounded-lg">
         <div className="bg-white my-2 rounded-lg flex justify-between ">
           <div>
@@ -167,7 +170,7 @@ const BODMaster = () => {
                 ))}
               </tbody>
             ) : (
-              <div className="text-lg p-4">Loading data....</div>
+              <div className="text-lg p-4"><LoadingSpinner /></div>
             )}
           </table>
         </div>
@@ -176,4 +179,4 @@ const BODMaster = () => {
   );
 };
 
-export default BODMaster;
+export default ProductMaster;

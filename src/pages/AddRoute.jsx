@@ -75,6 +75,8 @@ const AddRoute = () => {
     avgTimeTaken: "78hrs",
   }
 
+
+  //API CALL TO FETCH BOD DATA
   React.useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(apiPostUrl);
@@ -85,6 +87,8 @@ const AddRoute = () => {
     fetchData();
   }, []);
 
+
+  //API CALL TO SEND ADD ROUTE REQUEST
   const apicall = () => {
     //API CALL
     fetch(apiGetUrl, {
@@ -198,7 +202,8 @@ const AddRoute = () => {
               {batchId === null ? (
                 "Generated Route Details Will be Displayed Here"
               ) : (
-                <QRCode value={batchId} size={200} />
+                // <QRCode value={batchId} size={200} />
+                <h1>Check!</h1>
               )}
             </div>
           </div>

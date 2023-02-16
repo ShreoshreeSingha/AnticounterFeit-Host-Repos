@@ -34,7 +34,6 @@ const Dashboard = () => {
     <>
       <div>
         <Header category="Page" title="Dashboard" />
-
         <div class="grid grid-cols-5 grid-rows-6 gap-2 p-2">
           {earningData.map((item) => (
             <div

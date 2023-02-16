@@ -1,18 +1,18 @@
 import React from "react";
-import {
-  GridComponent,
-  ColumnsDirective,
-  ColumnDirective,
-  CommandColumn,
-  ExcelExport,
-  Page,
-  Selection,
-  Inject,
-  Edit,
-  Toolbar,
-  Sort,
-  Filter,
-} from "@syncfusion/ej2-react-grids";
+// import {
+//   GridComponent,
+//   ColumnsDirective,
+//   ColumnDirective,
+//   CommandColumn,
+//   ExcelExport,
+//   Page,
+//   Selection,
+//   Inject,
+//   Edit,
+//   Toolbar,
+//   Sort,
+//   Filter,
+// } from "@syncfusion/ej2-react-grids";
 
 import { routedata } from "../data/ReRoute";
 import Header from "../components/Header";
@@ -90,7 +90,7 @@ const RouteUpdate = () => {
     <>
       <Header category="Page" title="Re-Route" />
       <div className="p-4 bg-white m-2 rounded-lg">
-        <GridComponent
+        {/* <GridComponent
           id="grid"
           dataSource={routedata}
           enableHover={false}
@@ -104,10 +104,10 @@ const RouteUpdate = () => {
           allowExcelExport={true}
         >
           <ColumnsDirective>
-            {/* eslint-disable-next-line react/jsx-props-no-spreading */}
-            {/* {routeGrid.map((item, index) => (
+
+          {routeGrid.map((item, index) => (
             <ColumnDirective key={index} {...item} allowEditing={item.field == 'RouteID' ? true : false}/> 
-          ))} */}
+          ))} 
             <ColumnDirective
               field="BatchID"
               width="100"
@@ -142,7 +142,7 @@ const RouteUpdate = () => {
             />
           </ColumnsDirective>
           <Inject services={[Edit, CommandColumn, ExcelExport, Toolbar]} />
-        </GridComponent>
+        </GridComponent> */}
       </div>
     </>
   );
