@@ -17,6 +17,8 @@ export const ContextProvider = ({ children }) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [displayedData, setDisplayedData] = useState([]);
+  const [title, setTitle] = useState('');
+  const [category, setCategory] = useState('')
 
   const toggleMenu = () => {
     setIsMenuOpen(!isMenuOpen);
@@ -84,6 +86,7 @@ export const ContextProvider = ({ children }) => {
         setTotalPages,
         displayedData,
         setDisplayedData,
+        title, setTitle, category, setCategory
       }}
     >
       {children}

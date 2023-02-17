@@ -8,6 +8,8 @@ import { quickLinks } from "../data/link";
 import { AiOutlineCloseCircle } from "react-icons/ai";
 
 import CreateBatchForm from "../components/forms/CreateBatchForm";
+import { useStateContext } from "../contexts/ContextProvider";
+
 
 const quickViews = [
   {
@@ -29,12 +31,14 @@ const quickViews = [
 ];
 
 const Dashboard = () => {
+  const { setTitle, setCategory } = useStateContext()
+  setTitle("/Dashboard")
+  setCategory("Page")
 
   return (
     <>
       <div>
-        <Header category="Page" title="Dashboard" />
-        <div class="grid grid-cols-5 grid-rows-6 gap-2 p-2">
+        <div class="grid grid-cols-5 grid-rows-6 gap-2 p-2 mt-2">
           {earningData.map((item) => (
             <div
               key={item.title}

@@ -2,12 +2,12 @@ import React from "react";
 
 const LoadingSpinner = () => {
   return (
-    <div class="flex items-center justify-center">
+    <div className="flex items-center justify-center p-4">
       <div
-        class="spinner-border animate-spin inline-block w-8 h-8 border-4 rounded-full"
+        className="animate-bounce "
         role="status"
       >
-        <span class="visually-hidden"></span>
+        <span className="text-black">Loading.....</span>
       </div>
     </div>
   );

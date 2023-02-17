@@ -4,17 +4,24 @@ import TablePagination from "../components/UI/TablePagination";
 import { AiOutlineImport, AiOutlineExport } from "react-icons/ai";
 import FileUpload from "../components/UI/FileUpload";
 import LoadingSpinner from "../components/LoadingSpinner";
+import Navbar from "../components/Navbar";
+import { useStateContext } from "../contexts/ContextProvider";
 
 const URL = "http://20.193.146.8:8080/api/data/product";
 
 const ProductMaster = () => {
+  const { setTitle , setCategory } = useStateContext();
   const [data, setData] = React.useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
 
-  React.useEffect(() => {},[displayedData])
+  setTitle('Product Master')
+  setCategory('Data')
 
-  var pageSize = 5;
+  // React.useEffect(() => {
+  // },[displayedData])
+
+  var pageSize = 10;
 
   const handleClick = () => {
     setShowPopup(true);
@@ -61,9 +68,8 @@ const ProductMaster = () => {
           onCloseRecieved={closePopup}
         />
       )}
-      <Header category="Page" title="Product Master" />
       <div className="m-2 rounded-lg">
-        <div className="bg-white my-2 rounded-lg flex justify-between ">
+        <div className="bg-white mt-3 flex justify-between ">
           <div>
             <input placeholder="Search" className="w-52 h-8" />
           </div>
@@ -85,12 +91,7 @@ const ProductMaster = () => {
             </button> */}
           </div>
         </div>
-        <div class="overflow-hidden rounded-lg bg-white border border-gray-200 shadow-md">
-          <TablePagination
-            data={data}
-            pageSize={pageSize}
-            onDataReceived={handleTableDataFromMyComponent}
-          />
+        <div class="overflow-hidden bg-white shadow-md">
           <table class=" min-h-[70vh] w-full border-collapse text-left text-sm text-gray-500">
             <thead class="bg-gray-50">
               <tr>
@@ -170,9 +171,14 @@ const ProductMaster = () => {
                 ))}
               </tbody>
             ) : (
-              <div className="text-lg p-4"><LoadingSpinner /></div>
+              <div className="text-lg"></div>
             )}
           </table>
+          <TablePagination
+            data={data}
+            pageSize={pageSize}
+            onDataReceived={handleTableDataFromMyComponent}
+          />
         </div>
       </div>
     </>

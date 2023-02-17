@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState, useEffect } from "react";
 import { RiNotification3Line } from "react-icons/ri";
 import { MdKeyboardArrowDown } from "react-icons/md";
 // import { TooltipComponent } from "@syncfusion/ej2-react-popups";
@@ -25,11 +25,23 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
   </div>
 );
 
-const Navbar = () => {
+// const handleHeaderFromMyComponent = ({ category, title }) => (
+//   console.log(category, title)
+// );
+
+const Navbar = (props) => {
+  const { title, category } = useStateContext();
+
   const { handleClick, isClicked } = useStateContext();
 
   return (
-    <div className="flex justify-end w-full bg-navbar-bg p-2">
+    <div className="flex justify-between w-full bg-navbar-bg p-2">
+      <div className="px-2">
+        <p className="text-md text-gray-400">{category}</p>
+        <p className="text-lg font-extrabold tracking-tight text-[#0B2853]">
+          {title}
+        </p>
+      </div>
       <div className="flex pr-2">
         <NavButton
           title="Notification"

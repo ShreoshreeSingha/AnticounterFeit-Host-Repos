@@ -15,8 +15,7 @@ const TablePagigation = (props) => {
     setDisplayedData(
       data.slice((currentPage - 1) * pageSize, currentPage * pageSize)
     );
-    handleData(displayedData);
-  }, [data, currentPage, pageSize, handleData]);
+  }, [data, currentPage, pageSize]);
 
   const handlePageChange_next = () => {
     if(currentPage < totalPages)
