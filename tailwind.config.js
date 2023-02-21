@@ -12,8 +12,8 @@ module.exports = {
       },
       backgroundColor: {
         "sidebar-bg": "#0B2853",
-        "hover-bg": "#2e86ab",
-        "active-bg": "#2e86ab",
+        "hover-bg": "#7b8cb8",
+        "active-bg": "#7b8cb8",
         "navbar-bg": "#ffffff",
         "main-bg": "#eff7ff",
         "main-dark-bg": "#20232A",

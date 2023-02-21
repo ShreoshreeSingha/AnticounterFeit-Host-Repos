@@ -5,8 +5,7 @@ import ROUTE from "../data/GIF/way.gif";
 import EMP from "../data/GIF/user.gif";
 import USER from "../data/GIF/customer.gif";
 import { NavLink } from "react-router-dom";
-
-
+import { useStateContext } from "../contexts/ContextProvider";
 
 const cardList = [
   {
@@ -28,11 +27,15 @@ const cardList = [
   },
 ]
 
+
 const AdminActivity = () => {
+
+  const { setTitle , setCategory } = useStateContext();
+  setTitle('/Admin Activity')
+  setCategory('Page')
   return (
   <>
     <div>
-      <Header category="Page" title="Admin Activity" />
       <div>
           <div className="container">
             {cardList.map((item, index) => (

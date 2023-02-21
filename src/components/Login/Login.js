@@ -32,6 +32,7 @@ const Login = (props) => {
     value: '',
     isValid: null,
   });
+
   const [passwordState, dispatchPassword] = useReducer(passwordReducer, {
     value: '',
     isValid: null,
@@ -78,6 +79,8 @@ const Login = (props) => {
 
   const submitHandler = (event) => {
     event.preventDefault();
+    console.log("Email :"+emailState.value);
+    console.log("Password :"+passwordState.value);
     props.onLogin(emailState.value, passwordState.value);
   };
 

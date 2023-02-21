@@ -23,7 +23,7 @@ const UserProfile = () => {
           icon={<MdOutlineCancel />}
         />
       </div>
-      <div className="flex gap-5 items-center border-color border-b-1 pb-6">
+      <div className="flex gap-5 items-center pb-6">
         <img
           className="rounded-full h-24 w-24"
           src={avatar}

@@ -46,7 +46,7 @@ const Notification = () => {
             </div>
           </div>
         ))}
-        <div className=" flex justify-center mt-5 bg-[#2e86ab] text-white rounded">
+        <div className=" flex justify-center mt-5 bg-[#386a9e] hover:bg-[#346daa] text-white rounded">
           <Btn
             className="text-white rounded p-2"
             text="See all notifications"

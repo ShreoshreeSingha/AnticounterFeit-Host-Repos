@@ -35,7 +35,7 @@ const Navbar = (props) => {
   const { handleClick, isClicked } = useStateContext();
 
   return (
-    <div className="flex justify-between w-full bg-navbar-bg p-2">
+    <div className="flex justify-between w-full bg-navbar-bg rounded-lg ">
       <div className="px-2">
         <p className="text-md text-gray-400">{category}</p>
         <p className="text-lg font-extrabold tracking-tight text-[#0B2853]">

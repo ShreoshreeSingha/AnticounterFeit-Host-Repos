@@ -6,18 +6,22 @@ export const AuthContext = createContext({
   logout: () => {}
 });
 
-export const AuthContextProvider = props => {
+export const AuthContextProvider = (props) => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);
 
+  //CHECKS IF THE USER LOGGED IN PREVIOUSLY
   useEffect(() => {
     const storedUserisAuthenticatedInformation = localStorage.getItem('isAuthenticated');
-
     if (storedUserisAuthenticatedInformation === '1') {
       setIsAuthenticated(true);
     }
   }, []);
 
-  const login = () => {
+
+  //Write your authentication code here
+  const login = (email, password) => {
+    console.log("EMAIL: "+email)
+    console.log("PASSWORD: " +password )
     localStorage.setItem('isAuthenticated', '1');
     setIsAuthenticated(true);
   };

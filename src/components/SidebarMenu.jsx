@@ -38,7 +38,7 @@ const SidebarMenu = ({ route, showAnimation, isOpen, setIsOpen }) => {
   const activeLink =
     "flex items-center gap-1 p-2 rounded-lg text-black font-semibold text-md m-2 bg-active-bg";
   const normalLink =
-    "flex items-center gap-1 p-2 rounded-lg text-md font-semibold text-white dark:text-gray-200 hover:text-[#2e86ab] m-2";
+    "flex items-center gap-1 p-2 rounded-lg text-md font-semibold text-white dark:text-gray-200 hover:text-[#7b8cb8] m-2";
 
   const {
     activeMenu,

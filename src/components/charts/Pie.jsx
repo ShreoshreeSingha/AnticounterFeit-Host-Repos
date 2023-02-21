@@ -1,6 +1,6 @@
 import React from 'react';
 // import { AccumulationChartComponent, AccumulationSeriesCollectionDirective, AccumulationSeriesDirective, AccumulationLegend, PieSeries, AccumulationDataLabel, Inject, AccumulationTooltip } from '@syncfusion/ej2-react-charts';
-const PieChart = ({ id, data, legendVisiblity, height }) => {
+const Pie = ({ id, data, legendVisiblity, height }) => {
 
   return (
     // <AccumulationChartComponent
@@ -41,4 +41,4 @@ const PieChart = ({ id, data, legendVisiblity, height }) => {
   );
 };
 
-export default PieChart;
+export default Pie;
