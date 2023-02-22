@@ -1,4 +1,5 @@
 import React from "react";
+import Demo from "../components/Demo";
 import NetworkComponent from "../components/network/NetworkComponent";
 import { useStateContext } from "../contexts/ContextProvider";
 
@@ -9,13 +10,8 @@ const Network = () => {
   return (
     <>
       <div>
-        <div className="bg-white m-2 rounded-lg">
-          <h1>h</h1>
-          <h1>e</h1>
-          <h1>l</h1>
-        </div>
-        <div className="bg-white mx-2 rounded-lg ">
-          <NetworkComponent />
+        <div className="mx-2 rounded-lg h-[92vh] ">
+          <Demo />
         </div>
       </div>
     </>

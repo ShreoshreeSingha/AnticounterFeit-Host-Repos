@@ -1,8 +1,34 @@
+import React, {useContext} from "react";
 import { Link, NavLink } from "react-router-dom";
 import SidebarMenu from "./SidebarMenu";
-import { routes } from "../data/link";
+import { adminRoutes, manufacturerRoutes, distributorRoutes, retailerRoutes, storageRoutes } from "../data/link";
+import { AuthContext } from "../contexts/auth-context";
 
 const SideBar = () => {
+
+  const { userRole } = useContext(AuthContext);
+  var routes = "";
+  if(userRole === "admin@gmail.com")
+  {
+    routes = adminRoutes;
+  }
+  else if(userRole === "manufacturer@gmail.com"){
+    routes = manufacturerRoutes;
+  }
+  else if(userRole === "distributor@gmail.com")
+  {
+    routes = distributorRoutes;
+  }
+  else if(userRole === "storage@gmail.com")
+  {
+    routes = storageRoutes;
+  }
+  else {
+    routes = storageRoutes;
+  }
+
+
+
   const activeLink =
     "grid items-center gap-1 p-2 rounded-lg text-black font-semibold text-md m-2 bg-active-bg";
   const normalLink =
@@ -19,7 +45,6 @@ const SideBar = () => {
             />
           </Link>
         </div>
-
         <div className="mt-0">
           <div className="grid justify-center">
             {routes.map((route, index) => {
@@ -28,26 +53,28 @@ const SideBar = () => {
               }
 
               return (
-                <NavLink
-                  to={route.path}
-                  key={index}
-                  className={({ isActive }) =>
-                    isActive ? activeLink : normalLink
-                  }
-                >
-                  <div
-                    style={{
-                      fontSize: "1.5rem",
-                      display: "flex",
-                      justifyContent: "center",
-                    }}
+                <>
+                  <NavLink
+                    to={route.path}
+                    key={index}
+                    className={({ isActive }) =>
+                      isActive ? activeLink : normalLink
+                    }
                   >
-                    {route.icon}
-                  </div>
-                  <div className="capitalize flex justify-center text-xs">
-                    {route.name}
-                  </div>
-                </NavLink>
+                    <div
+                      style={{
+                        fontSize: "1.5rem",
+                        display: "flex",
+                        justifyContent: "center",
+                      }}
+                    >
+                      {route.icon}
+                    </div>
+                    <div className="capitalize flex justify-center text-xs">
+                      {route.name}
+                    </div>
+                  </NavLink>
+                </>
               );
             })}
           </div>

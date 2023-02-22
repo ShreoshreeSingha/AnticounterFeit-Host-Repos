@@ -65,7 +65,7 @@ export const quickLinks = [
   // },
 ]
 
-export const routes = [
+export const adminRoutes = [
   {
     path: "/",
     name: "dashboard",
@@ -115,6 +115,58 @@ export const routes = [
     icon: <MdOutlineAdminPanelSettings />,
   },
 ];
+
+export const manufacturerRoutes = [
+    {
+        path: "/",
+        name: "dashboard",
+        icon: <MdSpaceDashboard />,
+      },
+      {
+        path: "/network",
+        name: "network",
+        icon: <VscTypeHierarchy />,
+      },
+]
+
+export const distributorRoutes = [
+    {
+        path: "/",
+        name: "dashboard",
+        icon: <MdSpaceDashboard />,
+      },
+      {
+        path: "/network",
+        name: "network",
+        icon: <VscTypeHierarchy />,
+      },
+]
+
+export const storageRoutes = [
+    {
+        path: "/",
+        name: "dashboard",
+        icon: <MdSpaceDashboard />,
+      },
+      {
+        path: "/network",
+        name: "network",
+        icon: <VscTypeHierarchy />,
+      },
+]
+
+export const retailerRoutes = [
+    {
+        path: "/",
+        name: "dashboard",
+        icon: <MdSpaceDashboard />,
+      },
+      {
+        path: "/network",
+        name: "network",
+        icon: <VscTypeHierarchy />,
+      },
+]
 
 export const chatData = [
   {

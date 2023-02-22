@@ -22,20 +22,14 @@ import RouteUpdate from "../../pages/RouteUpdate";
 import AddRoute from "../../pages/AddRoute";
 import UserDetails from "../../pages/UserDetails";
 import AddLocation from "../../pages/AddLocation"
-
 import "../../App.css";
 import TrackerForm from "../../pages/TrackerForm";
 import Upload from "../../Screens/Upload";
-import Try from "../trial/try";
+import Try from "../../components/trial/try";
 
-const Home = () => {
-  const { isAuth, login } = useContext(AuthContext);
+const HomeAdmin = () => {
 
   return (
-    <div>
-      {!isAuth && <Login onLogin={login} />}
-      
-      {isAuth && (
         <BrowserRouter>
           <div className="flex relative">
             <div className="w-[8%] fixed sidebar bg-sidebar-bg z-50 text-clip">
@@ -113,9 +107,4 @@ const Home = () => {
         </BrowserRouter>
       )}  
 
-
-    </div>
-  );
-};
-
-export default Home;
+export default HomeAdmin;

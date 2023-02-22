@@ -22,8 +22,10 @@ const FileUpload = (props) => {
     reader.onload = async (event) => {
       const fileContent = event.target.result;
       setFile(fileContent);
+
       // Call a function to process the file content
       const processedData = await processData(fileContent);
+
       // Update the state with the processed data
       setData(processedData);
       handleData(processedData)
