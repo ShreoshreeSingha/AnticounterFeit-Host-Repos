@@ -26,6 +26,7 @@ import "../../App.css";
 import TrackerForm from "../../pages/TrackerForm";
 import Upload from "../../Screens/Upload";
 import Try from "../../components/trial/try";
+import AddBOD from "../../pages/AddBOD";
 
 const HomeAdmin = () => {
 
@@ -66,6 +67,7 @@ const HomeAdmin = () => {
                   />
                   <Route path="/addLocation" element={<AddLocation/>} />
                   <Route path="/addRoute" element={<AddRoute />} />
+                  <Route path="/addBOD" element={<AddBOD />} />
                   {/* QUICK LINKS ENDS */}
 
                   {/* MASTER DATA STARTS */}

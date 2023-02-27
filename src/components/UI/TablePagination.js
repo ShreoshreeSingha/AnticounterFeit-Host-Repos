@@ -20,7 +20,7 @@ const TablePagigation = (props) => {
   const handlePageChange_next = () => {
     if(currentPage < totalPages)
     {
-    setCurrentPage(currentPage + 1);
+    setCurrentPage(currentPage + pageSize);
     const newData = displayedData; // your new data here 
     handleData(newData); // call the callback function with the new data
     }
@@ -29,7 +29,7 @@ const TablePagigation = (props) => {
   const handlePageChange_prev = () => {
     if(currentPage >= 2 )
     {
-    setCurrentPage(currentPage - 1);
+    setCurrentPage(currentPage - pageSize);
     const newData = displayedData; // your new data here 
     handleData(newData); // call the callback function with the new data
     }

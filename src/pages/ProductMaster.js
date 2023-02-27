@@ -6,6 +6,9 @@ import FileUpload from "../components/UI/FileUpload";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Navbar from "../components/Navbar";
 import { useStateContext } from "../contexts/ContextProvider";
+import FileExport from "../components/UI/FileExport";
+
+
 
 const URL = "http://20.193.146.8:8080/api/data/product";
 
@@ -13,9 +16,42 @@ const ProductMaster = () => {
   const { setTitle , setCategory } = useStateContext();
   const [data, setData] = React.useState([]);
   const [showPopup, setShowPopup] = useState(false);
+  const [showExport, setShowExport] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
 
-  setTitle('/Product Master')
+
+  // const tableRef = useRef(null);
+
+  // const { onDownload } = useDownloadExcel({
+  //   currentTableRef: tableRef.current,
+  //   filename: "Products table",
+  //   sheet: "Products"
+  // });
+
+ 
+
+
+// const fs = require('fs');
+
+//   // Format the data as a CSV string
+// const csvData = displayedData.map(row => Object.values(row).join(',')).join('\n');
+
+//   // Convert the data to a file
+//   fs.writeFile('data.csv', csvData, (err) => {
+//     if (err) throw err;
+
+//     // Serve the file to the user
+//     res.download('data.csv', (err) => {
+//       if (err) throw err;
+
+//     });
+//   });
+
+  
+
+
+
+  setTitle('Product Master')
   setCategory('Data')
 
   // React.useEffect(() => {
@@ -25,6 +61,10 @@ const ProductMaster = () => {
 
   const handleClick = () => {
     setShowPopup(true);
+  };
+
+  const exportClick = () =>{
+    setShowExport(true);
   };
 
   function handleTableDataFromMyComponent(data) {
@@ -41,6 +81,7 @@ const ProductMaster = () => {
 
   function closePopup() {
     setShowPopup(false);
+    setShowExport(false);
   }
 
   console.log("TYPE OF DATA: " + typeof data);
@@ -68,8 +109,14 @@ const ProductMaster = () => {
           onCloseRecieved={closePopup}
         />
       )}
-      <div className="rounded-lg">
-        <div className="bg-white mt-2 flex justify-between ">
+      {showExport && (
+        <FileExport
+          data={displayedData}
+          onCloseRecieved={closePopup}
+        />
+      )}
+      <div className="m-2 rounded-lg">
+        <div className="bg-white mt-3 flex justify-between ">
           <div>
             <input placeholder="Search" className="w-52 h-8" />
           </div>
@@ -79,7 +126,7 @@ const ProductMaster = () => {
                 <AiOutlineImport />
               </p>
             </button>
-            <button className="" onClick={handleClick}>
+            <button className="" onClick={exportClick}>
               <p className="text-2xl">
                 <AiOutlineExport />
               </p>
@@ -93,7 +140,7 @@ const ProductMaster = () => {
         </div>
         <div class="overflow-hidden bg-white shadow-md">
           <table class=" min-h-[70vh] w-full border-collapse text-left text-sm text-gray-500">
-            <thead class="bg-gray-50 border-t-1">
+            <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
                   Product ID
@@ -128,10 +175,10 @@ const ProductMaster = () => {
                     <td class="px-6 py-2">{product.productCategory}</td>
                     <td class="px-6 py-2">{product.manufacturingDate}</td>
                     <td class="px-6 py-2">{product.manufacturingLocation}</td>
-                    <td class="px-6 py-2">{product.mrp}</td>
+                    <td class="px-6 py-2">{product.MRP}</td>
                     <td class="px-6 py-2">
                       <div class="flex justify-end gap-4">
-                        <button x-data="{ tooltip: 'Delete' }">
+                        <a x-data="{ tooltip: 'Delete' }" href="#">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -147,8 +194,8 @@ const ProductMaster = () => {
                               d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
                             />
                           </svg>
-                        </button>
-                        <button x-data="{ tooltip: 'Edite' }">
+                        </a>
+                        <a x-data="{ tooltip: 'Edite' }" href="#">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -164,7 +211,7 @@ const ProductMaster = () => {
                               d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
                             />
                           </svg>
-                        </button>
+                        </a>
                       </div>
                     </td>
                   </tr>
