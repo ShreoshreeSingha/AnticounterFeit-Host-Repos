@@ -1,11 +1,11 @@
-import React from 'react'
-
+import React from "react";
+import RetailerActivity from "./RetailerActivity";
 const DashboardRetailer = () => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <>
+      <RetailerActivity />
+    </>
+  );
+};
 
-export default DashboardRetailer
+export default DashboardRetailer;

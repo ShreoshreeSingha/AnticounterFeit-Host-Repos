@@ -1,11 +1,16 @@
-import React from 'react'
+import React from "react";
+import { NavLink } from "react-router-dom";
 
-const DashboardDistributor = () => {
+import { BrowserRouter as Router, Route } from "react-router-dom";
+
+import DistributorActivity from "./DistributorActivity";
+
+function DashboardDistributor() {
   return (
-    <div>
-      DashboardDistributor
-    </div>
-  )
+    <>
+      <DistributorActivity />
+    </>
+  );
 }
 
-export default DashboardDistributor
+export default DashboardDistributor;

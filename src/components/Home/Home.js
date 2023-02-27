@@ -21,7 +21,21 @@ import ProdTracker from "../../Screens/ProdTracker";
 import RouteUpdate from "../../pages/RouteUpdate";
 import AddRoute from "../../pages/AddRoute";
 import UserDetails from "../../pages/UserDetails";
-import AddLocation from "../../pages/AddLocation"
+import AddLocation from "../../pages/AddLocation";
+import WarehouseActivity from "../../pages/storage/WarehouseActivity";
+import IncomingBatch from "../../pages/storage/IncomingBatch";
+import OutgoingBatch from "../../pages/storage/OutgoingBatch";
+import ScanHistory from "../../pages/storage/ScanHistory";
+import ManufacturerOutgoingHistory from "../../pages/manufacturer/ManufacturerOutgoingHistory";
+import ManufacturerScanHistory from "../../pages/manufacturer/ManufacturerScanHistory";
+import RetailerScanHistory from "../../pages/retailer/RetailerScanHistory";
+import RetailerIncomingBatch from "../../pages/retailer/RetailerIncomingBatch";
+import DistributorIncomingBatch from "../../pages/distributer/DistributorIncomingBatch";
+import DistributorOutgoingBatch from "../../pages/distributer/DistributorOutgoingBatch";
+import DistributorScanHistory from "../../pages/distributer/DistributorScanHistory";
+import DistributorActivity from "../../pages/distributer/DistributorActivity";
+import ManufacturerActivity from "../../pages/manufacturer/ManufacturerActivity";
+import RetailerActivity from "../../pages/retailer/RetailerActivity";
 
 import "../../App.css";
 import TrackerForm from "../../pages/TrackerForm";
@@ -34,7 +48,7 @@ const Home = () => {
   return (
     <div>
       {!isAuth && <Login onLogin={login} />}
-      
+
       {isAuth && (
         <BrowserRouter>
           <div className="flex relative">
@@ -66,11 +80,8 @@ const Home = () => {
                   {/* CHARTS ENDS */}
 
                   {/* QUICK LINKS STARTS */}
-                  <Route
-                    path="/createBatch"
-                    element={<CreateBatch />}
-                  />
-                  <Route path="/addLocation" element={<AddLocation/>} />
+                  <Route path="/createBatch" element={<CreateBatch />} />
+                  <Route path="/addLocation" element={<AddLocation />} />
                   <Route path="/addRoute" element={<AddRoute />} />
                   {/* QUICK LINKS ENDS */}
 
@@ -94,10 +105,69 @@ const Home = () => {
 
                   {/* ADMIN ACTIVITY STARTS */}
                   <Route path="/adminActivity" element={<AdminActivity />} />
-                <Route path="/registerUser" element={<Registeruser />} />
-                <Route path="/routeUpdate" element={<RouteUpdate />} />
-                <Route path="/userDetails" element={<UserDetails />} />
+                  <Route path="/registerUser" element={<Registeruser />} />
+                  <Route path="/routeUpdate" element={<RouteUpdate />} />
+                  <Route path="/userDetails" element={<UserDetails />} />
                   {/* ADMIN ACTIVITY ENDS */}
+                  {/* WareHouse Starts */}
+                  <Route
+                    path="/warehouseActivity"
+                    element={<WarehouseActivity />}
+                  />
+                  <Route path="/incomingBatch" element={<IncomingBatch />} />
+                  <Route path="/outgoingBatch" element={<OutgoingBatch />} />
+                  <Route path="/scanHistory" element={<ScanHistory />} />
+                  {/* WareHouse Ends */}
+
+                  {/* Retailer Starts */}
+
+                  <Route
+                    path="/retailerActivity"
+                    element={<RetailerActivity />}
+                  />
+                  <Route
+                    path="/retailerIncomingBatch"
+                    element={<RetailerIncomingBatch />}
+                  />
+                  <Route
+                    path="/retailerScanHistory"
+                    element={<RetailerScanHistory />}
+                  />
+                  {/* Retailer Ends */}
+
+                  {/* Manufacturer Starts */}
+                  <Route
+                    path="/manufacturerActivity"
+                    element={<ManufacturerActivity />}
+                  />
+
+                  <Route
+                    path="/manufacturerOutgoingHistory"
+                    element={<ManufacturerOutgoingHistory />}
+                  />
+                  <Route
+                    path="/manufacturerScanHistory"
+                    element={<ManufacturerScanHistory />}
+                  />
+                  {/* Manufacturer End */}
+                  {/* Distributer Starts */}
+                  <Route
+                    path="/distributerActivity"
+                    element={<DistributerActivity />}
+                  />
+                  <Route
+                    path="/distributerincomingBatch"
+                    element={<DistributerIncomingBatch />}
+                  />
+                  <Route
+                    path="/distributeroutgoingBatch"
+                    element={<DistributerOutgoingBatch />}
+                  />
+                  <Route
+                    path="/distributerscanHistory"
+                    element={<DistributerScanHistory />}
+                  />
+                  {/* Distributer End */}
 
                   <Route path="/trackerForm" element={<TrackerForm />} />
 
@@ -105,15 +175,12 @@ const Home = () => {
                   <Route path="/upload" element={<Upload />} />
                   <Route path="/try" element={<Try />} />
                   <Route path="/testPage" element={<Try />} />
-
                 </Routes>
               </div>
             </div>
           </div>
         </BrowserRouter>
-      )}  
-
-
+      )}
     </div>
   );
 };

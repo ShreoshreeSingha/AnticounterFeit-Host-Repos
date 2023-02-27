@@ -1,61 +1,57 @@
 import React from "react";
 import Header from "../../components/Header";
 import "../AdminActivity.css";
-import ROUTE from "../../data/GIF/way.gif";
-import EMP from "../../data/GIF/user.gif";
-import USER from "../../data/GIF/customer.gif";
+import OUTGOING from "../../data/GIF/complete.gif";
+import INCOMING from "../../data/GIF/shipping.gif";
+import SCAN from "../../data/GIF/qr-code.gif";
 import { NavLink } from "react-router-dom";
-
-
 
 const cardList = [
   {
-      icon: EMP,
-      name: "Incoming Batch History",
-      path: "/incomingBatch"
-      
+    icon: OUTGOING,
+    name: "Outgoing Batch History",
+    path: "/storageOutgoingHistory",
   },
   {
-      icon: ROUTE,
-      name: "Outgoing Batch History",
-      path: "/outgoingBatch"
-   
+    icon: INCOMING,
+    name: "Incoming Batch History",
+    path: "/storageIncomingHistory",
   },
   {
-      icon: USER,
-      name: "ScanHistory",
-      path: "/scanHistory"
+    icon: SCAN,
+    name: "ScanHistory",
+    path: "/storageScanHistory",
   },
 ];
 
 const WarehouseActivity = () => {
   return (
-  <>
-    <div>
-      <Header category="Page" title="Warehouse Activity | Batch History" />
+    <>
       <div>
+        <Header category="Page" title="Warehouse Activity | Batch History" />
+        <div>
           <div className="container">
             {cardList.map((item, index) => (
               <div>
                 <NavLink className="card" key={index} to={item.path}>
                   <div className="content">
                     <div className="imgBx">
-                    <img src={item.icon}></img>
-                    </div> 
-                  </div> 
+                      <img src={item.icon}></img>
+                    </div>
+                  </div>
                   <div className="sci">
                     <p>
-                        <h1>{item.name}</h1>
+                      <h1>{item.name}</h1>
                     </p>
                   </div>
                 </NavLink>
                 {/* <h1>{item.name}</h1> */}
-                </div>
-              ))}
+              </div>
+            ))}
           </div>
+        </div>
       </div>
-    </div>
-  </>
+    </>
   );
 };
 
