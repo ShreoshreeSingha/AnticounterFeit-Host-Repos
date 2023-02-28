@@ -25,7 +25,6 @@ import AddLocation from "../../pages/AddLocation";
 import "../../App.css";
 import TrackerForm from "../../pages/TrackerForm";
 import Upload from "../../Screens/Upload";
-import Try from "../../components/trial/try";
 
 const HomeRetailer = () => {
   const { isAuth, login } = useContext(AuthContext);

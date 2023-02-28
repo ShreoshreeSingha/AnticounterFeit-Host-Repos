@@ -25,7 +25,7 @@ import AddLocation from "../../pages/AddLocation"
 import "../../App.css";
 import TrackerForm from "../../pages/TrackerForm";
 import Upload from "../../Screens/Upload";
-import Try from "../../components/trial/try";
+import TestPage from "../TestPage";
 
 const HomeAdmin = () => {
 
@@ -97,9 +97,7 @@ const HomeAdmin = () => {
 
                   {/* EXTRA */}
                   <Route path="/upload" element={<Upload />} />
-                  <Route path="/try" element={<Try />} />
-                  <Route path="/testPage" element={<Try />} />
-
+                  <Route path="/testPage" element={<TestPage />} />
                 </Routes>
               </div>
             </div>

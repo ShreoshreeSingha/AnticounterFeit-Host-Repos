@@ -1,21 +1,15 @@
 import React from "react";
-import Demo from "../components/Demo";
-import NetworkComponent from "../components/network/NetworkComponent";
-import { useStateContext } from "../contexts/ContextProvider";
+import NetworkGraph from "../components/network/NetworkGraph";
 
-const Network = () => {
-  const { setTitle, setCategory } = useStateContext();
-  setTitle("/My Network");
-  setCategory("Page");
+function Network() {
   return (
-    <>
-      <div>
-        <div className="mx-2 rounded-lg h-[92vh] ">
-          <Demo />
-        </div>
+    <div>
+      <h1>Network Graph</h1>
+      <div className=" h-[92%] ">
+        <NetworkGraph />
       </div>
-    </>
+    </div>
   );
-};
+}
 
 export default Network;

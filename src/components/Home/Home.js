@@ -26,7 +26,6 @@ import AddLocation from "../../pages/AddLocation"
 import "../../App.css";
 import TrackerForm from "../../pages/TrackerForm";
 import Upload from "../../Screens/Upload";
-import Try from "../trial/try";
 
 const Home = () => {
   const { isAuth, login } = useContext(AuthContext);
@@ -103,7 +102,6 @@ const Home = () => {
 
                   {/* EXTRA */}
                   <Route path="/upload" element={<Upload />} />
-                  <Route path="/try" element={<Try />} />
                   <Route path="/testPage" element={<Try />} />
 
                 </Routes>
