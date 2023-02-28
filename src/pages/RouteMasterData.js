@@ -6,13 +6,17 @@ import FileUpload from "../components/UI/FileUpload";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Navbar from "../components/Navbar";
 import { useStateContext } from "../contexts/ContextProvider";
+import FileExport from "../components/UI/FileExport";
+import {MdDoubleArrow} from "react-icons/md";
+import { NavLink } from "react-router-dom";
 
 const URL = "http://20.193.146.8:8080/api/data/product";
 
-const ProductMaster = () => {
+const RouteMaster = () => {
   const { setTitle , setCategory } = useStateContext();
   const [data, setData] = React.useState([]);
   const [showPopup, setShowPopup] = useState(false);
+  const [showExport, setShowExport] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
 
   setTitle('/Route Master')
@@ -26,6 +30,10 @@ const ProductMaster = () => {
   const handleClick = () => {
     setShowPopup(true);
   };
+
+  const exportClick = () =>{
+    setShowExport(true);
+  }
 
   function handleTableDataFromMyComponent(data) {
     console.log("Received data from MyComponent:", data);
@@ -41,6 +49,7 @@ const ProductMaster = () => {
 
   function closePopup() {
     setShowPopup(false);
+    setShowExport(false);
   }
 
   console.log("TYPE OF DATA: " + typeof data);
@@ -68,7 +77,21 @@ const ProductMaster = () => {
           onCloseRecieved={closePopup}
         />
       )}
+      {showExport && (
+        <FileExport
+          data={displayedData}
+          onCloseRecieved={closePopup}
+        />
+      )}
       <div className="m-2 rounded-lg">
+      <div className="flex justify-between p-4 bg-white rounded-lg">
+        <div className="flex items-center text-xl">
+           <h5>Add New Route (Chespoints, Avg Time, Total Distance)</h5>
+        </div>
+        <div className="flex items-center text-4xl">
+          <NavLink to={"/addRoute"}><MdDoubleArrow/></NavLink>
+        </div>
+      </div>
         <div className="bg-white mt-3 flex justify-between ">
           <div>
             <input placeholder="Search" className="w-52 h-8" />
@@ -96,22 +119,16 @@ const ProductMaster = () => {
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Product ID
+                  Route ID
                 </th>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Product Name
+                  Checkpoints
                 </th>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Product Category
+                  Average Time
                 </th>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Manufacturing Date
-                </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Manufacturing Location
-                </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  MRP
+                  Total Distance
                 </th>
                 <th
                   scope="col"
@@ -121,14 +138,12 @@ const ProductMaster = () => {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {displayedData.map((product, index) => (
+                {displayedData.map((route, index) => (
                   <tr class="hover:bg-gray-50" key={index}>
-                    <td class="px-6 py-2">{product.productId}</td>
-                    <td class="px-6 py-2">{product.productName}</td>
-                    <td class="px-6 py-2">{product.productCategory}</td>
-                    <td class="px-6 py-2">{product.manufacturingDate}</td>
-                    <td class="px-6 py-2">{product.manufacturingLocation}</td>
-                    <td class="px-6 py-2">{product.mrp}</td>
+                    <td class="px-6 py-2">{route.routeID}</td>
+                    <td class="px-6 py-2">{route.checkPoints}</td>
+                    <td class="px-6 py-2">{route.avgTime}</td>
+                    <td class="px-6 py-2">{route.totalDistance}</td>
                     <td class="px-6 py-2">
                       <div class="flex justify-end gap-4">
                         <button x-data="{ tooltip: 'Delete' }">
@@ -185,4 +200,4 @@ const ProductMaster = () => {
   );
 };
 
-export default ProductMaster;
+export default RouteMaster;

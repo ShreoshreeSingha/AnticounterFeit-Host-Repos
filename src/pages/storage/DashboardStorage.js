@@ -1,11 +1,12 @@
-import React from 'react'
+import React from "react";
+import WarehouseActivity from "./WarehouseActivity";
 
 const DashboardStorage = () => {
   return (
-    <div>
-      
-    </div>
-  )
-}
+    <>
+      <WarehouseActivity />
+    </>
+  );
+};
 
-export default DashboardStorage
+export default DashboardStorage;

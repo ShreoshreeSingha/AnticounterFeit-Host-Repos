@@ -1,70 +1,27 @@
-import React, { useState } from "react";
-import Header from "../components/Header";
-import TablePagination from "../components/UI/TablePagination";
+import React, { useState, useEffect } from "react";
+import Header from "../../components/Header";
+import TablePagination from "../../components/UI/TablePagination";
 import { AiOutlineImport, AiOutlineExport } from "react-icons/ai";
-import FileUpload from "../components/UI/FileUpload";
-import LoadingSpinner from "../components/LoadingSpinner";
-import Navbar from "../components/Navbar";
-import { useStateContext } from "../contexts/ContextProvider";
-import FileExport from "../components/UI/FileExport";
+//import FileUpload from "../components/UI/FileUpload";
+import LoadingSpinner from "../../components/LoadingSpinner";
 
+function DistributorScanHistory() {
+  const [data, setData] = useState([]);
+  const [filterParam, setFilterParam] = useState("");
+  // rest of component code
+  useEffect(() => {
+    fetch("http://20.193.146.8:8080/api/getallbatches")
+      .then((response) => response.json())
+      .then((data) => setData(data))
+      .catch((error) => console.error(error));
+  }, []);
 
-
-const URL = "http://20.193.146.8:8080/api/data/product";
-
-const ProductMaster = () => {
-  const { setTitle , setCategory } = useStateContext();
-  const [data, setData] = React.useState([]);
-  const [showPopup, setShowPopup] = useState(false);
-  const [showExport, setShowExport] = useState(false);
-  const [displayedData, setDisplayedData] = useState([]);
-
-
-  // const tableRef = useRef(null);
-
-  // const { onDownload } = useDownloadExcel({
-  //   currentTableRef: tableRef.current,
-  //   filename: "Products table",
-  //   sheet: "Products"
-  // });
-
- 
-
-
-// const fs = require('fs');
-
-//   // Format the data as a CSV string
-// const csvData = displayedData.map(row => Object.values(row).join(',')).join('\n');
-
-//   // Convert the data to a file
-//   fs.writeFile('data.csv', csvData, (err) => {
-//     if (err) throw err;
-
-//     // Serve the file to the user
-//     res.download('data.csv', (err) => {
-//       if (err) throw err;
-
-//     });
-//   });
-
-  
-
-
-
-  setTitle('Product Master')
-  setCategory('Data')
-
-  // React.useEffect(() => {
-  // },[displayedData])
-
+  const filterData = () => data.filter((item) => item.Record.route[3] === "R1");
   var pageSize = 10;
+  const [showPopup, setShowPopup] = useState(false);
 
   const handleClick = () => {
     setShowPopup(true);
-  };
-
-  const exportClick = () =>{
-    setShowExport(true);
   };
 
   function handleTableDataFromMyComponent(data) {
@@ -81,42 +38,22 @@ const ProductMaster = () => {
 
   function closePopup() {
     setShowPopup(false);
-    setShowExport(false);
   }
 
   console.log("TYPE OF DATA: " + typeof data);
   console.log("STATE DATA: " + JSON.stringify(data));
 
-  // React.useEffect(() => {
-  //   fetch(URL, {
-  //     headers: {
-  //       "content-type": "application/json",
-  //       Accept: "application/json",
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((res) => {
-  //       setData(res.data);
-  //     });
-  //   console.log("DATA : " + JSON.stringify(data));
-  // }, []);
-
   return (
     <>
+      <Header category="Page" title="Distributor | Scan History" />
       {showPopup && (
         <FileUpload
           onDataReceived={handleRawDataFromMyComponent}
           onCloseRecieved={closePopup}
         />
       )}
-      {showExport && (
-        <FileExport
-          data={displayedData}
-          onCloseRecieved={closePopup}
-        />
-      )}
-      <div className="m-2 rounded-lg">
-        <div className="bg-white mt-3 flex justify-between ">
+      <div className="rounded-lg">
+        <div className="bg-white mt-2 flex justify-between ">
           <div>
             <input placeholder="Search" className="w-52 h-8" />
           </div>
@@ -126,7 +63,7 @@ const ProductMaster = () => {
                 <AiOutlineImport />
               </p>
             </button>
-            <button className="" onClick={exportClick}>
+            <button className="" onClick={handleClick}>
               <p className="text-2xl">
                 <AiOutlineExport />
               </p>
@@ -140,45 +77,56 @@ const ProductMaster = () => {
         </div>
         <div class="overflow-hidden bg-white shadow-md">
           <table class=" min-h-[70vh] w-full border-collapse text-left text-sm text-gray-500">
-            <thead class="bg-gray-50">
+            <thead class="bg-gray-50 border-t-1">
               <tr>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Product ID
+                  batchId
                 </th>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Product Name
+                  actualPath
+                </th>
+                {/* <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                  batchId
+                </th> */}
+                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                  currentLocation
                 </th>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Product Category
+                  route
                 </th>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Manufacturing Date
+                  soldStatus
                 </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Manufacturing Location
-                </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  MRP
-                </th>
-                <th
+                {/* <th
                   scope="col"
                   class="px-6 py-4 font-medium text-gray-900"
-                ></th>
+                ></th> */}
               </tr>
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {displayedData.map((product, index) => (
-                  <tr class="hover:bg-gray-50" key={index}>
-                    <td class="px-6 py-2">{product.productId}</td>
-                    <td class="px-6 py-2">{product.productName}</td>
-                    <td class="px-6 py-2">{product.productCategory}</td>
-                    <td class="px-6 py-2">{product.manufacturingDate}</td>
-                    <td class="px-6 py-2">{product.manufacturingLocation}</td>
-                    <td class="px-6 py-2">{product.MRP}</td>
-                    <td class="px-6 py-2">
+                {filterData().map((item) => (
+                  <tr class="hover:bg-gray-50" key={item.id}>
+                    <td class="px-6 py-1 font-medium text-gray-900">
+                      {item.Key}
+                    </td>
+                    <td class="px-6 py-1font-medium text-gray-900">
+                      {item.Record.actualPath}
+                    </td>
+                    {/* <td class="px-3 py-2">{item.Record.batchId}</td> */}
+                    <td class="px-6 py-1 font-medium text-gray-900">
+                      {item.Record.currentLocation}
+                    </td>
+                    <td class="px-6 py-1font-medium text-gray-900">
+                      {item.Record.route[0]}-{item.Record.route[1]}-
+                      {item.Record.route[2]}-{item.Record.route[3]}
+                    </td>
+                    <td class="px-6 py-1font-medium text-gray-900">
+                      {item.Record.soldStatus.toString()}
+                    </td>
+                    {/* <td class="px-6 py-2">
                       <div class="flex justify-end gap-4">
-                        <a x-data="{ tooltip: 'Delete' }" href="#">
+                        <button x-data="{ tooltip: 'Delete' }">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -194,8 +142,8 @@ const ProductMaster = () => {
                               d="M14.74 9l-.346 9m-4.788 0L9.26 9m9.968-3.21c.342.052.682.107 1.022.166m-1.022-.165L18.16 19.673a2.25 2.25 0 01-2.244 2.077H8.084a2.25 2.25 0 01-2.244-2.077L4.772 5.79m14.456 0a48.108 48.108 0 00-3.478-.397m-12 .562c.34-.059.68-.114 1.022-.165m0 0a48.11 48.11 0 013.478-.397m7.5 0v-.916c0-1.18-.91-2.164-2.09-2.201a51.964 51.964 0 00-3.32 0c-1.18.037-2.09 1.022-2.09 2.201v.916m7.5 0a48.667 48.667 0 00-7.5 0"
                             />
                           </svg>
-                        </a>
-                        <a x-data="{ tooltip: 'Edite' }" href="#">
+                        </button>
+                        <button x-data="{ tooltip: 'Edite' }">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -211,14 +159,16 @@ const ProductMaster = () => {
                               d="M16.862 4.487l1.687-1.688a1.875 1.875 0 112.652 2.652L6.832 19.82a4.5 4.5 0 01-1.897 1.13l-2.685.8.8-2.685a4.5 4.5 0 011.13-1.897L16.863 4.487zm0 0L19.5 7.125"
                             />
                           </svg>
-                        </a>
+                        </button>
                       </div>
-                    </td>
+                    </td> */}
                   </tr>
                 ))}
               </tbody>
             ) : (
-              <div className="text-lg"><LoadingSpinner /></div>
+              <div className="text-lg">
+                <LoadingSpinner />
+              </div>
             )}
           </table>
           <TablePagination
@@ -230,6 +180,5 @@ const ProductMaster = () => {
       </div>
     </>
   );
-};
-
-export default ProductMaster;
+}
+export default DistributorScanHistory;

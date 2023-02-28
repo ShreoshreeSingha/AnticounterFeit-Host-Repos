@@ -21,43 +21,43 @@ import ProdTracker from "../../Screens/ProdTracker";
 import RouteUpdate from "../../pages/RouteUpdate";
 import AddRoute from "../../pages/AddRoute";
 import UserDetails from "../../pages/UserDetails";
-import AddLocation from "../../pages/AddLocation"
+import AddLocation from "../../pages/AddLocation";
 import "../../App.css";
 import TrackerForm from "../../pages/TrackerForm";
 import Upload from "../../Screens/Upload";
-import TestPage from "../TestPage";
+import Try from "../../components/trial/try";
+import AddBOD from "../../pages/AddBOD";
 
 const HomeAdmin = () => {
-
   return (
-        <BrowserRouter>
-          <div className="flex relative">
-            <div className="w-[8%] fixed sidebar bg-sidebar-bg z-50 text-clip">
-              <Sidebar />
-            </div>
-            <div className="bg-main-bg absolute left-[8%] w-[92%]">
-              <div className="fixed w-[92%] z-[5]">
-                <Navbar />
-              </div>
-              <div className="z-[1] bg-main-bg absolute top-14 min-h-[90vh] w-full ">
-                <Routes>
-                  {/* DASHBOARD SECTION STARTS */}
-                  <Route path="/" element={<Dashboard />} />
-                  <Route path="/dashboard" element={<Dashboard />} />
-                  <Route path="/network" element={<Network />} />
-                  <Route path="/masterData" element={<MasterData />} />
-                  <Route path="/adminActivity" element={<AdminActivity />} />
-                  <Route path="/registerUser" element={<Registeruser />} />
-                  {/* DASHBOARD SECTION ENDS */}
+    <BrowserRouter>
+      <div className="flex relative">
+        <div className="w-[8%] fixed sidebar bg-sidebar-bg z-50 text-clip">
+          <Sidebar />
+        </div>
+        <div className="bg-main-bg absolute left-[8%] w-[92%]">
+          <div className="fixed w-[92%] z-[5]">
+            <Navbar />
+          </div>
+          <div className="z-[1] bg-main-bg absolute top-14 min-h-[90vh] w-full ">
+            <Routes>
+              {/* DASHBOARD SECTION STARTS */}
+              <Route path="/" element={<Dashboard />} />
+              <Route path="/dashboard" element={<Dashboard />} />
+              <Route path="/network" element={<Network />} />
+              <Route path="/masterData" element={<MasterData />} />
+              <Route path="/adminActivity" element={<AdminActivity />} />
+              <Route path="/registerUser" element={<Registeruser />} />
+              {/* DASHBOARD SECTION ENDS */}
 
-                  {/* COMPONENTS STARTS */}
-                  <Route path="/tracker" element={<Tracker />} />
-                  <Route path="/prodTracker/:id" element={<ProdTracker />} />
-                  {/* COMPONENTS ENDS */}
+              {/* COMPONENTS STARTS */}
+              <Route path="/tracker" element={<Tracker />} />
+              <Route path="/prodTracker/:id" element={<ProdTracker />} />
+              {/* COMPONENTS ENDS */}
 
-                  {/* CHARTS STARTS */}
-                  {/* <Route path="/pie" element={<Pie />} /> */}
-                  {/* CHARTS ENDS */}
+              {/* CHARTS STARTS */}
+              {/* <Route path="/pie" element={<Pie />} /> */}
+              {/* CHARTS ENDS */}
 
                   {/* QUICK LINKS STARTS */}
                   <Route
@@ -68,41 +68,37 @@ const HomeAdmin = () => {
                   <Route path="/addRoute" element={<AddRoute />} />
                   {/* QUICK LINKS ENDS */}
 
-                  {/* MASTER DATA STARTS */}
-                  <Route
-                    path="/masterData/products"
-                    element={<ProductMaster />}
-                  />
-                  <Route
-                    path="/masterData/locations"
-                    element={<LocationMaster />}
-                  />
-                  <Route
-                    path="/masterData/routes"
-                    element={<RouteMasterData />}
-                  />
-                  <Route path="/transaction" element={<TransactionMaster />} />
-                  <Route path="/masterData/bod" element={<BOD />} />
-                  <Route path="/demo" element={<Demo />} />
-                  {/* MASTER DATA ENDS */}
+              {/* MASTER DATA STARTS */}
+              <Route path="/masterData/products" element={<ProductMaster />} />
+              <Route
+                path="/masterData/locations"
+                element={<LocationMaster />}
+              />
+              <Route path="/masterData/routes" element={<RouteMasterData />} />
+              <Route path="/transaction" element={<TransactionMaster />} />
+              <Route path="/masterData/bod" element={<BOD />} />
+              <Route path="/demo" element={<Demo />} />
+              {/* MASTER DATA ENDS */}
 
-                  {/* ADMIN ACTIVITY STARTS */}
-                  <Route path="/adminActivity" element={<AdminActivity />} />
-                <Route path="/registerUser" element={<Registeruser />} />
-                <Route path="/routeUpdate" element={<RouteUpdate />} />
-                <Route path="/userDetails" element={<UserDetails />} />
-                  {/* ADMIN ACTIVITY ENDS */}
+              {/* ADMIN ACTIVITY STARTS */}
+              <Route path="/adminActivity" element={<AdminActivity />} />
+              <Route path="/registerUser" element={<Registeruser />} />
+              <Route path="/routeUpdate" element={<RouteUpdate />} />
+              <Route path="/userDetails" element={<UserDetails />} />
+              {/* ADMIN ACTIVITY ENDS */}
 
-                  <Route path="/trackerForm" element={<TrackerForm />} />
+              <Route path="/trackerForm" element={<TrackerForm />} />
 
-                  {/* EXTRA */}
-                  <Route path="/upload" element={<Upload />} />
-                  <Route path="/testPage" element={<TestPage />} />
-                </Routes>
-              </div>
-            </div>
+              {/* EXTRA */}
+              <Route path="/upload" element={<Upload />} />
+              <Route path="/try" element={<Try />} />
+              <Route path="/testPage" element={<Try />} />
+            </Routes>
           </div>
-        </BrowserRouter>
-      )}  
+        </div>
+      </div>
+    </BrowserRouter>
+  );
+};
 
 export default HomeAdmin;
