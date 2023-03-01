@@ -16,7 +16,7 @@ const HomeManufacturer = () => (
         {/* <Sidebar /> 
       </div> */}
       <div className="bg-main-bg absolute  w-[100%]">
-        <div className="fixed w-[92%] z-[5]">
+        <div className="fixed w-[100%] z-[5]">
           <Navbar />
         </div>
         <div className="z-[1] bg-main-bg absolute top-14 min-h-[90vh] w-full ">

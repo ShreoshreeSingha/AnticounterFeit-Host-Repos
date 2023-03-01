@@ -4,8 +4,10 @@ import TablePagination from "../../components/UI/TablePagination";
 import { AiOutlineImport, AiOutlineExport } from "react-icons/ai";
 //import FileUpload from "../components/UI/FileUpload";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import { useStateContext } from "../../contexts/ContextProvider";
 
 function ManufacturerScanHistory() {
+  const { setTitle, setCategory } = useStateContext();
   const [data, setData] = useState([]);
   const [filterParam, setFilterParam] = useState("");
   // rest of component code
@@ -16,10 +18,20 @@ function ManufacturerScanHistory() {
       .catch((error) => console.error(error));
   }, []);
 
+  setTitle("/Manufacturer");
+  setCategory("Activity");
+
   console.log(JSON.stringify(data));
 
   const filterData = () =>
-    data.filter((item) => item.Record.route[0] === "Manufacturer");
+    data.filter(
+      (item) =>
+        (item.Record.route[0] === "Manufacturer" &&
+          item.Key.includes(filterParam)) ||
+        item.Record.route.includes(filterParam) ||
+        item.Record.actualPath.includes(filterParam) ||
+        item.Record.currentLocation.includes(filterParam)
+    );
 
   var pageSize = 10;
   const [showPopup, setShowPopup] = useState(false);
@@ -49,7 +61,7 @@ function ManufacturerScanHistory() {
 
   return (
     <>
-      <Header category="Page" title="Manufacturer | Scan History" />
+      {/* <Header category="Page" title="Manufacturer | Scan History" /> */}
       {showPopup && (
         <FileUpload
           onDataReceived={handleRawDataFromMyComponent}
@@ -59,7 +71,11 @@ function ManufacturerScanHistory() {
       <div className="rounded-lg">
         <div className="bg-white mt-2 flex justify-between ">
           <div>
-            <input placeholder="Search" className="w-52 h-8" />
+            <input
+              placeholder="Search"
+              className="w-52 h-8"
+              onChange={(e) => setFilterParam(e.target.value)}
+            />
           </div>
           <div className=" flex align-baseline m-4">
             <button className="" onClick={handleClick}>

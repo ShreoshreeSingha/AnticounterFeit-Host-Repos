@@ -7,6 +7,7 @@ import ADDBATCH from "../../data/GIF/clipboard.gif";
 import OUTGOING from "../../data/GIF/complete.gif";
 import Sidebar from "../../components/Sidebar";
 import Navbar from "../../components/Navbar";
+import { useStateContext } from "../../contexts/ContextProvider";
 import {
   NavLink,
   BrowserRouter as Router,
@@ -45,10 +46,13 @@ const cardList = [
 ];
 
 const ManufacturerActivity = () => {
+  const { setTitle, setCategory } = useStateContext();
+  setTitle("/Manufacturer");
+  setCategory("Activity");
   return (
     <>
       <div>
-        <Header category="Page" title="Manufacturer Activity | Batch History" />
+        <Header category="" title="Manufacturer Activity | Batch History" />
         <div>
           <div className="container">
             {cardList.map((item, index) => (

@@ -1,12 +1,14 @@
 import React, { useState, useEffect } from "react";
+import { AiOutlineImport, AiOutlineExport } from "react-icons/ai";
 import Header from "../../components/Header";
 import TablePagination from "../../components/UI/TablePagination";
-import { AiOutlineImport, AiOutlineExport } from "react-icons/ai";
-//import FileUpload from "../components/UI/FileUpload";
+// import FileUpload from "../components/UI/FileUpload";
 import LoadingSpinner from "../../components/LoadingSpinner";
 // import Navbar from "../components/Navbar";
-// import { useStateContext } from "../contexts/ContextProvider";
+import { useStateContext } from "../../contexts/ContextProvider";
+
 function ManufacturerOutgoingHistory() {
+  const { setTitle, setCategory } = useStateContext();
   const [data, setData] = useState([]);
   const [filterParam, setFilterParam] = useState("");
   // rest of component code
@@ -17,10 +19,19 @@ function ManufacturerOutgoingHistory() {
       .catch((error) => console.error(error));
   }, []);
 
-  const filterData = () =>
-    data.filter((item) => item.Record.route.includes("S2"));
+  setTitle("/Manufacturer");
+  setCategory("OutGoingBatch");
 
-  var pageSize = 10;
+  const filterData = () =>
+    data.filter(
+      (item) =>
+        (item.Record.route.includes("S2") && item.Key.includes(filterParam)) ||
+        item.Record.route.includes(filterParam) ||
+        item.Record.actualPath.includes(filterParam) ||
+        item.Record.currentLocation.includes(filterParam)
+    );
+
+  const pageSize = 10;
   const [showPopup, setShowPopup] = useState(false);
 
   const handleClick = () => {
@@ -43,61 +54,12 @@ function ManufacturerOutgoingHistory() {
     setShowPopup(false);
   }
 
-  console.log("TYPE OF DATA: " + typeof data);
-  console.log("STATE DATA: " + JSON.stringify(data));
+  console.log(`TYPE OF DATA: ${typeof data}`);
+  console.log(`STATE DATA: ${JSON.stringify(data)}`);
 
   return (
     <>
-      <Header category="Page" title="Manufacturer | Outgoing Batches" />
-      {/* <div className="m-2 rounded-lg">
-        <div class="overflow-hidden bg-white shadow-md">
-          <table class=" min-h-[70vh] w-full border-collapse text-left text-sm text-gray-500">
-            <thead class="bg-gray-50">
-              <tr>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  batchId
-                </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  actualPath
-                </th>
-                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">batchId</th> 
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  currentLocation
-                </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  route
-                </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  soldStatus
-                </th>
-              </tr>
-            </thead>
-            <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-              {filterData().map((item) => (
-                <tr class="hover:bg-gray-50" key={item.id}>
-                  <td class="px-6 py-1 font-medium text-gray-900">
-                    {item.Key}
-                  </td>
-                  <td class="px-6 py-1font-medium text-gray-900">
-                    {item.Record.actualPath}
-                  </td>
-                   <td class="px-3 py-2">{item.Record.batchId}</td> 
-                  <td class="px-6 py-1 font-medium text-gray-900">
-                    {item.Record.currentLocation}
-                  </td>
-                  <td class="px-6 py-1font-medium text-gray-900">
-                    {item.Record.route[0]}-{item.Record.route[1]}-
-                    {item.Record.route[2]}-{item.Record.route[3]}
-                  </td>
-                  <td class="px-6 py-1font-medium text-gray-900">
-                    {item.Record.soldStatus.toString()}
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-      </div> */}
+      {/* <Header category="Page" title="Manufacturer | Outgoing Batches" /> */}
       {showPopup && (
         <FileUpload
           onDataReceived={handleRawDataFromMyComponent}
@@ -107,7 +69,11 @@ function ManufacturerOutgoingHistory() {
       <div className="rounded-lg">
         <div className="bg-white mt-2 flex justify-between ">
           <div>
-            <input placeholder="Search" className="w-52 h-8" />
+            <input
+              placeholder="Search"
+              className="w-52 h-8"
+              onChange={(e) => setFilterParam(e.target.value)}
+            />
           </div>
           <div className=" flex align-baseline m-4">
             <button className="" onClick={handleClick}>
@@ -127,26 +93,26 @@ function ManufacturerOutgoingHistory() {
             </button> */}
           </div>
         </div>
-        <div class="overflow-hidden bg-white shadow-md">
-          <table class=" min-h-[70vh] w-full border-collapse text-left text-sm text-gray-500">
-            <thead class="bg-gray-50 border-t-1">
+        <div className="overflow-hidden bg-white shadow-md">
+          <table className=" min-h-[70vh] w-full border-collapse text-left text-sm text-gray-500">
+            <thead className="bg-gray-50 border-t-1">
               <tr>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                <th scope="col" className="px-6 py-4 font-medium text-gray-900">
                   batchId
                 </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                <th scope="col" className="px-6 py-4 font-medium text-gray-900">
                   actualPath
                 </th>
                 {/* <th scope="col" class="px-6 py-4 font-medium text-gray-900">
                   batchId
                 </th> */}
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                <th scope="col" className="px-6 py-4 font-medium text-gray-900">
                   currentLocation
                 </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                <th scope="col" className="px-6 py-4 font-medium text-gray-900">
                   route
                 </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                <th scope="col" className="px-6 py-4 font-medium text-gray-900">
                   soldStatus
                 </th>
                 {/* <th
@@ -156,24 +122,24 @@ function ManufacturerOutgoingHistory() {
               </tr>
             </thead>
             {data != "" ? (
-              <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+              <tbody className="divide-y divide-gray-100 border-t border-gray-100">
                 {filterData().map((item) => (
-                  <tr class="hover:bg-gray-50" key={item.id}>
-                    <td class="px-6 py-1 font-medium text-gray-900">
+                  <tr className="hover:bg-gray-50" key={item.id}>
+                    <td className="px-6 py-1 font-medium text-gray-900">
                       {item.Key}
                     </td>
-                    <td class="px-6 py-1font-medium text-gray-900">
+                    <td className="px-6 py-1font-medium text-gray-900">
                       {item.Record.actualPath}
                     </td>
                     {/* <td class="px-3 py-2">{item.Record.batchId}</td> */}
-                    <td class="px-6 py-1 font-medium text-gray-900">
+                    <td className="px-6 py-1 font-medium text-gray-900">
                       {item.Record.currentLocation}
                     </td>
-                    <td class="px-6 py-1font-medium text-gray-900">
+                    <td className="px-6 py-1font-medium text-gray-900">
                       {item.Record.route[0]}-{item.Record.route[1]}-
                       {item.Record.route[2]}-{item.Record.route[3]}
                     </td>
-                    <td class="px-6 py-1font-medium text-gray-900">
+                    <td className="px-6 py-1font-medium text-gray-900">
                       {item.Record.soldStatus.toString()}
                     </td>
                     {/* <td class="px-6 py-2">

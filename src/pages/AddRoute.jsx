@@ -25,7 +25,7 @@ const AddRoute = () => {
   const [checkpoints, setCheckpoints] = React.useState("");
   const [totalDistance, setTotalDistance] = React.useState("");
   const [avgTimeTaken, setAvgTimeTaken] = React.useState("");
-
+  const [route, setRoute] = useState([]);
   const options = [
     { value: "option1", label: "Option 1" },
     { value: "option2", label: "Option 2" },
@@ -62,42 +62,49 @@ const AddRoute = () => {
 
   const handleSubmit = (event) => {
     event.preventDefault();
-    console.log("Selected values:", selectedValues);
+    //the distance & time should be made dynamic accordin to the api defination
+    const newRoute = selectedValues.filter((value) => value !== undefined);
+    const jsonBody = {
+      route: newRoute,
+      totalDistance: "100km",
+      avgTimeTaken: "28hrs",
+    };
+    console.log("Selected values:", newRoute);
+    console.log("Json Body", jsonBody);
+    apicall(jsonBody);
   };
 
-  const route = ["Manufacturer", "Distributor-1", "Storage-2", "Retailer-4"];
+  // const route = ["Manufacturer", "Distributor-1", "Storage-2", "Retailer-4"];
   // const totalDistance = "100Kms";
   // const avgTimeTaken = "78hrs";
 
-  const jsonBody = {
-    route : route,
-    totalDistance: "100Kms",
-    avgTimeTaken: "78hrs",
-  }
+  // const jsonBody = {
+  //   route: route,
+  //   totalDistance: "100Kms",
+  //   avgTimeTaken: "78hrs",
+  // };
 
-
-  //API CALL TO FETCH BOD DATA
+  // API CALL TO FETCH BOD DATA
   React.useEffect(() => {
     const fetchData = async () => {
       const response = await fetch(apiPostUrl);
       const json = await response.json();
       setData(json.data);
-      console.log("DATA : " + JSON.stringify(data.data[0].startingPoint));
+      console.log(`DATA : ${JSON.stringify(data.data[0].startingPoint)}`);
     };
     fetchData();
   }, []);
 
-
-  //API CALL TO SEND ADD ROUTE REQUEST
-  const apicall = () => {
-    //API CALL
+  // API CALL TO SEND ADD ROUTE REQUEST
+  const apicall = (body) => {
+    // API CALL
     fetch(apiGetUrl, {
       method: "POST",
       headers: {
         Accept: "application/json",
         "Content-Type": "application/json",
       },
-      body: JSON.stringify(jsonBody),
+      body: JSON.stringify(body),
     })
       .then((res) => res.json())
       .then((d) => {
@@ -106,7 +113,7 @@ const AddRoute = () => {
         // setCheckpoints(d.checkpoints);
         // setTotalDistance(d.totalDistance);
         // setAvgTimeTaken(d.avgTimeTaken);
-        console.log("DATA TYPE OF : " + typeof responseData);
+        console.log(`DATA TYPE OF : ${typeof responseData}`);
         console.log(d);
       });
   };
@@ -140,23 +147,21 @@ const AddRoute = () => {
                   </div>
                 )}
                 {Array.from({ length: numSelects }, (_, i) => (
-                  <>
-                    <select
-                      key={i}
-                      value={selectedValues[i]}
-                      onChange={handleChange(i)}
-                      className="rounded-lg text-base md:text-lg px-[5%] py-3 mr-2 mt-2"
-                    >
-                      {data.map((option) => (
-                        <option
-                          key={option.startingPoint}
-                          value={option.startingPoint}
-                        >
-                          {option.startingPoint}
-                        </option>
-                      ))}
-                    </select>
-                  </>
+                  <select
+                    key={i}
+                    value={selectedValues[i]}
+                    onChange={handleChange(i)}
+                    className="rounded-lg text-base md:text-lg px-[5%] py-3 mr-2 mt-2"
+                  >
+                    {data.map((option) => (
+                      <option
+                        key={option.startingPoint}
+                        value={option.startingPoint}
+                      >
+                        {option.startingPoint}
+                      </option>
+                    ))}
+                  </select>
                 ))}
                 <br />
                 <br />
@@ -174,40 +179,38 @@ const AddRoute = () => {
           <Button
             type="submit"
             className="absolute bottom-0 left-0 m-12"
-            // onClick={handleSubmit}
-            onClick={() =>
-              apicall({
-                route: JSON.stringify(route),
-                totalDistance: JSON.stringify(totalDistance),
-                avgTimeTaken: JSON.stringify(avgTimeTaken),
-              })
-            }
+            onClick={handleSubmit}
+            // onClick={() =>
+            //   apicall({
+            //     route: JSON.stringify(route),
+            //     totalDistance: JSON.stringify(totalDistance),
+            //     avgTimeTaken: JSON.stringify(avgTimeTaken),
+            //   })
+            // }
           >
             Create
           </Button>
         </>
       ) : (
-        <>
-          <div className="flex-col flex text-center mx-24 absolute top-1/8 left-1/8">
-            <div>
+        <div className="flex-col flex text-center mx-24 absolute top-1/8 left-1/8">
+          <div>
             <p className="mt-16">Response Message : </p>
           </div>
-            <div>
-              {/* <p className="mt-4">Route Id : {routeId}</p>
+          <div>
+            {/* <p className="mt-4">Route Id : {routeId}</p>
               <p className="mt-4">Checkpoints : {checkpoints}</p>
               <p className="mt-4">Total Distance : {totalDistance}</p>
               <p className="mt-4">Average Time Taken : {avgTimeTaken}</p> */}
-            </div>
-            <div className="pt-10 ml-[29%]">
-              {batchId === null ? (
-                "Generated Route Details Will be Displayed Here"
-              ) : (
-                // <QRCode value={batchId} size={200} />
-                <h1>Check!</h1>
-              )}
-            </div>
           </div>
-        </>
+          <div className="pt-10 ml-[29%]">
+            {batchId === null ? (
+              "Generated Route Details Will be Displayed Here"
+            ) : (
+              // <QRCode value={batchId} size={200} />
+              <h1>Check!</h1>
+            )}
+          </div>
+        </div>
       )}
     </>
   );
