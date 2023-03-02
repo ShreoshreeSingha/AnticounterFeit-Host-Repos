@@ -66,6 +66,7 @@ const HomeAdmin = () => {
                   />
                   <Route path="/addLocation" element={<AddLocation/>} />
                   <Route path="/addRoute" element={<AddRoute />} />
+                  <Route path="/addBOD" element={<AddBOD />} />
                   {/* QUICK LINKS ENDS */}
 
               {/* MASTER DATA STARTS */}

@@ -7,9 +7,9 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import Navbar from "../components/Navbar";
 import { useStateContext } from "../contexts/ContextProvider";
 
-const URL = "http://20.193.146.8:8080/api/data/product";
+const URL = "http://20.193.146.8:8080/api/getallbatches";
 
-const ProductMaster = () => {
+const TransactionMaster = () => {
   const { setTitle , setCategory } = useStateContext();
   const [data, setData] = React.useState([]);
   const [showPopup, setShowPopup] = useState(false);
@@ -46,19 +46,21 @@ const ProductMaster = () => {
   console.log("TYPE OF DATA: " + typeof data);
   console.log("STATE DATA: " + JSON.stringify(data));
 
-  // React.useEffect(() => {
-  //   fetch(URL, {
-  //     headers: {
-  //       "content-type": "application/json",
-  //       Accept: "application/json",
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((res) => {
-  //       setData(res.data);
-  //     });
-  //   console.log("DATA : " + JSON.stringify(data));
-  // }, []);
+  React.useEffect(() => {
+    fetch(URL, {
+      headers: {
+        "content-type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data);
+      });
+    console.log("DATA : " + JSON.stringify(data));
+  }, []);
+
+  console.log("DISPLAYED DATA:",data);
 
   return (
     <>
@@ -96,22 +98,19 @@ const ProductMaster = () => {
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Product ID
+                  Batch ID
                 </th>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Product Name
+                  Current Location
                 </th>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Product Category
+                  Route
                 </th>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Manufacturing Date
+                  Actual Path
                 </th>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Manufacturing Location
-                </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  MRP
+                  Sold Status
                 </th>
                 <th
                   scope="col"
@@ -121,14 +120,13 @@ const ProductMaster = () => {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {displayedData.map((product, index) => (
+                {data.map((product,index) => (
                   <tr class="hover:bg-gray-50" key={index}>
-                    <td class="px-6 py-2">{product.productId}</td>
-                    <td class="px-6 py-2">{product.productName}</td>
-                    <td class="px-6 py-2">{product.productCategory}</td>
-                    <td class="px-6 py-2">{product.manufacturingDate}</td>
-                    <td class="px-6 py-2">{product.manufacturingLocation}</td>
-                    <td class="px-6 py-2">{product.mrp}</td>
+                    <td class="px-6 py-2">{product.Record.batchId}</td>
+                    <td class="px-6 py-2">{product.Record.currentLocation}</td>
+                    <td class="px-6 py-2">{product.Record.route}</td>
+                    <td class="px-6 py-2">{product.Record.actualPath}</td>
+                    <td class="px-6 py-2">{product.Record.soldStatus.toString()}</td>
                     <td class="px-6 py-2">
                       <div class="flex justify-end gap-4">
                         <button x-data="{ tooltip: 'Delete' }">
@@ -185,4 +183,10 @@ const ProductMaster = () => {
   );
 };
 
-export default ProductMaster;
+export default TransactionMaster;
+
+
+
+
+
+
