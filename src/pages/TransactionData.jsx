@@ -6,6 +6,7 @@ import FileUpload from "../components/UI/FileUpload";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Navbar from "../components/Navbar";
 import { useStateContext } from "../contexts/ContextProvider";
+import FileExport from "../components/UI/FileExport";
 
 const URL = "http://20.193.146.8:8080/api/getallbatches";
 
@@ -14,7 +15,7 @@ const TransactionMaster = () => {
   const [data, setData] = React.useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
-
+  const [showExport, setShowExport] = useState(false);
 
   setTitle('/Transaction Master')
   setCategory('Data')
@@ -22,16 +23,20 @@ const TransactionMaster = () => {
   // React.useEffect(() => {
   // },[displayedData])
 
-  // var pageSize = 10;
+  // var pageSize = 5;
 
   const handleClick = () => {
     setShowPopup(true);
   };
 
+  const exportClick = () =>{
+    setShowExport(true);
+  };
+
   function handleTableDataFromMyComponent(data) {
-    console.log("Received data from MyComponent:"+ data);
+    console.log("Received tabledata from MyComponent: "+ data); 
     setDisplayedData(data);
-    console.log("Displayed Data: "+displayedData)
+    console.log("Displayed data:"+displayedData);
     // Do something with the data here
   }
 
@@ -45,8 +50,8 @@ const TransactionMaster = () => {
     setShowPopup(false);
   }
 
-  // console.log("TYPE OF DATA: " + typeof data);
-  // console.log("STATE DATA: " + JSON.stringify(data));
+  console.log("TYPE OF DATA: " + typeof data);
+  console.log("STATE DATA: " + JSON.stringify(data));
 
   React.useEffect(() => {
     fetch(URL, {
@@ -59,16 +64,23 @@ const TransactionMaster = () => {
       .then((data) => {
         setData(data);
       });
-    console.log("DATA : " + JSON.stringify(data));
+    console.log("DATA PRINT : " + JSON.stringify(data));
   }, []);
-
-  // console.log("DISPLAYED DATA:"+data);
-
+  // const exportData= JSON.stringify(data);
+  // console.log("DISPLAYED DATA:", exportData);
+  console.log("RECORD DATA:",data);
+  
   return (
     <>
       {showPopup && (
         <FileUpload
           onDataReceived={handleRawDataFromMyComponent}
+          onCloseRecieved={closePopup}
+        />
+      )}
+      {showExport && (
+        <FileExport
+          data={data}
           onCloseRecieved={closePopup}
         />
       )}
@@ -83,7 +95,7 @@ const TransactionMaster = () => {
                 <AiOutlineImport />
               </p>
             </button>
-            <button className="" onClick={handleClick}>
+            <button className="" onClick={exportClick}>
               <p className="text-2xl">
                 <AiOutlineExport />
               </p>
@@ -120,15 +132,15 @@ const TransactionMaster = () => {
                 ></th>
               </tr>
             </thead>
-            {displayedData != "" ? (
+            {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {displayedData.map((product,index) => (
+                {displayedData.map((transaction,index) => (
                   <tr class="hover:bg-gray-50" key={index}>
-                    <td class="px-6 py-2">{product.Record.batchId}</td>
-                    <td class="px-6 py-2">{product.Record.currentLocation}</td>
-                    <td class="px-6 py-2">{product.Record.route}</td>
-                    <td class="px-6 py-2">{product.Record.actualPath}</td>
-                    <td class="px-6 py-2">{product.Record.soldStatus.toString()}</td>
+                    <td class="px-6 py-2">{transaction.Record.batchId}</td>
+                    <td class="px-6 py-2">{transaction.Record.currentLocation}</td>
+                    <td class="px-6 py-2">{transaction.Record.route}</td>
+                    <td class="px-6 py-2">{transaction.Record.actualPath}</td>
+                    <td class="px-6 py-2">{transaction.Record.soldStatus.toString()}</td>
                     <td class="px-6 py-2">
                       <div class="flex justify-end gap-4">
                         <button x-data="{ tooltip: 'Delete' }">
