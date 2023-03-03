@@ -35,35 +35,17 @@ const HomeRetailer = () => {
   const { isAuth, login } = useContext(AuthContext);
 
   return (
-    <BrowserRouter>
-      <div className="flex relative">
-        {/* <div className="w-[8%] fixed sidebar bg-sidebar-bg z-50 text-clip">
-          <Sidebar />
-        </div> */}
-        <div className="bg-main-bg absolute  w-[100%]">
-          <div className="fixed w-[92%] z-[5]">
-            <Navbar />
-          </div>
-          <div className="z-[1] bg-main-bg absolute top-14 min-h-[90vh] w-full ">
-            {/* <h1>HomeRetailer</h1> */}
-            <Routes>
-              <Route path="/" element={<DashboardRetailer />} />
+    <Routes>
+      <Route path="/" element={<DashboardRetailer />} />
 
-              <Route path="/retailerActivity" element={<RetailerActivity />} />
+      <Route path="/retailerActivity" element={<RetailerActivity />} />
 
-              <Route
-                path="/retailerIncomingBatch"
-                element={<RetailerIncomingBatch />}
-              />
-              <Route
-                path="/retailerScanHistory"
-                element={<RetailerScanHistory />}
-              />
-            </Routes>
-          </div>
-        </div>
-      </div>
-    </BrowserRouter>
+      <Route
+        path="/retailerIncomingBatch"
+        element={<RetailerIncomingBatch />}
+      />
+      <Route path="/retailerScanHistory" element={<RetailerScanHistory />} />
+    </Routes>
   );
 };
 

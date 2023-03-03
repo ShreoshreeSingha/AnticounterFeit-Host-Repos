@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 import React from "react";
 import {
   MdSpaceDashboard,
@@ -121,12 +122,22 @@ export const manufacturerRoutes = [
   },
   {
     path: "/network",
-    name: "network",
+    name: "Add Product",
     icon: <VscTypeHierarchy />,
   },
   {
     path: "/network",
-    name: "network",
+    name: "Create New Batches",
+    icon: <VscTypeHierarchy />,
+  },
+  {
+    path: "/network",
+    name: "Outgoing BatchHistory",
+    icon: <VscTypeHierarchy />,
+  },
+  {
+    path: "/network",
+    name: "Scan History",
     icon: <VscTypeHierarchy />,
   },
 ];
@@ -138,8 +149,29 @@ export const distributorRoutes = [
     icon: <MdSpaceDashboard />,
   },
   {
+    // eslint-disable-next-line quotes
     path: "/network",
-    name: "network",
+    name: "Incoming Batches",
+    icon: <VscTypeHierarchy />,
+  },
+  {
+    path: "/network",
+    name: "Outgoing Batches",
+    icon: <VscTypeHierarchy />,
+  },
+  {
+    path: "/network",
+    name: "Scan History",
+    icon: <VscTypeHierarchy />,
+  },
+  {
+    path: "/network",
+    name: "Scan History",
+    icon: <VscTypeHierarchy />,
+  },
+  {
+    path: "/network",
+    name: "Scan History",
     icon: <VscTypeHierarchy />,
   },
 ];
@@ -149,6 +181,16 @@ export const storageRoutes = [
     path: "/",
     name: "dashboard",
     icon: <MdSpaceDashboard />,
+  },
+  {
+    path: "/storageOutgoingHistory",
+    name: "OutgoingBatch",
+    icon: <VscTypeHierarchy />,
+  },
+  {
+    path: "/network",
+    name: "network",
+    icon: <VscTypeHierarchy />,
   },
   {
     path: "/network",
@@ -165,7 +207,12 @@ export const retailerRoutes = [
   },
   {
     path: "/network",
-    name: "network",
+    name: "Incoming Batches",
+    icon: <VscTypeHierarchy />,
+  },
+  {
+    path: "/network",
+    name: "Scan History",
     icon: <VscTypeHierarchy />,
   },
 ];

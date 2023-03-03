@@ -1,33 +1,30 @@
-import React, {useContext} from "react";
+/* eslint-disable quotes */
+import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import SidebarMenu from "./SidebarMenu";
-import { adminRoutes, manufacturerRoutes, distributorRoutes, retailerRoutes, storageRoutes } from "../data/link";
+import {
+  adminRoutes,
+  manufacturerRoutes,
+  distributorRoutes,
+  retailerRoutes,
+  storageRoutes,
+} from "../data/link";
 import { AuthContext } from "../contexts/auth-context";
 
-const SideBar = () => {
-
+const Sidebar = () => {
   const { userRole } = useContext(AuthContext);
   var routes = "";
-  if(userRole === "admin@gmail.com")
-  {
+  if (userRole === "admin@gmail.com") {
     routes = adminRoutes;
-  }
-  else if(userRole === "manufacturer@gmail.com"){
+  } else if (userRole === "manufacturer@gmail.com") {
     routes = manufacturerRoutes;
-  }
-  else if(userRole === "distributor@gmail.com")
-  {
+  } else if (userRole === "distributor@gmail.com") {
     routes = distributorRoutes;
-  }
-  else if(userRole === "storage@gmail.com")
-  {
+  } else if (userRole === "storage@gmail.com") {
     routes = storageRoutes;
+  } else {
+    routes = retailerRoutes;
   }
-  else {
-    routes = storageRoutes;
-  }
-
-
 
   const activeLink =
     "grid items-center gap-1 p-2 rounded-lg text-black font-semibold text-md m-2 bg-active-bg";
@@ -84,4 +81,4 @@ const SideBar = () => {
   );
 };
 
-export default SideBar;
+export default Sidebar;
