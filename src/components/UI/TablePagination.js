@@ -1,3 +1,4 @@
+/* eslint-disable quotes */
 import React, { useState, useEffect } from "react";
 import { GrFormNext, GrFormPrevious } from "react-icons/gr";
 
@@ -7,32 +8,37 @@ const TablePagigation = (props) => {
   const [displayedData, setDisplayedData] = useState([]);
 
   const data = props.data;
-  const pageSize = props.pageSize
+  console.log("PROPS DATA: " + data);
+  const pageSize = props.pageSize;
   const handleData = props.onDataReceived;
+
+  // console.log("INSIDE PAGINATION");
+  // console.log("Incoming pageination data: " + JSON.stringify(props.data));
 
   useEffect(() => {
     setTotalPages(Math.ceil(data.length / pageSize));
     setDisplayedData(
       data.slice((currentPage - 1) * pageSize, currentPage * pageSize)
     );
+    console.log("DISPLAYED DATA INSIDE USE EFFECT: " + displayedData);
   }, [data, currentPage, pageSize]);
 
+  console.log("DISPLAYED DATA: " + displayedData);
+
   const handlePageChange_next = () => {
-    if(currentPage < totalPages)
-    {
+    console.log("Inside handlePageChange_next");
     setCurrentPage(currentPage + pageSize);
-    const newData = displayedData; // your new data here 
+    const newData = displayedData; // your new data here
+    console.log("new DATA: " + JSON.stringify(newData));
     handleData(newData); // call the callback function with the new data
-    }
   };
 
   const handlePageChange_prev = () => {
-    if(currentPage >= 2 )
-    {
+    console.log("Inside handlePageChange_prev");
     setCurrentPage(currentPage - pageSize);
-    const newData = displayedData; // your new data here 
+    const newData = displayedData; // your new data here
+
     handleData(newData); // call the callback function with the new data
-    }
   };
 
   return (

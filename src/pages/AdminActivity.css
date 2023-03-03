@@ -35,14 +35,14 @@ section::after {
 } */
 
 .container {
-	position: absolute;
+	position: relative;
 	top:15%;
 	z-index: 1;
 	display: flex;
-	justify-content: space-evenly;
+	justify-content: flex-start;
 	align-items: center;
 	flex-wrap: wrap;
-	margin: 40px;
+	margin:0px 40px;
 }
 
 .container .card {

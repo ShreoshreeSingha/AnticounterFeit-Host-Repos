@@ -1,13 +1,21 @@
 import React, { useState, useEffect } from "react";
+import {
+  AiOutlineImport,
+  AiOutlineExport,
+  AiOutlineCloudDownload,
+} from "react-icons/ai";
 import Header from "../../components/Header";
 import TablePagination from "../../components/UI/TablePagination";
-import { AiOutlineImport, AiOutlineExport } from "react-icons/ai";
-//import FileUpload from "../components/UI/FileUpload";
+// import FileUpload from "../components/UI/FileUpload";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import FileExport from "../../components/UI/FileExport";
+import { useStateContext } from "../../contexts/ContextProvider";
 
 function DistributorIncomingBatch() {
   const [data, setData] = useState([]);
+  const [showExport, setShowExport] = useState(false);
   const [filterParam, setFilterParam] = useState("");
+  const [displayedData, setDisplayedData] = useState([]);
   // rest of component code
   useEffect(() => {
     fetch("http://20.193.146.8:8080/api/getallbatches")
@@ -15,58 +23,64 @@ function DistributorIncomingBatch() {
       .then((data) => setData(data))
       .catch((error) => console.error(error));
   }, []);
+  // console.log("Data: " + JSON.stringify(data));
 
-  const filterData = () => data.filter((item) => item.Record.route[1] === "S2");
+  const filterData = () => data.filter((item) => item.Record.route[2] === "D4");
+  // console.log("Filter Data: " + JSON.stringify(filterData()));
 
-  var pageSize = 10;
+  const pageSize = 5;
   const [showPopup, setShowPopup] = useState(false);
 
-  const handleClick = () => {
-    setShowPopup(true);
+  const exportClick = () => {
+    setShowExport(true);
   };
 
+  // const handleClick = () => {
+  //   setShowPopup(true);
+  // };
+
   function handleTableDataFromMyComponent(data) {
-    console.log("Received data from MyComponent:", data);
+    console.log(`Received data from MyComponent:${JSON.stringify(data)}`);
     setDisplayedData(data);
+    console.log("Inside handleTableDataFromMyComponent FUNCTION ");
+    console.log("Displayed Data: " + JSON.stringify(displayedData));
     // Do something with the data here
   }
 
-  function handleRawDataFromMyComponent(data) {
-    console.log("Received data from MyComponent:", JSON.stringify(data));
-    setData(data);
-    // Do something with the data here
-  }
+  // function handleRawDataFromMyComponent(data) {
+  //   console.log("Received data from MyComponent:", JSON.stringify(data));
+  //   setData(data);
+  //   // Do something with the data here
+  // }
 
+  // function closePopup() {
+  //   setShowPopup(false);
+  // }
   function closePopup() {
     setShowPopup(false);
+    setShowExport(false);
   }
-
-  console.log("TYPE OF DATA: " + typeof data);
-  console.log("STATE DATA: " + JSON.stringify(data));
+  // console.log("TYPE OF DATA: " + typeof data);
+  // console.log("STATE DATA: " + JSON.stringify(data));
 
   return (
     <>
       <Header category="Page" title="Distributor | Incoming Batches" />
-      {showPopup && (
-        <FileUpload
-          onDataReceived={handleRawDataFromMyComponent}
-          onCloseRecieved={closePopup}
-        />
-      )}
+      {showExport && <FileExport data={data} onCloseRecieved={closePopup} />}
       <div className="rounded-lg">
         <div className="bg-white mt-2 flex justify-between ">
           <div>
             <input placeholder="Search" className="w-52 h-8" />
           </div>
           <div className=" flex align-baseline m-4">
-            <button className="" onClick={handleClick}>
+            {/* <button className="" onClick={handleClick}>
               <p className="text-2xl">
                 <AiOutlineImport />
-              </p>
-            </button>
-            <button className="" onClick={handleClick}>
+              </p> */}
+            {/* </button> */}
+            <button className="" onClick={exportClick}>
               <p className="text-2xl">
-                <AiOutlineExport />
+                <AiOutlineCloudDownload />
               </p>
             </button>
             {/* <button className="m-2">
@@ -76,26 +90,26 @@ function DistributorIncomingBatch() {
             </button> */}
           </div>
         </div>
-        <div class="overflow-hidden bg-white shadow-md">
-          <table class=" min-h-[70vh] w-full border-collapse text-left text-sm text-gray-500">
-            <thead class="bg-gray-50 border-t-1">
+        <div className="overflow-hidden bg-white shadow-md">
+          <table className=" min-h-[70vh] w-full border-collapse text-left text-sm text-gray-500">
+            <thead className="bg-gray-50 border-t-1">
               <tr>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                <th scope="col" className="px-6 py-4 font-medium text-gray-900">
                   batchId
                 </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                <th scope="col" className="px-6 py-4 font-medium text-gray-900">
                   actualPath
                 </th>
                 {/* <th scope="col" class="px-6 py-4 font-medium text-gray-900">
                   batchId
                 </th> */}
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                <th scope="col" className="px-6 py-4 font-medium text-gray-900">
                   currentLocation
                 </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                <th scope="col" className="px-6 py-4 font-medium text-gray-900">
                   route
                 </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                <th scope="col" className="px-6 py-4 font-medium text-gray-900">
                   soldStatus
                 </th>
                 {/* <th
@@ -105,24 +119,24 @@ function DistributorIncomingBatch() {
               </tr>
             </thead>
             {data != "" ? (
-              <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+              <tbody className="divide-y divide-gray-100 border-t border-gray-100">
                 {filterData().map((item) => (
-                  <tr class="hover:bg-gray-50" key={item.id}>
-                    <td class="px-6 py-1 font-medium text-gray-900">
+                  <tr className="hover:bg-gray-50" key={item.id}>
+                    <td className="px-6 py-1 font-medium text-gray-900">
                       {item.Key}
                     </td>
-                    <td class="px-6 py-1font-medium text-gray-900">
+                    <td className="px-6 py-1font-medium text-gray-900">
                       {item.Record.actualPath}
                     </td>
                     {/* <td class="px-3 py-2">{item.Record.batchId}</td> */}
-                    <td class="px-6 py-1 font-medium text-gray-900">
+                    <td className="px-6 py-1 font-medium text-gray-900">
                       {item.Record.currentLocation}
                     </td>
-                    <td class="px-6 py-1font-medium text-gray-900">
+                    <td className="px-6 py-1font-medium text-gray-900">
                       {item.Record.route[0]}-{item.Record.route[1]}-
                       {item.Record.route[2]}-{item.Record.route[3]}
                     </td>
-                    <td class="px-6 py-1font-medium text-gray-900">
+                    <td className="px-6 py-1font-medium text-gray-900">
                       {item.Record.soldStatus.toString()}
                     </td>
                     {/* <td class="px-6 py-2">
@@ -173,7 +187,7 @@ function DistributorIncomingBatch() {
             )}
           </table>
           <TablePagination
-            data={data}
+            data={filterData()}
             pageSize={pageSize}
             onDataReceived={handleTableDataFromMyComponent}
           />
