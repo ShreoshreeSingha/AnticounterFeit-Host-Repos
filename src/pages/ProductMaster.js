@@ -57,7 +57,7 @@ const ProductMaster = () => {
   // React.useEffect(() => {
   // },[displayedData])
 
-  var pageSize = 10;
+  var pageSize = 5;
 
   const handleClick = () => {
     setShowPopup(true);

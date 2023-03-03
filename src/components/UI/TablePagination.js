@@ -5,9 +5,10 @@ const TablePagigation = (props) => {
   const [currentPage, setCurrentPage] = useState(1);
   const [totalPages, setTotalPages] = useState(0);
   const [displayedData, setDisplayedData] = useState([]);
+  const [pageSize, setPageSize] = useState(2);
 
   const data = props.data;
-  const pageSize = props.pageSize
+  // const pageSize = props.pageSize
   const handleData = props.onDataReceived;
 
   useEffect(() => {
@@ -16,6 +17,7 @@ const TablePagigation = (props) => {
       data.slice((currentPage - 1) * pageSize, currentPage * pageSize)
     );
   }, [data, currentPage, pageSize]);
+  console.log("Pagination Displayed Data: " +JSON.stringify(displayedData))
 
   const handlePageChange_next = () => {
     if(currentPage < totalPages)
@@ -35,11 +37,16 @@ const TablePagigation = (props) => {
     }
   };
 
+  const handleChange = (event) => {
+    setPageSize(event.target.value);
+}
+  console.log(pageSize)
+
   return (
     <div className="p-4 text-md flex content-center border-b-1 justify-between bg-white">
       <div>
         <label>Rows per page: </label>
-        <select>
+        <select value={pageSize} onChange={handleChange}>
           <option>5</option>
           <option>10</option>
           <option>25</option>

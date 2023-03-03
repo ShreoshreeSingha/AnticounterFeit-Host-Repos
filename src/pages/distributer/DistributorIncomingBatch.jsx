@@ -7,7 +7,9 @@ import LoadingSpinner from "../../components/LoadingSpinner";
 
 function DistributorIncomingBatch() {
   const [data, setData] = useState([]);
+  const [displayedData, setDisplayedData] = useState([])
   const [filterParam, setFilterParam] = useState("");
+  
   // rest of component code
   useEffect(() => {
     fetch("http://20.193.146.8:8080/api/getallbatches")
@@ -17,8 +19,10 @@ function DistributorIncomingBatch() {
   }, []);
 
   const filterData = () => data.filter((item) => item.Record.route[1] === "S2");
+  const recievedFilterData = filterData()
 
-  var pageSize = 10;
+
+  // var pageSize = 2;
   const [showPopup, setShowPopup] = useState(false);
 
   const handleClick = () => {
@@ -26,13 +30,13 @@ function DistributorIncomingBatch() {
   };
 
   function handleTableDataFromMyComponent(data) {
-    console.log("Received data from MyComponent:", data);
+    console.log("Received data from MyComponent:", JSON.stringify(data));
     setDisplayedData(data);
     // Do something with the data here
   }
 
   function handleRawDataFromMyComponent(data) {
-    console.log("Received data from MyComponent:", JSON.stringify(data));
+    console.log("Received data from Local System:", JSON.stringify(data));
     setData(data);
     // Do something with the data here
   }
@@ -41,8 +45,8 @@ function DistributorIncomingBatch() {
     setShowPopup(false);
   }
 
-  console.log("TYPE OF DATA: " + typeof data);
-  console.log("STATE DATA: " + JSON.stringify(data));
+  // console.log("TYPE OF DATA: " + typeof data);
+  // console.log("STATE DATA: " + JSON.stringify(data));
 
   return (
     <>
@@ -106,7 +110,7 @@ function DistributorIncomingBatch() {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {filterData().map((item) => (
+                {displayedData.map((item) => (
                   <tr class="hover:bg-gray-50" key={item.id}>
                     <td class="px-6 py-1 font-medium text-gray-900">
                       {item.Key}
@@ -173,8 +177,8 @@ function DistributorIncomingBatch() {
             )}
           </table>
           <TablePagination
-            data={data}
-            pageSize={pageSize}
+            data={recievedFilterData}
+            // pageSize={pageSize}
             onDataReceived={handleTableDataFromMyComponent}
           />
         </div>

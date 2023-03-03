@@ -4,9 +4,6 @@ import { DownloadTableExcel } from "react-export-table-to-excel";
 import {AiOutlineClose} from "react-icons/ai";
 import Button from "./Button/Button";
 
-
-
-
 const FileExport = (props) =>{
     // const [selectedOption, setSelectedOption] = useState(null);
 
@@ -18,9 +15,6 @@ const FileExport = (props) =>{
     // Convert the data to a file
     console.log("csvData"+csvData);
     
-
-
-   
     return(
         <div className="bg-white shadow-lg rounded-lg w-1/2 h-2/3 fixed top-[20%] left-[25%] z-[5]">
             <button

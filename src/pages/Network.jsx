@@ -1,11 +1,14 @@
 import React from "react";
 import NetworkGraph from "../components/network/NetworkGraph";
+import { useStateContext } from "../contexts/ContextProvider";
 
 function Network() {
+  const { setTitle , setCategory } = useStateContext();
+  setTitle('/Network')
+  setCategory('Page')
   return (
     <div>
-      <h1>Network Graph</h1>
-      <div className=" h-[92%] ">
+      <div className=" h-[92%] bg-white mt-1 ">
         <NetworkGraph />
       </div>
     </div>

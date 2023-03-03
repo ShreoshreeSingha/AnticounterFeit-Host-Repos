@@ -15,21 +15,23 @@ const TransactionMaster = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
 
+
   setTitle('/Transaction Master')
   setCategory('Data')
 
   // React.useEffect(() => {
   // },[displayedData])
 
-  var pageSize = 10;
+  // var pageSize = 10;
 
   const handleClick = () => {
     setShowPopup(true);
   };
 
   function handleTableDataFromMyComponent(data) {
-    console.log("Received data from MyComponent:", data);
+    console.log("Received data from MyComponent:"+ data);
     setDisplayedData(data);
+    console.log("Displayed Data: "+displayedData)
     // Do something with the data here
   }
 
@@ -43,8 +45,8 @@ const TransactionMaster = () => {
     setShowPopup(false);
   }
 
-  console.log("TYPE OF DATA: " + typeof data);
-  console.log("STATE DATA: " + JSON.stringify(data));
+  // console.log("TYPE OF DATA: " + typeof data);
+  // console.log("STATE DATA: " + JSON.stringify(data));
 
   React.useEffect(() => {
     fetch(URL, {
@@ -60,7 +62,7 @@ const TransactionMaster = () => {
     console.log("DATA : " + JSON.stringify(data));
   }, []);
 
-  console.log("DISPLAYED DATA:",data);
+  // console.log("DISPLAYED DATA:"+data);
 
   return (
     <>
@@ -118,9 +120,9 @@ const TransactionMaster = () => {
                 ></th>
               </tr>
             </thead>
-            {data != "" ? (
+            {displayedData != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {data.map((product,index) => (
+                {displayedData.map((product,index) => (
                   <tr class="hover:bg-gray-50" key={index}>
                     <td class="px-6 py-2">{product.Record.batchId}</td>
                     <td class="px-6 py-2">{product.Record.currentLocation}</td>
@@ -174,7 +176,7 @@ const TransactionMaster = () => {
           </table>
           <TablePagination
             data={data}
-            pageSize={pageSize}
+            // pageSize={pageSize}
             onDataReceived={handleTableDataFromMyComponent}
           />
         </div>
