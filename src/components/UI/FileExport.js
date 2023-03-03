@@ -10,6 +10,8 @@ const FileExport = (props) => {
   const data = props.data;
   const onClick = props.onCloseRecieved;
 
+  console.log("Inside Export data: " + data);
+
   const csvData = data.map((row) => Object.values(row).join(",")).join("\n");
   // Convert the data to a file
   console.log("csvData ::" + csvData);
@@ -24,7 +26,7 @@ const FileExport = (props) => {
       </button>
       <div className="flex flex-col justify-center m-12">
         <div className="flex justify-between m-2">
-          <CSVLink data={JSON.stringify(data)}>
+          <CSVLink data={csvData}>
             <Button>CSV</Button>
           </CSVLink>
           <DownloadTableExcel

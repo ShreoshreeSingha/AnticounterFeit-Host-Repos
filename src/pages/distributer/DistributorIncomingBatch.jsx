@@ -17,13 +17,15 @@ function DistributorIncomingBatch() {
   const [filterParam, setFilterParam] = useState("");
   const [displayedData, setDisplayedData] = useState([]);
   // rest of component code
+
+  
   useEffect(() => {
     fetch("http://20.193.146.8:8080/api/getallbatches")
       .then((response) => response.json())
       .then((data) => setData(data))
       .catch((error) => console.error(error));
   }, []);
-  // console.log("Data: " + JSON.stringify(data));
+  console.log("Data: " + JSON.stringify(data));
 
   const filterData = () => data.filter((item) => item.Record.route[1] === "S2");
   const recievedFilterData = filterData()
@@ -41,18 +43,18 @@ function DistributorIncomingBatch() {
   // };
 
   function handleTableDataFromMyComponent(data) {
-    console.log(`Received data from MyComponent:${JSON.stringify(data)}`);
+    // console.log(`Received data from MyComponent:${JSON.stringify(data)}`);
     setDisplayedData(data);
-    console.log("Inside handleTableDataFromMyComponent FUNCTION ");
-    console.log("Displayed Data: " + JSON.stringify(displayedData));
+    // console.log("Inside handleTableDataFromMyComponent FUNCTION ");
+    // console.log("Displayed Data: " + JSON.stringify(displayedData));
     // Do something with the data here
   }
 
-  function handleRawDataFromMyComponent(data) {
-    console.log("Received data from Local System:", JSON.stringify(data));
-    setData(data);
-    // Do something with the data here
-  }
+  // function handleRawDataFromMyComponent(data) {
+  //   console.log("Received data from Local System:", JSON.stringify(data));
+  //   setData(data);
+  //   // Do something with the data here
+  // }
 
   // function closePopup() {
   //   setShowPopup(false);

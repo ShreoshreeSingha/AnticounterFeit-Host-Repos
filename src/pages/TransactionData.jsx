@@ -48,6 +48,7 @@ const TransactionMaster = () => {
 
   function closePopup() {
     setShowPopup(false);
+    setShowExport(false);
   }
 
   console.log("TYPE OF DATA: " + typeof data);
