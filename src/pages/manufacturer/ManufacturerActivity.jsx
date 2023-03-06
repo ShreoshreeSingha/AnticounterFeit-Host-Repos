@@ -41,7 +41,7 @@ const cardList = [
   {
     icon: ADDPRODUCT,
     name: "Add new Products",
-    path: "/addProduct",
+    path: "/popupprod",
   },
 ];
 

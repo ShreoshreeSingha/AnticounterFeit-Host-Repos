@@ -7,20 +7,20 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import Navbar from "../components/Navbar";
 import { useStateContext } from "../contexts/ContextProvider";
 import FileExport from "../components/UI/FileExport";
-import {MdDoubleArrow} from "react-icons/md";
+import { MdNotificationAdd } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 
-const URL = "http://20.193.146.8:8080/api/data/product";
+const URL = "http://192.168.0.164:8080/api/data/get/bodmaster";
 
 const BODMaster = () => {
-  const { setTitle , setCategory } = useStateContext();
+  const { setTitle, setCategory } = useStateContext();
   const [data, setData] = React.useState([]);
   const [showPopup, setShowPopup] = useState(false);
-   const [showExport, setShowExport] = useState(false);
+  const [showExport, setShowExport] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
 
-  setTitle('/BOD Master')
-  setCategory('Data')
+  setTitle("/BOD Master");
+  setCategory("Data");
 
   // React.useEffect(() => {
   // },[displayedData])
@@ -31,7 +31,7 @@ const BODMaster = () => {
     setShowPopup(true);
   };
 
-  const exportClick = () =>{
+  const exportClick = () => {
     setShowExport(true);
   };
 
@@ -53,25 +53,25 @@ const BODMaster = () => {
   }
 
   const handleDelete = (item) => {
-    setData(data.filter(i => i.id !== item.id));
+    setData(data.filter((i) => i.id !== item.id));
   };
 
   console.log("TYPE OF DATA: " + typeof data);
   console.log("STATE DATA: " + JSON.stringify(data));
 
-  // React.useEffect(() => {
-  //   fetch(URL, {
-  //     headers: {
-  //       "content-type": "application/json",
-  //       Accept: "application/json",
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((res) => {
-  //       setData(res.data);
-  //     });
-  //   console.log("DATA : " + JSON.stringify(data));
-  // }, []);
+  React.useEffect(() => {
+    fetch(URL, {
+      headers: {
+        "content-type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data);
+      });
+    console.log("DATA : " + JSON.stringify(data));
+  }, []);
 
   return (
     <>
@@ -82,20 +82,22 @@ const BODMaster = () => {
         />
       )}
       {showExport && (
-        <FileExport
-          data={displayedData}
-          onCloseRecieved={closePopup}
-        />
+        <FileExport data={displayedData} onCloseRecieved={closePopup} />
       )}
       <div className="m-2 rounded-lg">
         <div className="flex justify-between p-4 bg-white rounded-lg">
-        <div className="flex items-center text-xl">
-           <h5>Add New BOD (Path ID, Starting Point, Ending Point, Transit Type, Average Time Taken, Distance)</h5>
+          <div className="flex items-center text-xl">
+            <h5>
+              Add New BOD (Path ID, Starting Point, Ending Point, Transit Type,
+              Average Time Taken, Distance)
+            </h5>
+          </div>
+          <div className="flex items-center text-4xl">
+            <NavLink to={"/addBOD"}>
+              <MdNotificationAdd />
+            </NavLink>
+          </div>
         </div>
-        <div className="flex items-center text-4xl">
-          <NavLink to={"/addBOD"}><MdDoubleArrow/></NavLink>
-        </div>
-      </div>
         <div className="bg-white mt-3 flex justify-between ">
           <div>
             <input placeholder="Search" className="w-52 h-8" />
@@ -148,17 +150,20 @@ const BODMaster = () => {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {displayedData.map((bod, index) => (
+                {data.map((bod, index) => (
                   <tr class="hover:bg-gray-50" key={index}>
-                    <td class="px-6 py-2">{bod.pathId}</td>
-                    <td class="px-6 py-2">{bod.startingPoint}</td>
-                    <td class="px-6 py-2">{bod.endingPoint}</td>
-                    <td class="px-6 py-2">{bod.transitType}</td>
-                    <td class="px-6 py-2">{bod.avgTimeTaken}</td>
-                    <td class="px-6 py-2">{bod.distance}</td>
+                    <td class="px-6 py-2">{bod.doc.pathID}</td>
+                    <td class="px-6 py-2">{bod.doc.startingPoint}</td>
+                    <td class="px-6 py-2">{bod.doc.endingPoint}</td>
+                    <td class="px-6 py-2">{bod.doc.transitType}</td>
+                    <td class="px-6 py-2">{bod.doc.avgTimeTaken}</td>
+                    <td class="px-6 py-2">{bod.doc.distance}</td>
                     <td class="px-6 py-2">
                       <div class="flex justify-end gap-4">
-                        <button x-data="{ tooltip: 'Delete' }" onClick={() => handleDelete(bod)}>
+                        <button
+                          x-data="{ tooltip: 'Delete' }"
+                          onClick={() => handleDelete(bod)}
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
@@ -198,7 +203,9 @@ const BODMaster = () => {
                 ))}
               </tbody>
             ) : (
-              <div className="text-lg"><LoadingSpinner /></div>
+              <div className="text-lg">
+                <LoadingSpinner />
+              </div>
             )}
           </table>
           <TablePagination

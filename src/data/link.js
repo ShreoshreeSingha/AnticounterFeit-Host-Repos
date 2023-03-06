@@ -11,8 +11,14 @@ import { FaRoute } from "react-icons/fa";
 import { FiDatabase } from "react-icons/fi";
 import { BsBox } from "react-icons/bs";
 import { IoMdPersonAdd } from "react-icons/io";
+import { IoMdExpand } from "react-icons/io";
 import { TbRoute } from "react-icons/tb";
 import { CgTrack } from "react-icons/cg";
+import { CgViewList } from "react-icons/cg";
+import { CgPhotoscan } from "react-icons/cg";
+import { CgAdd } from "react-icons/cg";
+import { CgFormatIndentIncrease } from "react-icons/cg";
+
 import { BiDetail } from "react-icons/bi";
 import {
   MdOutlineAdminPanelSettings,
@@ -121,24 +127,24 @@ export const manufacturerRoutes = [
     icon: <MdSpaceDashboard />,
   },
   {
-    path: "/network",
+    path: "/popupprod",
     name: "Add Product",
-    icon: <VscTypeHierarchy />,
+    icon: <CgAdd />,
   },
   {
-    path: "/network",
-    name: "Create New Batches",
-    icon: <VscTypeHierarchy />,
+    path: "/createbatch",
+    name: "Create Batch",
+    icon: <CgFormatIndentIncrease />,
   },
   {
-    path: "/network",
-    name: "Outgoing BatchHistory",
-    icon: <VscTypeHierarchy />,
+    path: "/manufacturerOutgoingHistory",
+    name: "Outgoing Batch",
+    icon: <CgViewList />,
   },
   {
-    path: "/network",
+    path: "/manufacturerScanHistory",
     name: "Scan History",
-    icon: <VscTypeHierarchy />,
+    icon: <CgPhotoscan />,
   },
 ];
 
@@ -150,29 +156,19 @@ export const distributorRoutes = [
   },
   {
     // eslint-disable-next-line quotes
-    path: "/network",
-    name: "Incoming Batches",
-    icon: <VscTypeHierarchy />,
+    path: "/distributorIncomingHistory",
+    name: "Incoming Batch",
+    icon: <IoMdExpand />,
   },
   {
-    path: "/network",
-    name: "Outgoing Batches",
-    icon: <VscTypeHierarchy />,
+    path: "/distributorOutgoingHistory",
+    name: "Outgoing Batch",
+    icon: <CgViewList />,
   },
   {
-    path: "/network",
+    path: "/distributorScanHistory",
     name: "Scan History",
-    icon: <VscTypeHierarchy />,
-  },
-  {
-    path: "/network",
-    name: "Scan History",
-    icon: <VscTypeHierarchy />,
-  },
-  {
-    path: "/network",
-    name: "Scan History",
-    icon: <VscTypeHierarchy />,
+    icon: <CgPhotoscan />,
   },
 ];
 
@@ -184,18 +180,18 @@ export const storageRoutes = [
   },
   {
     path: "/storageOutgoingHistory",
-    name: "OutgoingBatch",
-    icon: <VscTypeHierarchy />,
+    name: "Outgoing Batch",
+    icon: <CgViewList />,
   },
   {
-    path: "/network",
-    name: "network",
-    icon: <VscTypeHierarchy />,
+    path: "/storageIncomingHistory",
+    name: "Incoming Batch",
+    icon: <IoMdExpand />,
   },
   {
-    path: "/network",
-    name: "network",
-    icon: <VscTypeHierarchy />,
+    path: "/storageScanHistory",
+    name: "Scan History",
+    icon: <CgPhotoscan />,
   },
 ];
 
@@ -206,14 +202,14 @@ export const retailerRoutes = [
     icon: <MdSpaceDashboard />,
   },
   {
-    path: "/network",
-    name: "Incoming Batches",
-    icon: <VscTypeHierarchy />,
+    path: "/retailerIncomingBatch",
+    name: "Incoming Batch",
+    icon: <IoMdExpand />,
   },
   {
-    path: "/network",
+    path: "/retailerScanHistory",
     name: "Scan History",
-    icon: <VscTypeHierarchy />,
+    icon: <CgPhotoscan />,
   },
 ];
 

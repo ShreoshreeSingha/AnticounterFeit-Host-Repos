@@ -7,20 +7,20 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import Navbar from "../components/Navbar";
 import { useStateContext } from "../contexts/ContextProvider";
 import FileExport from "../components/UI/FileExport";
-import {MdDoubleArrow} from "react-icons/md";
+import { MdLocationOn } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 
-const URL = "http://20.193.146.8:8080/api/data/product";
+const URL = "http://192.168.0.164:8080/api/data/get/routemaster";
 
 const RouteMaster = () => {
-  const { setTitle , setCategory } = useStateContext();
+  const { setTitle, setCategory } = useStateContext();
   const [data, setData] = React.useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [showExport, setShowExport] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
 
-  setTitle('/Route Master')
-  setCategory('Data')
+  setTitle("/Route Master");
+  setCategory("Data");
 
   // React.useEffect(() => {
   // },[displayedData])
@@ -31,9 +31,9 @@ const RouteMaster = () => {
     setShowPopup(true);
   };
 
-  const exportClick = () =>{
+  const exportClick = () => {
     setShowExport(true);
-  }
+  };
 
   function handleTableDataFromMyComponent(data) {
     console.log("Received data from MyComponent:", data);
@@ -55,19 +55,19 @@ const RouteMaster = () => {
   console.log("TYPE OF DATA: " + typeof data);
   console.log("STATE DATA: " + JSON.stringify(data));
 
-  // React.useEffect(() => {
-  //   fetch(URL, {
-  //     headers: {
-  //       "content-type": "application/json",
-  //       Accept: "application/json",
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((res) => {
-  //       setData(res.data);
-  //     });
-  //   console.log("DATA : " + JSON.stringify(data));
-  // }, []);
+  React.useEffect(() => {
+    fetch(URL, {
+      headers: {
+        "content-type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data);
+      });
+    console.log("DATA : " + JSON.stringify(data));
+  }, []);
 
   return (
     <>
@@ -78,20 +78,19 @@ const RouteMaster = () => {
         />
       )}
       {showExport && (
-        <FileExport
-          data={displayedData}
-          onCloseRecieved={closePopup}
-        />
+        <FileExport data={displayedData} onCloseRecieved={closePopup} />
       )}
       <div className="m-2 rounded-lg">
-      <div className="flex justify-between p-4 bg-white rounded-lg">
-        <div className="flex items-center text-xl">
-           <h5>Add New Route (Chespoints, Avg Time, Total Distance)</h5>
+        <div className="flex justify-between p-4 bg-white rounded-lg">
+          <div className="flex items-center text-xl">
+            <h5>Add New Route (Chespoints, Avg Time, Total Distance)</h5>
+          </div>
+          <div className="flex items-center text-4xl">
+            <NavLink to={"/addRoute"}>
+              <MdLocationOn />
+            </NavLink>
+          </div>
         </div>
-        <div className="flex items-center text-4xl">
-          <NavLink to={"/addRoute"}><MdDoubleArrow/></NavLink>
-        </div>
-      </div>
         <div className="bg-white mt-3 flex justify-between ">
           <div>
             <input placeholder="Search" className="w-52 h-8" />
@@ -138,12 +137,15 @@ const RouteMaster = () => {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {displayedData.map((route, index) => (
+                {data.map((route, index) => (
                   <tr class="hover:bg-gray-50" key={index}>
-                    <td class="px-6 py-2">{route.routeID}</td>
-                    <td class="px-6 py-2">{route.checkPoints}</td>
-                    <td class="px-6 py-2">{route.avgTime}</td>
-                    <td class="px-6 py-2">{route.totalDistance}</td>
+                    <td class="px-6 py-2">{route.doc.RouteID}</td>
+                    <td class="px-6 py-2">
+                      {route.doc.CheckPoints[0]}-{route.doc.CheckPoints[1]}-
+                      {route.doc.CheckPoints[2]}-{route.doc.CheckPoints[3]}
+                    </td>
+                    <td class="px-6 py-2">{route.doc.AvgTime}</td>
+                    <td class="px-6 py-2">{route.doc.TotalDistance}</td>
                     <td class="px-6 py-2">
                       <div class="flex justify-end gap-4">
                         <button x-data="{ tooltip: 'Delete' }">
@@ -186,7 +188,9 @@ const RouteMaster = () => {
                 ))}
               </tbody>
             ) : (
-              <div className="text-lg"><LoadingSpinner /></div>
+              <div className="text-lg">
+                <LoadingSpinner />
+              </div>
             )}
           </table>
           <TablePagination

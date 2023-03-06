@@ -1,10 +1,12 @@
 import React, { useState } from "react";
 import Header from "../../components/Header";
 import Button from "../../components/UI/Button/Button";
+import { AiOutlineClose } from "react-icons/ai";
 import { useStateContext } from "../../contexts/ContextProvider";
-
-const AddProduct = () => {
+//import Warning from "../../Warning";
+const AddProduct = (props) => {
   const { setTitle, setCategory } = useStateContext();
+  useState(false);
   const [formData, setFormData] = useState({
     //productId: "",
     productName: "",
@@ -27,6 +29,8 @@ const AddProduct = () => {
     event.preventDefault();
     console.log("The value of the input is:", formData);
   };
+
+  const onClick = props.onCloseRecieved;
 
   const handleCreateUserClick = () => {
     // fetch(apiUrl,{
@@ -52,11 +56,16 @@ const AddProduct = () => {
   // handleChange(event) {
   //     this.setState({value: event.target.value});
   //   }
-
   return (
     <>
       {/* <Header category="Page" title="Manufacturer |Add Product" /> */}
       <div className="w-[90%]  mx-auto p-4 bg-white m-2  rounded-lg relative top-20">
+        <button
+          className="absolute top-0 right-0 p-4 text-xl hover:text-red-600 "
+          onClick={onClick}
+        >
+          <AiOutlineClose />
+        </button>
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-2 gap-5 md:grid-cols-2 m-5">
             <input

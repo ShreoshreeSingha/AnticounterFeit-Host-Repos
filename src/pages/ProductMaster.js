@@ -8,17 +8,14 @@ import Navbar from "../components/Navbar";
 import { useStateContext } from "../contexts/ContextProvider";
 import FileExport from "../components/UI/FileExport";
 
-
-
-const URL = "http://20.193.146.8:8080/api/data/product";
+const URL = "http://192.168.0.164:8080/api/data/get/productmaster";
 
 const ProductMaster = () => {
-  const { setTitle , setCategory } = useStateContext();
+  const { setTitle, setCategory } = useStateContext();
   const [data, setData] = React.useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [showExport, setShowExport] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
-
 
   // const tableRef = useRef(null);
 
@@ -28,31 +25,24 @@ const ProductMaster = () => {
   //   sheet: "Products"
   // });
 
- 
+  // const fs = require('fs');
 
+  //   // Format the data as a CSV string
+  // const csvData = displayedData.map(row => Object.values(row).join(',')).join('\n');
 
-// const fs = require('fs');
+  //   // Convert the data to a file
+  //   fs.writeFile('data.csv', csvData, (err) => {
+  //     if (err) throw err;
 
-//   // Format the data as a CSV string
-// const csvData = displayedData.map(row => Object.values(row).join(',')).join('\n');
+  //     // Serve the file to the user
+  //     res.download('data.csv', (err) => {
+  //       if (err) throw err;
 
-//   // Convert the data to a file
-//   fs.writeFile('data.csv', csvData, (err) => {
-//     if (err) throw err;
+  //     });
+  //   });
 
-//     // Serve the file to the user
-//     res.download('data.csv', (err) => {
-//       if (err) throw err;
-
-//     });
-//   });
-
-  
-
-
-
-  setTitle('Product Master')
-  setCategory('Data')
+  setTitle("Product Master");
+  setCategory("Data");
 
   // React.useEffect(() => {
   // },[displayedData])
@@ -63,7 +53,7 @@ const ProductMaster = () => {
     setShowPopup(true);
   };
 
-  const exportClick = () =>{
+  const exportClick = () => {
     setShowExport(true);
   };
 
@@ -87,19 +77,19 @@ const ProductMaster = () => {
   console.log("TYPE OF DATA: " + typeof data);
   console.log("STATE DATA: " + JSON.stringify(data));
 
-  // React.useEffect(() => {
-  //   fetch(URL, {
-  //     headers: {
-  //       "content-type": "application/json",
-  //       Accept: "application/json",
-  //     },
-  //   })
-  //     .then((response) => response.json())
-  //     .then((res) => {
-  //       setData(res.data);
-  //     });
-  //   console.log("DATA : " + JSON.stringify(data));
-  // }, []);
+  React.useEffect(() => {
+    fetch(URL, {
+      headers: {
+        "content-type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data);
+      });
+    console.log("DATA : " + JSON.stringify(data));
+  }, []);
 
   return (
     <>
@@ -110,10 +100,7 @@ const ProductMaster = () => {
         />
       )}
       {showExport && (
-        <FileExport
-          data={displayedData}
-          onCloseRecieved={closePopup}
-        />
+        <FileExport data={displayedData} onCloseRecieved={closePopup} />
       )}
       <div className="m-2 rounded-lg">
         <div className="bg-white mt-3 flex justify-between ">
@@ -168,14 +155,16 @@ const ProductMaster = () => {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {displayedData.map((product, index) => (
+                {data.map((product, index) => (
                   <tr class="hover:bg-gray-50" key={index}>
-                    <td class="px-6 py-2">{product.productId}</td>
-                    <td class="px-6 py-2">{product.productName}</td>
-                    <td class="px-6 py-2">{product.productCategory}</td>
-                    <td class="px-6 py-2">{product.manufacturingDate}</td>
-                    <td class="px-6 py-2">{product.manufacturingLocation}</td>
-                    <td class="px-6 py-2">{product.MRP}</td>
+                    <td class="px-6 py-2">{product.doc.productID}</td>
+                    <td class="px-6 py-2">{product.doc.productName}</td>
+                    <td class="px-6 py-2">{product.doc.productCategory}</td>
+                    <td class="px-6 py-2">{product.doc.manufacturingDate}</td>
+                    <td class="px-6 py-2">
+                      {product.doc.manufacturingLocation}
+                    </td>
+                    <td class="px-6 py-2">{product.doc.price}</td>
                     <td class="px-6 py-2">
                       <div class="flex justify-end gap-4">
                         <a x-data="{ tooltip: 'Delete' }" href="#">
@@ -218,7 +207,9 @@ const ProductMaster = () => {
                 ))}
               </tbody>
             ) : (
-              <div className="text-lg"><LoadingSpinner /></div>
+              <div className="text-lg">
+                <LoadingSpinner />
+              </div>
             )}
           </table>
           <TablePagination

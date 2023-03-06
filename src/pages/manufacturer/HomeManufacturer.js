@@ -8,12 +8,14 @@ import ManufacturerScanHistory from "./ManufacturerScanHistory";
 import DashboardManufacturer from "./DashboardManufacturer";
 import CreateBatch from "../CreateBatch";
 import AddProduct from "./AddProduct";
+import Popupform from "./Popupform";
 
 const HomeManufacturer = () => (
   <Routes>
     <Route path="/" element={<DashboardManufacturer />} />
 
     <Route path="/manufacturerActivity" element={<ManufacturerActivity />} />
+    <Route path="/popupprod" element={<Popupform />} />
 
     <Route
       path="/manufacturerOutgoingHistory"

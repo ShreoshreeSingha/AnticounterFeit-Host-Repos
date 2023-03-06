@@ -1,40 +1,55 @@
 import React, { useState } from "react";
-import Header from "../components/Header";
-import TablePagination from "../components/UI/TablePagination";
+//import Header from "../components/Header";
+import TablePagination from "../../components/UI/TablePagination";
 import { AiOutlineImport, AiOutlineExport } from "react-icons/ai";
-import FileUpload from "../components/UI/FileUpload";
-import LoadingSpinner from "../components/LoadingSpinner";
-import Navbar from "../components/Navbar";
-import { useStateContext } from "../contexts/ContextProvider";
-import FileExport from "../components/UI/FileExport";
-import { MdDoubleArrow } from "react-icons/md";
-import { NavLink } from "react-router-dom";
-import ExportIcon from "../data/image/share.png";
-import Button from "../components/UI/Button/Button";
+import AddProduct from "./AddProduct";
+import LoadingSpinner from "../../components/LoadingSpinner";
+//import Navbar from "../components/Navbar";
+import { useStateContext } from "../../contexts/ContextProvider";
 
-const URL = "http://192.168.0.164:8080/api/data/get/locationmaster";
+const URL = "http://20.193.146.8:8080/api/data/product";
 
-const LocationMaster = () => {
+const Popupform = () => {
   const { setTitle, setCategory } = useStateContext();
   const [data, setData] = React.useState([]);
   const [showPopup, setShowPopup] = useState(false);
-  const [showExport, setShowExport] = useState(false);
+  // const [showExport, setShowExport] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
 
-  setTitle("/BOD Master");
+  // const tableRef = useRef(null);
+
+  // const { onDownload } = useDownloadExcel({
+  //   currentTableRef: tableRef.current,
+  //   filename: "Products table",
+  //   sheet: "Products"
+  // });
+
+  // const fs = require('fs');
+
+  //   // Format the data as a CSV string
+  // const csvData = displayedData.map(row => Object.values(row).join(',')).join('\n');
+
+  //   // Convert the data to a file
+  //   fs.writeFile('data.csv', csvData, (err) => {
+  //     if (err) throw err;
+
+  //     // Serve the file to the user
+  //     res.download('data.csv', (err) => {
+  //       if (err) throw err;
+
+  //     });
+  //   });
+
+  setTitle("Product Master");
   setCategory("Data");
 
   // React.useEffect(() => {
   // },[displayedData])
 
-  var pageSize = 10;
+  var pageSize = 5;
 
   const handleClick = () => {
     setShowPopup(true);
-  };
-
-  const exportClick = () => {
-    setShowExport(true);
   };
 
   function handleTableDataFromMyComponent(data) {
@@ -51,66 +66,52 @@ const LocationMaster = () => {
 
   function closePopup() {
     setShowPopup(false);
-    setShowExport(false);
   }
 
   console.log("TYPE OF DATA: " + typeof data);
   console.log("STATE DATA: " + JSON.stringify(data));
 
-  React.useEffect(() => {
-    fetch(URL, {
-      headers: {
-        "content-type": "application/json",
-        Accept: "application/json",
-      },
-    })
-      .then((response) => response.json())
-      .then((data) => {
-        setData(data);
-      });
-    console.log("DATA : " + JSON.stringify(data));
-  }, []);
+  // React.useEffect(() => {
+  //   fetch(URL, {
+  //     headers: {
+  //       "content-type": "application/json",
+  //       Accept: "application/json",
+  //     },
+  //   })
+  //     .then((response) => response.json())
+  //     .then((res) => {
+  //       setData(res.data);
+  //     });
+  //   console.log("DATA : " + JSON.stringify(data));
+  // }, []);
 
   return (
     <>
       {showPopup && (
-        <FileUpload
+        <AddProduct
           onDataReceived={handleRawDataFromMyComponent}
           onCloseRecieved={closePopup}
         />
       )}
-      {showExport && (
+      {/* {showExport && (
         <FileExport data={displayedData} onCloseRecieved={closePopup} />
-      )}
+      )} */}
       <div className="m-2 rounded-lg">
-        <div className="flex justify-between p-4 bg-white rounded-lg">
-          <div className="flex items-center text-xl">
-            <h5>
-              Add New Location (Location Name, Location Type, Street Address,
-              City, State, Country, Storage Capacity, Status)
-            </h5>
-          </div>
-          <div className="flex items-center text-4xl">
-            <NavLink to={"/addLocation"}>
-              <MdDoubleArrow />
-            </NavLink>
-          </div>
-        </div>
         <div className="bg-white mt-3 flex justify-between ">
           <div>
             <input placeholder="Search" className="w-52 h-8" />
           </div>
           <div className=" flex align-baseline m-4">
-            <Button className="" onClick={handleClick}>
-              {/* <p className="text-2xl">
+            <button className="" onClick={handleClick}>
+              <p className="text-2xl">
                 <AiOutlineImport />
-              </p> */}
-              Import
-            </Button>
-            <Button className="" onClick={exportClick}>
-              {/* <ExportIcon /> */}
-              Export
-            </Button>
+              </p>
+            </button>
+            {/* <button className="" onClick={exportClick}>
+              <p className="text-2xl">
+                <AiOutlineExport />
+              </p>
+            </button> */}
             {/* <button className="m-2">
               <p className="text-2xl">
                 <BsFilterRight />
@@ -123,43 +124,39 @@ const LocationMaster = () => {
             <thead class="bg-gray-50">
               <tr>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Location ID
+                  Product ID
                 </th>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Location Name
+                  Product Name
                 </th>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Location Type
+                  Product Category
                 </th>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Street Address
+                  Manufacturing Date
                 </th>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  City
+                  Manufacturing Location
                 </th>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  State
+                  MRP
                 </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Country
-                </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Storage Capacity
-                </th>
+                <th
+                  scope="col"
+                  class="px-6 py-4 font-medium text-gray-900"
+                ></th>
               </tr>
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {data.map((location, index) => (
+                {displayedData.map((product, index) => (
                   <tr class="hover:bg-gray-50" key={index}>
-                    <td class="px-6 py-2">{location.doc.locationID}</td>
-                    <td class="px-6 py-2">{location.doc.locationName}</td>
-                    <td class="px-6 py-2">{location.doc.locationType}</td>
-                    <td class="px-6 py-2">{location.doc.address}</td>
-                    <td class="px-6 py-2">{location.doc.city}</td>
-                    <td class="px-6 py-2">{location.doc.state}</td>
-                    <td class="px-6 py-2">{location.doc.country}</td>
-                    <td class="px-6 py-2">{location.doc.storageCapacity}</td>
+                    <td class="px-6 py-2">{product.productId}</td>
+                    <td class="px-6 py-2">{product.productName}</td>
+                    <td class="px-6 py-2">{product.productCategory}</td>
+                    <td class="px-6 py-2">{product.manufacturingDate}</td>
+                    <td class="px-6 py-2">{product.manufacturingLocation}</td>
+                    <td class="px-6 py-2">{product.MRP}</td>
                     <td class="px-6 py-2">
                       <div class="flex justify-end gap-4">
                         <a x-data="{ tooltip: 'Delete' }" href="#">
@@ -218,4 +215,4 @@ const LocationMaster = () => {
   );
 };
 
-export default LocationMaster;
+export default Popupform;
