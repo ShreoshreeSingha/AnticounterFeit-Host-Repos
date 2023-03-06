@@ -1,6 +1,6 @@
 import React from "react";
 import Header from "../../components/Header";
-import "../AdminActivity.css";
+import "../User.css";
 import OUTGOING from "../../data/GIF/complete.gif";
 import INCOMING from "../../data/GIF/shipping.gif";
 import SCAN from "../../data/GIF/qr-code.gif";

@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Header from "../../components/Header";
-import "../AdminActivity.css";
+import "../User.css";
 import SCAN from "../../data/GIF/qr-code.gif";
 import ADDPRODUCT from "../../data/GIF/add-file.gif";
 import ADDBATCH from "../../data/GIF/clipboard.gif";

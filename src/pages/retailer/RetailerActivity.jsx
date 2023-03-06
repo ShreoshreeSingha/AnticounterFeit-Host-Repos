@@ -1,6 +1,6 @@
 import React, { useContext } from "react";
 import Header from "../../components/Header";
-import "../AdminActivity.css";
+import "../User.css";
 import ROUTE from "../../data/GIF/way.gif";
 import EMP from "../../data/GIF/user.gif";
 import USER from "../../data/GIF/customer.gif";
