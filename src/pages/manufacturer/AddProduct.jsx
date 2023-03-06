@@ -16,39 +16,73 @@ const AddProduct = (props) => {
     mrp: "",
   });
 
+  const onClick = props.onCloseRecieved;
+
+
   setTitle("/Add Product");
   setCategory("Manufacturer");
 
   const apiUrl = "";
 
-  const updateFormData = (event) => {
-    setFormData(event.target.value);
-  };
+  // const handleInputChange = (event) => {
+  //   setFormData(event.target.value);
+  // };
 
-  const handleSubmit = (event) => {
+   const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("The value of the input is:", formData);
+    try {
+      const response = await fetch('/api/data/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+      if (response.ok) {
+        setFormData({
+          productName: "",
+          productCategory: "",
+          manufacturingDate: "",
+          manufacturingLocation: "",
+          mrp: "",
+        });
+        alert('New Location added successfully!');
+      } else {
+        throw new Error('Failed to add location');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Failed to add location');
+    }
   };
 
-  const onClick = props.onCloseRecieved;
-
-  const handleCreateUserClick = () => {
-    // fetch(apiUrl,{
-    //   method: "POST",
-    //   headers: {
-    //     Accept: "application/json",
-    //     "Content-Type": "application/json",},
-    //   body: JSON.stringify(formData)
-    // })
-    // .then((response) => response.json())
-    // .then((d) =>{
-    //   setuserId(d.userId);
-    // // .catch(error => console.error(error));
-    // console.log("Submit Data:"+formData);
-    // console.log(d);
-    // });
-    alert("Click here");
+    const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
   };
+
+  
+
+  // const handleCreateUserClick = () => {
+  //   // fetch(apiUrl,{
+  //   //   method: "POST",
+  //   //   headers: {
+  //   //     Accept: "application/json",
+  //   //     "Content-Type": "application/json",},
+  //   //   body: JSON.stringify(formData)
+  //   // })
+  //   // .then((response) => response.json())
+  //   // .then((d) =>{
+  //   //   setuserId(d.userId);
+  //   // // .catch(error => console.error(error));
+  //   // console.log("Submit Data:"+formData);
+  //   // console.log(d);
+  //   // });
+  //   alert("Click here");
+  // };
 
   // const { firstName, lastName, email, password, phonenumber, confirmpass } =
   //   formData;
@@ -79,35 +113,35 @@ const AddProduct = (props) => {
               className="w-full bg-gray-100 text-gray-900 m-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
               type="text"
               value={formData.productName}
-              onChange={updateFormData}
+              onChange={handleInputChange}
               placeholder="Product Name*"
             />
             <input
               className="w-full bg-gray-100 text-gray-900 m-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
               type="text"
               value={formData.productCategory}
-              onChange={updateFormData}
+              onChange={handleInputChange}
               placeholder="Product Category*"
             />
             <input
               className="w-full bg-gray-100 text-gray-900 m-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
               type="text"
               value={formData.manufacturingDate}
-              onChange={updateFormData}
+              onChange={handleInputChange}
               placeholder="Manufacturing Date*"
             />
             <input
               className="w-full bg-gray-100 text-gray-900 m-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
               type="text"
               value={formData.manufacturingLocation}
-              onChange={updateFormData}
+              onChange={handleInputChange}
               placeholder="Manufacturing Location*"
             />
             <input
               className="w-full bg-gray-100 text-gray-900 m-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
               type="text"
               value={formData.mrp}
-              onChange={updateFormData}
+              onChange={handleInputChange}
               placeholder="MRP*"
             />
 

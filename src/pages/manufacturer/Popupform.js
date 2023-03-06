@@ -6,6 +6,9 @@ import AddProduct from "./AddProduct";
 import LoadingSpinner from "../../components/LoadingSpinner";
 //import Navbar from "../components/Navbar";
 import { useStateContext } from "../../contexts/ContextProvider";
+import Button from "../../components/UI/Button/Button";
+import FileExport from "../../components/UI/FileExport";
+import FileUpload from "../../components/UI/FileUpload";
 
 const URL = "http://20.193.146.8:8080/api/data/product";
 
@@ -13,7 +16,8 @@ const Popupform = () => {
   const { setTitle, setCategory } = useStateContext();
   const [data, setData] = React.useState([]);
   const [showPopup, setShowPopup] = useState(false);
-  // const [showExport, setShowExport] = useState(false);
+  const [showExport, setShowExport] = useState(false);
+  const [showImport, setShowImport] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
 
   // const tableRef = useRef(null);
@@ -52,6 +56,14 @@ const Popupform = () => {
     setShowPopup(true);
   };
 
+  const exportClick =() =>{
+    setShowExport(true);
+  };
+
+  const importClick =() => {
+    setShowImport(true);
+  };
+
   function handleTableDataFromMyComponent(data) {
     console.log("Received data from MyComponent:", data);
     setDisplayedData(data);
@@ -66,6 +78,8 @@ const Popupform = () => {
 
   function closePopup() {
     setShowPopup(false);
+    setShowExport(false);
+    setShowImport(false);
   }
 
   console.log("TYPE OF DATA: " + typeof data);
@@ -87,31 +101,45 @@ const Popupform = () => {
 
   return (
     <>
+      {showImport && (
+        <FileUpload
+          onDataReceived={handleRawDataFromMyComponent}
+          onCloseRecieved={closePopup}
+        />
+      )}
       {showPopup && (
         <AddProduct
           onDataReceived={handleRawDataFromMyComponent}
           onCloseRecieved={closePopup}
         />
       )}
-      {/* {showExport && (
+      {showExport && (
         <FileExport data={displayedData} onCloseRecieved={closePopup} />
-      )} */}
+      )}
       <div className="m-2 rounded-lg">
         <div className="bg-white mt-3 flex justify-between ">
           <div>
             <input placeholder="Search" className="w-52 h-8" />
           </div>
           <div className=" flex align-baseline m-4">
-            <button className="" onClick={handleClick}>
-              <p className="text-2xl">
+            <Button className="" onClick={handleClick}>
+              {/* <p className="text-2xl">
                 <AiOutlineImport />
-              </p>
-            </button>
-            {/* <button className="" onClick={exportClick}>
-              <p className="text-2xl">
+              </p> */}
+              Add Product
+            </Button>
+            <Button className="" onClick={importClick}>
+              {/* <p className="text-2xl">
                 <AiOutlineExport />
-              </p>
-            </button> */}
+              </p> */}
+              Import
+            </Button>
+            <Button className="" onClick={exportClick}>
+              {/* <p className="text-2xl">
+                <AiOutlineExport />
+              </p> */}
+              Export
+            </Button>
             {/* <button className="m-2">
               <p className="text-2xl">
                 <BsFilterRight />
