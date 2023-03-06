@@ -59,13 +59,20 @@ const AddProduct = (props) => {
   return (
     <>
       {/* <Header category="Page" title="Manufacturer |Add Product" /> */}
+    <div className="bg-white shadow-lg rounded-lg w-1/2 h-2/3 fixed top-[20%] left-[25%] z-[5]">
+      <button
+        className="absolute top-0 right-0 p-4 text-xl hover:text-red-600 "
+        onClick={onClick}
+      >
+        <AiOutlineClose />
+      </button>     
       <div className="w-[90%]  mx-auto p-4 bg-white m-2  rounded-lg relative top-20">
-        <button
+        {/* <button
           className="absolute top-0 right-0 p-4 text-xl hover:text-red-600 "
           onClick={onClick}
         >
           <AiOutlineClose />
-        </button>
+        </button> */}
         <form onSubmit={handleSubmit}>
           <div className="grid grid-cols-2 gap-5 md:grid-cols-2 m-5">
             <input
@@ -115,6 +122,7 @@ const AddProduct = (props) => {
           </div>
         </form>
       </div>
+    </div>
     </>
   );
 };

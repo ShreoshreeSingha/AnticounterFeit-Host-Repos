@@ -2,8 +2,10 @@ import React, {useState} from 'react';
 import Header from '../components/Header';
 import { useStateContext } from "../contexts/ContextProvider";
 import Button from "../components/UI/Button/Button";
+import { AiOutlineClose } from "react-icons/ai";
 
-const AddLocation = () => {
+
+const AddLocation = (props) => {
   const { setTitle , setCategory } = useStateContext();
   const [formData, setFormData] = useState({
     locationName:"",
@@ -20,37 +22,73 @@ const AddLocation = () => {
   setTitle('/Add Location')
   setCategory('Data')
 
+  const onClick = props.onCloseRecieved;
+
   const apiUrl="";
 
-  const updateFormData = (event) =>{
-    setFormData( event.target.value);
-  };
+  // const handleInputChange  = (event) =>{
+  //   setFormData( event.target.value);
+  // };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("The value of the input is:", formData);
-    
+    try {
+      const response = await fetch('/api/data/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+      if (response.ok) {
+        setFormData({
+          locationName:"",
+          locationType:"",
+          streetAddress:"",
+          city:"",
+          country:"",
+          state:"",
+          storagecapacity:"",
+          status:"",
+        });
+        alert('New Location added successfully!');
+      } else {
+        throw new Error('Failed to add location');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Failed to add location');
+    }
   };
 
 
-    const handleCreateUserClick = () =>{
-      // fetch(apiUrl,{
-      //   method: "POST",
-      //   headers: {
-      //     Accept: "application/json",
-      //     "Content-Type": "application/json",},
-      //   body: JSON.stringify(formData)
-      // })
-      // .then((response) => response.json())
-      // .then((d) =>{ 
-      //   setuserId(d.userId);
-      // // .catch(error => console.error(error));
-      // console.log("Submit Data:"+formData);
-      // console.log(d);
-      // });
-      alert("Click here")
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+
+    // const handleCreateUserClick = () =>{
+    //   // fetch(apiUrl,{
+    //   //   method: "POST",
+    //   //   headers: {
+    //   //     Accept: "application/json",
+    //   //     "Content-Type": "application/json",},
+    //   //   body: JSON.stringify(formData)
+    //   // })
+    //   // .then((response) => response.json())
+    //   // .then((d) =>{ 
+    //   //   setuserId(d.userId);
+    //   // // .catch(error => console.error(error));
+    //   // console.log("Submit Data:"+formData);
+    //   // console.log(d);
+    //   // });
+    //   alert("Click here")
       
-    };
+    // };
 
   // const { firstName, lastName, email, password, phonenumber, confirmpass } =
   //   formData;
@@ -70,61 +108,61 @@ const AddLocation = () => {
             type="text"
             placeholder="Location Name*"
             value={formData.locationName}
-            onChange={updateFormData}
+            onChange={handleInputChange }
           />
           <input
             class="w-[95%] bg-gray-100 text-gray-900 mt-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
             type="text"
             placeholder="Location Type*"
             value={formData.locationType}
-            onChange={updateFormData}
+            onChange={handleInputChange }
           />
           <input
             class="w-full bg-gray-100 text-gray-900 mt-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
             type="text"
             placeholder="Street Address*"
             value={formData.streetAddress}
-            onChange={updateFormData}
+            onChange={handleInputChange }
           />
           <input
             class="w-full bg-gray-100 text-gray-900 mt-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
             type="text"
             placeholder="City*"
             value={formData.city}
-            onChange={updateFormData}
+            onChange={handleInputChange }
           />
           <input
             class="w-full bg-gray-100 text-gray-900 mt-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
             type="text"
             placeholder="State*"
             value={formData.state}
-            onChange={updateFormData}
+            onChange={handleInputChange }
           />
           <input
             class="w-full bg-gray-100 text-gray-900 mt-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
             type="text"
             placeholder="Country*"
             value={formData.country}
-            onChange={updateFormData}
+            onChange={handleInputChange }
           />
           <input
             class="w-full bg-gray-100 text-gray-900 mt-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
             type="text"
             placeholder="Storage Capacity*"
             value={formData.storagecapacity}
-            onChange={updateFormData}
+            onChange={handleInputChange }
           />
           <input
             class="w-full bg-gray-100 text-gray-900 mt-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
             type="text"
             placeholder="Status*"
             value={formData.status}
-            onChange={updateFormData}
+            onChange={handleInputChange }
           />
 
            <select class="w-full left-0.5 relative bg-gray-100 text-gray-900 my-1 mx-3 p-3 rounded-lg focus:outline-none focus:shadow-outline"
           // value={formData}
-          onChange={updateFormData}
+          onChange={handleInputChange }
           >
             <option value={formData.manufacturer}>Manufacturer</option>
             <option value={formData.warehouse}>Warehouse</option>
@@ -138,60 +176,67 @@ const AddLocation = () => {
           <Button onClick={() => handleCreateUserClick} >Add Location</Button>
         </div>
       </div> */}
-      <div className="w-[80%] mx-auto p-4 rounded-lg shadow-lg bg-white my-2">
+    <div className="bg-white shadow-lg rounded-lg w-1/2 h-3/3 fixed top-[10%] left-[25%] z-[5]">
+      <button
+        className="absolute top-0 right-0 p-4 text-xl hover:text-red-600 "
+        onClick={onClick}
+      >
+        <AiOutlineClose />
+      </button> 
+      {/* <div className="w-[80%] mx-auto p-4 rounded-lg shadow-lg bg-white my-2"> */}
         <div class="grid grid-cols-1 gap-1 md:grid-cols-2 mt-8">
         <form onSubmit={handleSubmit}>
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
                 placeholder="Location Name*"
                 value={formData.locationName}
-                onChange={updateFormData}
+                onChange={handleInputChange }
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
                 placeholder="Location Type*"
                 value={formData.locationType}
-                onChange={updateFormData} 
+                onChange={handleInputChange } 
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
                 placeholder="Street Address*"
                 value={formData.streetAddress}
-                onChange={updateFormData}
+                onChange={handleInputChange }
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
                 placeholder="City*"
                 value={formData.city}
-                onChange={updateFormData}
+                onChange={handleInputChange }
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
                 placeholder="State*"
                 value={formData.state}
-                onChange={updateFormData} 
+                onChange={handleInputChange } 
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
                 placeholder="Country*"
                 value={formData.country}
-                onChange={updateFormData} 
+                onChange={handleInputChange } 
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
                 placeholder="Storage Capacity*"
                 value={formData.storagecapacity}
-                onChange={updateFormData}
+                onChange={handleInputChange }
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
                 placeholder="Status*"
                 value={formData.status}
-                onChange={updateFormData}
+                onChange={handleInputChange }
                  />
           
             <div className="m-3">
-              <Button type="submit" onClick={() => handleCreateUserClick()}>Add Location</Button>
+              <Button type="submit">Add Location</Button>
             </div>
           </form>
         </div>
@@ -200,4 +245,4 @@ const AddLocation = () => {
   )
 }
 
-export default AddLocation
+export default AddLocation;

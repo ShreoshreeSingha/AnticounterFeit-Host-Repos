@@ -11,7 +11,7 @@ import { MdDoubleArrow } from "react-icons/md";
 import { NavLink } from "react-router-dom";
 import ExportIcon from "../data/image/share.png";
 import Button from "../components/UI/Button/Button";
-
+import ADDLOCATION from "../pages/AddLocation";
 const URL = "http://192.168.0.164:8080/api/data/get/locationmaster";
 
 const LocationMaster = () => {
@@ -20,8 +20,9 @@ const LocationMaster = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showExport, setShowExport] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
+  const [modalIsOpen, setIsOpen] = useState(false);
 
-  setTitle("/BOD Master");
+  setTitle("/Location Master");
   setCategory("Data");
 
   // React.useEffect(() => {
@@ -36,6 +37,16 @@ const LocationMaster = () => {
   const exportClick = () => {
     setShowExport(true);
   };
+
+  function closeModal() {
+    console.log("close POPUP");
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    console.log("Open POPUP");
+    setIsOpen(true);
+  }
 
   function handleTableDataFromMyComponent(data) {
     console.log("Received data from MyComponent:", data);
@@ -80,10 +91,18 @@ const LocationMaster = () => {
         />
       )}
       {showExport && (
-        <FileExport data={displayedData} onCloseRecieved={closePopup} />
+        <FileExport 
+          data={displayedData} 
+          onCloseRecieved={closePopup} 
+        />
+      )}
+       {modalIsOpen && (
+        <ADDLOCATION
+          onCloseRecieved={closeModal}
+        />
       )}
       <div className="m-2 rounded-lg">
-        <div className="flex justify-between p-4 bg-white rounded-lg">
+        {/* <div className="flex justify-between p-4 bg-white rounded-lg">
           <div className="flex items-center text-xl">
             <h5>
               Add New Location (Location Name, Location Type, Street Address,
@@ -95,12 +114,15 @@ const LocationMaster = () => {
               <MdDoubleArrow />
             </NavLink>
           </div>
-        </div>
+        </div> */}
         <div className="bg-white mt-3 flex justify-between ">
           <div>
             <input placeholder="Search" className="w-52 h-8" />
           </div>
           <div className=" flex align-baseline m-4">
+            <Button className="" onClick={openModal}>
+              Add location
+            </Button>
             <Button className="" onClick={handleClick}>
               {/* <p className="text-2xl">
                 <AiOutlineImport />

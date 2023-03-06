@@ -41,7 +41,7 @@ const ProductMaster = () => {
   //     });
   //   });
 
-  setTitle("Product Master");
+  setTitle("/Product Master");
   setCategory("Data");
 
   // React.useEffect(() => {

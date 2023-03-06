@@ -9,13 +9,18 @@ import Header from "../components/Header";
 import Button from "../components/UI/Button/Button";
 import Warning from "../components/Warning";
 import { bodData } from "../data/bodData";
+import { AiOutlineClose } from "react-icons/ai";
+import { useStateContext } from "../contexts/ContextProvider";
+
+
 
 const apiPostUrl = "http://20.193.146.8:8080/api/data/bod";
 const apiGetUrl = "http://20.193.146.8:8080/api/updateRoute";
 
 const WAIT_TIME = 2000;
 
-const AddRoute = () => {
+const AddRoute = (props) => {
+  const { setTitle , setCategory } = useStateContext();
   const [numSelects, setNumSelects] = useState(2);
   const [selectedValues, setSelectedValues] = useState([]);
   const [showWarning, setShowWarning] = React.useState(false);
@@ -34,6 +39,12 @@ const AddRoute = () => {
     { value: "option5", label: "Option 5" },
     { value: "option6", label: "Option 6" },
   ];
+
+  const onClick = props.onCloseRecieved;
+
+  setTitle('/Add Route')
+  setCategory('Data')
+
 
   const addSelect = () => {
     setShowWarning(false);
@@ -120,9 +131,16 @@ const AddRoute = () => {
 
   return (
     <>
+    <div className="bg-white shadow-lg rounded-lg w-1/2 h-3/3 fixed top-[10%] left-[25%] z-[5]">
+      <button
+        className="absolute top-0 right-0 p-4 text-xl hover:text-red-600 "
+        onClick={onClick}
+      >
+        <AiOutlineClose />
+      </button> 
       {routeId == "" ? (
         <>
-          <Header category="Page" title="Add Route" />
+          {/* <Header category="Page" title="Add Route" /> */}
           <div className="mx-12 my-4">
             {data ? (
               <form onSubmit={handleSubmit}>
@@ -212,6 +230,7 @@ const AddRoute = () => {
           </div>
         </div>
       )}
+      </div>
     </>
   );
 };

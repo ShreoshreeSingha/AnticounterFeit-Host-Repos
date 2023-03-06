@@ -2,8 +2,9 @@ import React, {useState} from 'react';
 import Header from '../components/Header';
 import { useStateContext } from "../contexts/ContextProvider";
 import Button from "../components/UI/Button/Button";
+import { AiOutlineClose } from "react-icons/ai";
 
-const AddBOD = () => {
+const AddBOD = (props) => {
   const { setTitle , setCategory } = useStateContext();
   const [formData, setFormData] = useState({
     pathId:"",
@@ -14,42 +15,74 @@ const AddBOD = () => {
     distance:"",
     
   });
+ const onClick = props.onCloseRecieved;
 
-
-  setTitle('/Add Location')
+  setTitle('/Add BOD')
   setCategory('Data')
 
   const apiUrl="";
 
-  const updateFormData = (event) =>{
-    setFormData( event.target.value);
-  };
+  // const handleInputChange  = (event) =>{
+  //   setFormData( event.target.value);
+  // };
 
-  const handleSubmit = (event) => {
+  const handleSubmit = async (event) => {
     event.preventDefault();
-    console.log("The value of the input is:", formData);
-    
+    try {
+      const response = await fetch('/api/data/products', {
+        method: 'POST',
+        headers: {
+          'Content-Type': 'application/json'
+        },
+        body: JSON.stringify(formData)
+      });
+      if (response.ok) {
+        setFormData({
+          pathId:"",
+          startingPoint:"",
+          endingPoint:"",
+          transitType:"",
+          avgTimeTaken:"",
+          distance:"",
+        });
+        alert('New Location added successfully!');
+      } else {
+        throw new Error('Failed to add location');
+      }
+    } catch (error) {
+      console.error(error);
+      alert('Failed to add location');
+    }
   };
 
 
-    const handleCreateUserClick = () =>{
-      // fetch(apiUrl,{
-      //   method: "POST",
-      //   headers: {
-      //     Accept: "application/json",
-      //     "Content-Type": "application/json",},
-      //   body: JSON.stringify(formData)
-      // })
-      // .then((response) => response.json())
-      // .then((d) =>{ 
-      //   setuserId(d.userId);
-      // // .catch(error => console.error(error));
-      // console.log("Submit Data:"+formData);
-      // console.log(d);
-      // });
-      alert("Click here")
+  const handleInputChange = (event) => {
+    const { name, value } = event.target;
+    setFormData({
+      ...formData,
+      [name]: value
+    });
+  };
+
+
+    // const handleCreateUserClick = () =>{
+    //   // fetch(apiUrl,{
+    //   //   method: "POST",
+    //   //   headers: {
+    //   //     Accept: "application/json",
+    //   //     "Content-Type": "application/json",},
+    //   //   body: JSON.stringify(formData)
+    //   // })
+    //   // .then((response) => response.json())
+    //   // .then((d) =>{ 
+    //   //   setuserId(d.userId);
+    //   // // .catch(error => console.error(error));
+    //   // console.log("Submit Data:"+formData);
+    //   // console.log(d);
+    //   // });
+    //   alert("Click here")
       
-    };
+    // };
 
   // const { firstName, lastName, email, password, phonenumber, confirmpass } =
   //   formData;
@@ -60,48 +93,54 @@ const AddBOD = () => {
 
   return (
     <>
-        
-      <div className="w-[80%] mx-auto p-4 rounded-lg shadow-lg bg-white my-2">
+    <div className="bg-white shadow-lg rounded-lg w-1/2 h-3/3 fixed top-[10%] left-[25%] z-[5]">
+      <button
+        className="absolute top-0 right-0 p-4 text-xl hover:text-red-600 "
+        onClick={onClick}
+      >
+        <AiOutlineClose />
+      </button>     
+      {/* <div className="w-[80%] mx-auto p-4 rounded-lg shadow-lg bg-white my-2"> */}
         <div class="grid grid-cols-1 gap-1 md:grid-cols-2 mt-8">
         <form onSubmit={handleSubmit}>
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
                 placeholder="Path ID*"
                 value={formData.pathId}
-                onChange={updateFormData}
+                onChange={handleInputChange }
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
                 placeholder="Starting Point*"
                 value={formData.startingPoint}
-                onChange={updateFormData} 
+                onChange={handleInputChange } 
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
                 placeholder="Ending Point*"
                 value={formData.endingPoint}
-                onChange={updateFormData}
+                onChange={handleInputChange }
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
                 placeholder="Transit Type*"
                 value={formData.transitType}
-                onChange={updateFormData}
+                onChange={handleInputChange }
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
                 placeholder="Average Time Taken*"
                 value={formData.avgTimeTaken}
-                onChange={updateFormData} 
+                onChange={handleInputChange } 
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
                 placeholder="Distance*"
                 value={formData.distance}
-                onChange={updateFormData} 
+                onChange={handleInputChange } 
                 />          
             <div className="m-3">
-              <Button type="submit" onClick={() => handleCreateUserClick()}>Add BOD</Button>
+              <Button type="submit">Add BOD</Button>
             </div>
           </form>
         </div>

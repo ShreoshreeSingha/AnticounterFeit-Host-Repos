@@ -7,6 +7,8 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import Navbar from "../components/Navbar";
 import { useStateContext } from "../contexts/ContextProvider";
 import FileExport from "../components/UI/FileExport";
+import Button from "../components/UI/Button/Button";
+
 
 const URL = "http://20.193.146.8:8080/api/getallbatches";
 
@@ -91,16 +93,16 @@ const TransactionMaster = () => {
             <input placeholder="Search" className="w-52 h-8" />
           </div>
           <div className=" flex align-baseline m-4">
-            <button className="" onClick={handleClick}>
-              <p className="text-2xl">
+          <Button className="" onClick={handleClick}>
+              {/* <p className="text-2xl">
                 <AiOutlineImport />
-              </p>
-            </button>
-            <button className="" onClick={exportClick}>
-              <p className="text-2xl">
-                <AiOutlineExport />
-              </p>
-            </button>
+              </p> */}
+              Import
+            </Button>
+            <Button className="" onClick={exportClick}>
+              {/* <ExportIcon /> */}
+              Export
+            </Button>
             {/* <button className="m-2">
               <p className="text-2xl">
                 <BsFilterRight />

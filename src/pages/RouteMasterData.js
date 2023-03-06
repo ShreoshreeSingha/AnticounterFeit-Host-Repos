@@ -9,6 +9,9 @@ import { useStateContext } from "../contexts/ContextProvider";
 import FileExport from "../components/UI/FileExport";
 import { MdLocationOn } from "react-icons/md";
 import { NavLink } from "react-router-dom";
+import ADDROUTE from "../pages/AddRoute";
+import Button from "../components/UI/Button/Button";
+
 
 const URL = "http://192.168.0.164:8080/api/data/get/routemaster";
 
@@ -18,6 +21,8 @@ const RouteMaster = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showExport, setShowExport] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
+  const [modalIsOpen, setIsOpen] = useState(false);
+
 
   setTitle("/Route Master");
   setCategory("Data");
@@ -34,6 +39,19 @@ const RouteMaster = () => {
   const exportClick = () => {
     setShowExport(true);
   };
+
+
+  function closeModal() {
+    console.log("close POPUP");
+    setIsOpen(false);
+  }
+
+  function openModal() {
+    console.log("Open POPUP");
+    setIsOpen(true);
+  }
+
+
 
   function handleTableDataFromMyComponent(data) {
     console.log("Received data from MyComponent:", data);
@@ -78,10 +96,18 @@ const RouteMaster = () => {
         />
       )}
       {showExport && (
-        <FileExport data={displayedData} onCloseRecieved={closePopup} />
+        <FileExport 
+          data={displayedData} 
+          onCloseRecieved={closePopup} 
+        />
+      )}
+      {modalIsOpen && (
+        <ADDROUTE
+          onCloseRecieved={closeModal}
+        />
       )}
       <div className="m-2 rounded-lg">
-        <div className="flex justify-between p-4 bg-white rounded-lg">
+        {/* <div className="flex justify-between p-4 bg-white rounded-lg">
           <div className="flex items-center text-xl">
             <h5>Add New Route (Chespoints, Avg Time, Total Distance)</h5>
           </div>
@@ -90,22 +116,27 @@ const RouteMaster = () => {
               <MdLocationOn />
             </NavLink>
           </div>
-        </div>
+        </div> */}
         <div className="bg-white mt-3 flex justify-between ">
           <div>
             <input placeholder="Search" className="w-52 h-8" />
           </div>
           <div className=" flex align-baseline m-4">
-            <button className="" onClick={handleClick}>
-              <p className="text-2xl">
+            <Button className="" onClick={openModal}>
+              Add Route
+            </Button>
+            <Button className="" onClick={handleClick}>
+              {/* <p className="text-2xl">
                 <AiOutlineImport />
-              </p>
-            </button>
-            <button className="" onClick={handleClick}>
-              <p className="text-2xl">
+              </p> */}
+              Import
+            </Button>
+            <Button className="" onClick={exportClick}>
+              {/* <p className="text-2xl">
                 <AiOutlineExport />
-              </p>
-            </button>
+              </p> */}
+              Export
+            </Button>
             {/* <button className="m-2">
               <p className="text-2xl">
                 <BsFilterRight />

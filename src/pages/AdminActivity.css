@@ -45,6 +45,17 @@ section::after {
 	margin:40px;
 }
 
+/* .Manufacturer_container {
+	position: relative;
+	top:15%;
+	z-index: 1;
+	display: flex;
+	justify-content: flex-start;
+	align-items: center;
+	flex-wrap: wrap;
+	margin:40px;
+} */
+
 .container .card {
 	position: relative;
 	width: 250px;
