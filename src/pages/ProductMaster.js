@@ -8,6 +8,8 @@ import Navbar from "../components/Navbar";
 import { useStateContext } from "../contexts/ContextProvider";
 import FileExport from "../components/UI/FileExport";
 
+import Button from "../components/UI/Button/Button";
+
 const URL = "http://20.193.146.8:8080/api/data/get/productmaster";
 
 const ProductMaster = () => {
@@ -16,6 +18,17 @@ const ProductMaster = () => {
   const [showPopup, setShowPopup] = useState(false);
   const [showExport, setShowExport] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
+  const [filterParam, setFilterParam] = useState("");
+
+  const filterData = () =>
+    data.filter(
+      (item) =>
+        (item && item.Key?.includes(filterParam)) ||
+        item.doc.productName.includes(filterParam) ||
+        item.doc.productCategory.includes(filterParam) ||
+        item.doc.manufacturingDate.includes(filterParam) ||
+        item.doc.manufacturingLocation.includes(filterParam)
+    );
 
   // const tableRef = useRef(null);
 
@@ -105,19 +118,25 @@ const ProductMaster = () => {
       <div className="m-2 rounded-lg">
         <div className="bg-white mt-3 flex justify-between ">
           <div>
-            <input placeholder="Search" className="w-52 h-8" />
+            <input
+              placeholder="Search"
+              className="w-52 h-8"
+              onChange={(e) => setFilterParam(e.target.value)}
+            />
           </div>
           <div className=" flex align-baseline m-4">
-            <button className="" onClick={handleClick}>
-              <p className="text-2xl">
+            <Button className="" onClick={handleClick}>
+              {/* <p className="text-2xl">
                 <AiOutlineImport />
-              </p>
-            </button>
-            <button className="" onClick={exportClick}>
-              <p className="text-2xl">
+              </p> */}
+              Import
+            </Button>
+            <Button className="" onClick={exportClick}>
+              {/* <p className="text-2xl">
                 <AiOutlineExport />
-              </p>
-            </button>
+              </p> */}
+              Export
+            </Button>
             {/* <button className="m-2">
               <p className="text-2xl">
                 <BsFilterRight />
@@ -155,16 +174,14 @@ const ProductMaster = () => {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {data.map((product, index) => (
-                  <tr class="hover:bg-gray-50" key={index}>
-                    <td class="px-6 py-2">{product.doc.productID}</td>
-                    <td class="px-6 py-2">{product.doc.productName}</td>
-                    <td class="px-6 py-2">{product.doc.productCategory}</td>
-                    <td class="px-6 py-2">{product.doc.manufacturingDate}</td>
-                    <td class="px-6 py-2">
-                      {product.doc.manufacturingLocation}
-                    </td>
-                    <td class="px-6 py-2">{product.doc.price}</td>
+                {filterData().map((item) => (
+                  <tr class="hover:bg-gray-50" key={item.id}>
+                    <td class="px-6 py-2">{item.doc.productID}</td>
+                    <td class="px-6 py-2">{item.doc.productName}</td>
+                    <td class="px-6 py-2">{item.doc.productCategory}</td>
+                    <td class="px-6 py-2">{item.doc.manufacturingDate}</td>
+                    <td class="px-6 py-2">{item.doc.manufacturingLocation}</td>
+                    <td class="px-6 py-2">{item.doc.price}</td>
                     <td class="px-6 py-2">
                       <div class="flex justify-end gap-4">
                         <a x-data="{ tooltip: 'Delete' }" href="#">
