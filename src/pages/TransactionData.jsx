@@ -27,6 +27,8 @@ const TransactionMaster = () => {
 
   // var pageSize = 5;
 
+  // this.deleteProducts = this.deleteProducts.bind(this);
+
   const handleClick = () => {
     setShowPopup(true);
   };
@@ -47,6 +49,12 @@ const TransactionMaster = () => {
     setData(data);
     // Do something with the data here
   }
+
+  // const handleDelete = (index) =>{
+  //     const d = [...data];
+  //     d.splice(index,1);
+  //     setData(d);
+  // };
 
   function closePopup() {
     setShowPopup(false);
@@ -137,7 +145,7 @@ const TransactionMaster = () => {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {displayedData.map((transaction,index) => (
+                {data.map((transaction,index) => (
                   <tr class="hover:bg-gray-50" key={index}>
                     <td class="px-6 py-2">{transaction.Record.batchId}</td>
                     <td class="px-6 py-2">{transaction.Record.currentLocation}</td>
@@ -145,7 +153,7 @@ const TransactionMaster = () => {
                     <td class="px-6 py-2">{transaction.Record.actualPath}</td>
                     <td class="px-6 py-2">{transaction.Record.soldStatus.toString()}</td>
                     <td class="px-6 py-2">
-                      <div class="flex justify-end gap-4">
+                      {/* <div class="flex justify-end gap-4">
                         <button x-data="{ tooltip: 'Delete' }">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -180,7 +188,7 @@ const TransactionMaster = () => {
                             />
                           </svg>
                         </button>
-                      </div>
+                      </div> */}
                     </td>
                   </tr>
                 ))}

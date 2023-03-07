@@ -12,7 +12,9 @@ import { NavLink } from "react-router-dom";
 import ADDBOD from "../pages/AddBOD";
 import Button from "../components/UI/Button/Button";
 
-const URL = "http://192.168.0.164:8080/api/data/get/bodmaster";
+
+
+const URL = "http://20.193.146.8:8080/api/data/get/bodmaster";
 
 const BODMaster = () => {
   const { setTitle, setCategory } = useStateContext();
@@ -63,9 +65,9 @@ const BODMaster = () => {
     setIsOpen(false);
   }
 
-  const handleDelete = (item) => {
-    setData(data.filter((i) => i.id !== item.id));
-  };
+  // const handleDelete = (item) => {
+  //   setData(data.filter((i) => i.id !== item.id));
+  // };
 
   console.log("TYPE OF DATA: " + typeof data);
   console.log("STATE DATA: " + JSON.stringify(data));
@@ -180,10 +182,10 @@ const BODMaster = () => {
                     <td class="px-6 py-2">{bod.doc.avgTimeTaken}</td>
                     <td class="px-6 py-2">{bod.doc.distance}</td>
                     <td class="px-6 py-2">
-                      <div class="flex justify-end gap-4">
+                      {/* <div class="flex justify-end gap-4">
                         <button
                           x-data="{ tooltip: 'Delete' }"
-                          onClick={() => handleDelete(bod)}
+                          onClick={() => handleDelete(index)}
                         >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -218,7 +220,7 @@ const BODMaster = () => {
                             />
                           </svg>
                         </button>
-                      </div>
+                      </div> */}
                     </td>
                   </tr>
                 ))}

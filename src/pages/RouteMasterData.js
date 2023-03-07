@@ -178,7 +178,7 @@ const RouteMaster = () => {
                     <td class="px-6 py-2">{route.doc.AvgTime}</td>
                     <td class="px-6 py-2">{route.doc.TotalDistance}</td>
                     <td class="px-6 py-2">
-                      <div class="flex justify-end gap-4">
+                      {/* <div class="flex justify-end gap-4">
                         <button x-data="{ tooltip: 'Delete' }">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -213,7 +213,7 @@ const RouteMaster = () => {
                             />
                           </svg>
                         </button>
-                      </div>
+                      </div> */}
                     </td>
                   </tr>
                 ))}

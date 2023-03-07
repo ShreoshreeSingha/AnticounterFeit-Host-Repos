@@ -7,7 +7,7 @@ import { AiOutlineClose } from "react-icons/ai";
 const AddBOD = (props) => {
   const { setTitle , setCategory } = useStateContext();
   const [formData, setFormData] = useState({
-    pathId:"",
+    pathID:"",
     startingPoint:"",
     endingPoint:"",
     transitType:"",
@@ -29,7 +29,8 @@ const AddBOD = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('/api/data/products', {
+      const response = await fetch("http://20.193.146.8:8080/api/data/bodmaster", 
+      {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -38,20 +39,20 @@ const AddBOD = (props) => {
       });
       if (response.ok) {
         setFormData({
-          pathId:"",
+          pathID:"",
           startingPoint:"",
           endingPoint:"",
           transitType:"",
           avgTimeTaken:"",
           distance:"",
         });
-        alert('New Location added successfully!');
+        alert('New BOD added successfully!');
       } else {
-        throw new Error('Failed to add location');
+        throw new Error('Failed to add BOD');
       }
     } catch (error) {
       console.error(error);
-      alert('Failed to add location');
+      alert('Failed to add BOD');
     }
   };
 
@@ -105,36 +106,42 @@ const AddBOD = (props) => {
         <form onSubmit={handleSubmit}>
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
+                name='pathID'
                 placeholder="Path ID*"
                 value={formData.pathId}
                 onChange={handleInputChange }
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-                type="text" 
+                type="text"
+                name='startingPoint'
                 placeholder="Starting Point*"
                 value={formData.startingPoint}
                 onChange={handleInputChange } 
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
+                name='endingPoint'
                 placeholder="Ending Point*"
                 value={formData.endingPoint}
                 onChange={handleInputChange }
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
+                name='transitType'
                 placeholder="Transit Type*"
                 value={formData.transitType}
                 onChange={handleInputChange }
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
+                name='avgTimeTaken'
                 placeholder="Average Time Taken*"
                 value={formData.avgTimeTaken}
                 onChange={handleInputChange } 
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
+                name='distance'
                 placeholder="Distance*"
                 value={formData.distance}
                 onChange={handleInputChange } 

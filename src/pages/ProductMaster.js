@@ -183,7 +183,7 @@ const ProductMaster = () => {
                     <td class="px-6 py-2">{item.doc.manufacturingLocation}</td>
                     <td class="px-6 py-2">{item.doc.price}</td>
                     <td class="px-6 py-2">
-                      <div class="flex justify-end gap-4">
+                      {/* <div class="flex justify-end gap-4">
                         <a x-data="{ tooltip: 'Delete' }" href="#">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -218,7 +218,7 @@ const ProductMaster = () => {
                             />
                           </svg>
                         </a>
-                      </div>
+                      </div> */}
                     </td>
                   </tr>
                 ))}

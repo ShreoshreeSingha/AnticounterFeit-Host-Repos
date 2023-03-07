@@ -157,7 +157,7 @@ const AddProduct = (props) => {
               name="productName"
               value={formData.productName}
               onChange={handleInputChange}
-              placeholder="Product Name"
+              placeholder="Product Name*"
             />
 
             <input
@@ -166,15 +166,15 @@ const AddProduct = (props) => {
               name="productCategory"
               value={formData.productCategory}
               onChange={handleInputChange}
-              placeholder="Product Category"
+              placeholder="Product Category*"
             />
             <input
               className="w-full bg-gray-100 text-gray-900 m-3 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-              type="text"
+              type="date"
               name="manufacturingDate"
               value={formData.manufacturingDate}
               onChange={handleInputChange}
-              placeholder=" Manufacturing Date"
+              placeholder=" Manufacturing Date*"
             />
             <input
               className="w-full bg-gray-100 text-gray-900 m-3 p-3 rounded-lg focus:outline-none focus:shadow-outline"
@@ -182,7 +182,7 @@ const AddProduct = (props) => {
               name="manufacturingLocation"
               value={formData.manufacturingLocation}
               onChange={handleInputChange}
-              placeholder="Manufacturing Location"
+              placeholder="Manufacturing Location*"
             />
             <input
               className="w-full bg-gray-100 text-gray-900 m-3 p-3 rounded-lg focus:outline-none focus:shadow-outline"
@@ -190,7 +190,7 @@ const AddProduct = (props) => {
               name="price"
               value={formData.price}
               onChange={handleInputChange}
-              placeholder="Price"
+              placeholder="Price*"
             />
             <div className="w-[100%]  mx-2 p-2 bg-white m-2  rounded-lg relative">
               <Button type="submit">Add Product</Button>

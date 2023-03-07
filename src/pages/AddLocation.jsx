@@ -14,7 +14,7 @@ const AddLocation = (props) => {
     city:"",
     country:"",
     state:"",
-    storagecapacity:"",
+    storageCapacity:"",
     status:"",
   });
 
@@ -33,7 +33,8 @@ const AddLocation = (props) => {
   const handleSubmit = async (event) => {
     event.preventDefault();
     try {
-      const response = await fetch('/api/data/products', {
+      const response = await fetch("http://20.193.146.8:8080/api/data/locationmaster", 
+      {
         method: 'POST',
         headers: {
           'Content-Type': 'application/json'
@@ -48,7 +49,7 @@ const AddLocation = (props) => {
           city:"",
           country:"",
           state:"",
-          storagecapacity:"",
+          storageCapacity:"",
           status:"",
         });
         alert('New Location added successfully!');
@@ -188,48 +189,56 @@ const AddLocation = (props) => {
         <form onSubmit={handleSubmit}>
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
+                name='locationName'
                 placeholder="Location Name*"
                 value={formData.locationName}
                 onChange={handleInputChange }
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
+                name='locationType'
                 placeholder="Location Type*"
                 value={formData.locationType}
                 onChange={handleInputChange } 
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
+                name='streetAddress'
                 placeholder="Street Address*"
                 value={formData.streetAddress}
                 onChange={handleInputChange }
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
+                name='city'
                 placeholder="City*"
                 value={formData.city}
                 onChange={handleInputChange }
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
+                name='state'
                 placeholder="State*"
                 value={formData.state}
                 onChange={handleInputChange } 
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
+                name='country'
                 placeholder="Country*"
                 value={formData.country}
                 onChange={handleInputChange } 
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
+                name='storageCapacity'
                 placeholder="Storage Capacity*"
-                value={formData.storagecapacity}
+                value={formData.storageCapacity}
                 onChange={handleInputChange }
                 />
             <input class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
                 type="text" 
+                name='status'
                 placeholder="Status*"
                 value={formData.status}
                 onChange={handleInputChange }
