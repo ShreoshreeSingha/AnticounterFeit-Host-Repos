@@ -8,7 +8,7 @@ import Navbar from "../components/Navbar";
 import { useStateContext } from "../contexts/ContextProvider";
 import FileExport from "../components/UI/FileExport";
 
-const URL = "http://192.168.0.164:8080/api/data/get/productmaster";
+const URL = "http://20.193.146.8:8080/api/data/get/productmaster";
 
 const ProductMaster = () => {
   const { setTitle, setCategory } = useStateContext();
