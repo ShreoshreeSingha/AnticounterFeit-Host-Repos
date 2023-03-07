@@ -142,120 +142,59 @@ const AddProduct = (props) => {
   return (
     <>
       {/* <Header category="Page" title="Manufacturer |Add Product" /> */}
-      <div className="bg-white shadow-lg rounded-lg w-1/2 h-2/3 fixed top-[20%] left-[25%] z-[5]">
+      <div className="bg-white shadow-lg rounded-lg w-1/2 h-2/3 fixed top-[10%] left-[25%] z-[5] ">
         <button
-          className="absolute top-0 right-0 p-4 text-xl hover:text-red-600 "
+          className="absolute top-0 right-0 p-2 text-xl hover:text-red-600 "
           onClick={onClick}
         >
           <AiOutlineClose />
         </button>
-        <div className="w-[90%]  mx-auto p-4 bg-white m-2  rounded-lg relative top-20">
-          {/* <button
-          className="absolute top-0 right-0 p-4 text-xl hover:text-red-600 "
-          onClick={onClick}
-        >
-          <AiOutlineClose />
-        </button> */}
-          {/* <form onSubmit={handleSubmit}>
-            <div className="grid grid-cols-2 gap-5 md:grid-cols-2 m-5">
-              <input
-                className="w-full bg-gray-100 text-gray-900 m-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-                type="text"
-                value={formData.productID}
-                onChange={handleInputChange}
-                placeholder="Product ID*"
-              />
-              <input
-                className="w-full bg-gray-100 text-gray-900 m-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-                type="text"
-                value={formData.productName}
-                onChange={handleInputChange}
-                placeholder="Product Name*"
-              />
-              <input
-                className="w-full bg-gray-100 text-gray-900 m-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-                type="text"
-                value={formData.productCategory}
-                onChange={handleInputChange}
-                placeholder="Product Category*"
-              />
-              <input
-                className="w-full bg-gray-100 text-gray-900 m-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-                type="text"
-                value={formData.manufacturingDate}
-                onChange={handleInputChange}
-                placeholder="Manufacturing Date*"
-              />
-              <input
-                className="w-full bg-gray-100 text-gray-900 m-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-                type="text"
-                value={formData.manufacturingLocation}
-                onChange={handleInputChange}
-                placeholder="Manufacturing Location*"
-              />
-              <input
-                className="w-full bg-gray-100 text-gray-900 m-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-                type="text"
-                value={formData.price}
-                onChange={handleInputChange}
-                placeholder="MRP*"
-              />
-
-              {/* <div class="my-4">
-            <textarea placeholder="Message*" class="w-full h-32 bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"></textarea>
-        </div> 
-              <div className="m-4">
-                <Button type="submit">Add Product</Button>
-              </div>
-            </div>
-          </form> */}
+        <div className="w-[90%]  mx-3 p-2 bg-white m-2  rounded-lg relative top-5">
           <form onSubmit={handleSubmit}>
-            <label>
-              Product Name:
-              <input
-                type="text"
-                name="productName"
-                value={formData.productName}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label>
-              Product Category:
-              <input
-                type="text"
-                name="productCategory"
-                value={formData.productCategory}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label>
-              Manufacturing Date:
-              <input
-                type="text"
-                name="manufacturingDate"
-                value={formData.manufacturingDate}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label>
-              Manufacturing Location:
-              <input
-                type="text"
-                name="manufacturingLocation"
-                value={formData.manufacturingLocation}
-                onChange={handleInputChange}
-              />
-            </label>
-            <label>
-              Price:
-              <input
-                type="text"
-                name="price"
-                value={formData.price}
-                onChange={handleInputChange}
-              />
-            </label>
-            <Button type="submit">Add Product</Button>
+            <input
+              className="w-full bg-gray-100 text-gray-900 m-3 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+              type="text"
+              name="productName"
+              value={formData.productName}
+              onChange={handleInputChange}
+              placeholder="Product Name"
+            />
+
+            <input
+              className="w-full bg-gray-100 text-gray-900 m-3 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+              type="text"
+              name="productCategory"
+              value={formData.productCategory}
+              onChange={handleInputChange}
+              placeholder="Product Category"
+            />
+            <input
+              className="w-full bg-gray-100 text-gray-900 m-3 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+              type="text"
+              name="manufacturingDate"
+              value={formData.manufacturingDate}
+              onChange={handleInputChange}
+              placeholder=" Manufacturing Date"
+            />
+            <input
+              className="w-full bg-gray-100 text-gray-900 m-3 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+              type="text"
+              name="manufacturingLocation"
+              value={formData.manufacturingLocation}
+              onChange={handleInputChange}
+              placeholder="Manufacturing Location"
+            />
+            <input
+              className="w-full bg-gray-100 text-gray-900 m-3 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+              type="text"
+              name="price"
+              value={formData.price}
+              onChange={handleInputChange}
+              placeholder="Price"
+            />
+            <div className="w-[100%]  mx-2 p-2 bg-white m-2  rounded-lg relative">
+              <Button type="submit">Add Product</Button>
+            </div>
           </form>
         </div>
       </div>

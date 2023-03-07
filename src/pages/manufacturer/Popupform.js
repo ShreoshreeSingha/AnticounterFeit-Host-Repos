@@ -22,6 +22,17 @@ const Popupform = () => {
   const [showExport, setShowExport] = useState(false);
   const [showImport, setShowImport] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
+  const [filterParam, setFilterParam] = useState("");
+
+  const filterData = () =>
+    data.filter(
+      (item) =>
+        (item && item.Key?.includes(filterParam)) ||
+        item.doc.productName.includes(filterParam) ||
+        item.doc.productCategory.includes(filterParam) ||
+        item.doc.manufacturingDate.includes(filterParam) ||
+        item.doc.manufacturingLocation.includes(filterParam)
+    );
 
   // const tableRef = useRef(null);
 
@@ -122,7 +133,11 @@ const Popupform = () => {
       <div className="m-2 rounded-lg">
         <div className="bg-white mt-3 flex justify-between ">
           <div>
-            <input placeholder="Search" className="w-52 h-8" />
+            <input
+              placeholder="Search"
+              className="w-52 h-8"
+              onChange={(e) => setFilterParam(e.target.value)}
+            />
           </div>
           <div className=" flex align-baseline m-4">
             <Button className="" onClick={handleClick}>
@@ -180,18 +195,16 @@ const Popupform = () => {
             </thead>
             {data != "" ? (
               <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-                {data.map((product, index) => (
-                  <tr className="hover:bg-gray-50" key={index}>
-                    <td className="px-6 py-2">{product.doc.productId}</td>
-                    <td className="px-6 py-2">{product.doc.productName}</td>
-                    <td className="px-6 py-2">{product.doc.productCategory}</td>
+                {filterData().map((item) => (
+                  <tr className="hover:bg-gray-50" key={item.id}>
+                    <td className="px-6 py-2">{item.doc.productId}</td>
+                    <td className="px-6 py-2">{item.doc.productName}</td>
+                    <td className="px-6 py-2">{item.doc.productCategory}</td>
+                    <td className="px-6 py-2">{item.doc.manufacturingDate}</td>
                     <td className="px-6 py-2">
-                      {product.doc.manufacturingDate}
+                      {item.doc.manufacturingLocation}
                     </td>
-                    <td className="px-6 py-2">
-                      {product.doc.manufacturingLocation}
-                    </td>
-                    <td className="px-6 py-2">{product.doc.price}</td>
+                    <td className="px-6 py-2">{item.doc.price}</td>
                     <td className="px-6 py-2">
                       <div className="flex justify-end gap-4">
                         <a x-data="{ tooltip: 'Delete' }" href="#">
