@@ -5,6 +5,8 @@ import { AiOutlineImport, AiOutlineExport } from "react-icons/ai";
 //import FileUpload from "../components/UI/FileUpload";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import { useStateContext } from "../../contexts/ContextProvider";
+import Button from "../../components/UI/Button/Button";
+import FileExport from "../../components/UI/FileExport";
 
 function ManufacturerScanHistory() {
   const { setTitle, setCategory } = useStateContext();
@@ -20,7 +22,8 @@ function ManufacturerScanHistory() {
 
   setTitle("/Manufacturer");
   setCategory("Activity");
-
+  const [showExport, setShowExport] = useState(false);
+  const [displayedData, setDisplayedData] = useState([]);
   console.log(JSON.stringify(data));
 
   const filterData = () =>
@@ -40,6 +43,13 @@ function ManufacturerScanHistory() {
     setShowPopup(true);
   };
 
+  const exportClick = () => {
+    setShowExport(true);
+  };
+  function closePopup() {
+    setShowExport(false);
+    setShowPopup(false);
+  }
   function handleTableDataFromMyComponent(data) {
     console.log("Received data from MyComponent:", data);
     setDisplayedData(data);
@@ -52,9 +62,9 @@ function ManufacturerScanHistory() {
     // Do something with the data here
   }
 
-  function closePopup() {
-    setShowPopup(false);
-  }
+  // function closePopup() {
+  //   setShowPopup(false);
+  // }
 
   console.log("TYPE OF DATA: " + typeof data);
   console.log("STATE DATA: " + JSON.stringify(data));
@@ -62,11 +72,8 @@ function ManufacturerScanHistory() {
   return (
     <>
       {/* <Header category="Page" title="Manufacturer | Scan History" /> */}
-      {showPopup && (
-        <FileUpload
-          onDataReceived={handleRawDataFromMyComponent}
-          onCloseRecieved={closePopup}
-        />
+      {showExport && (
+        <FileExport data={displayedData} onCloseRecieved={closePopup} />
       )}
       <div className="rounded-lg">
         <div className="bg-white mt-2 flex justify-between ">
@@ -78,16 +85,12 @@ function ManufacturerScanHistory() {
             />
           </div>
           <div className=" flex align-baseline m-4">
-            <button className="" onClick={handleClick}>
-              <p className="text-2xl">
-                <AiOutlineImport />
-              </p>
-            </button>
-            <button className="" onClick={handleClick}>
-              <p className="text-2xl">
+            <Button className="" onClick={exportClick}>
+              {/* <p className="text-2xl">
                 <AiOutlineExport />
-              </p>
-            </button>
+              </p> */}
+              Export
+            </Button>
             {/* <button className="m-2">
               <p className="text-2xl">
                 <BsFilterRight />

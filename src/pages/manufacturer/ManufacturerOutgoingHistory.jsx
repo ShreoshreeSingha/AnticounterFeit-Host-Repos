@@ -6,6 +6,8 @@ import TablePagination from "../../components/UI/TablePagination";
 import LoadingSpinner from "../../components/LoadingSpinner";
 // import Navbar from "../components/Navbar";
 import { useStateContext } from "../../contexts/ContextProvider";
+import FileExport from "../../components/UI/FileExport";
+import Button from "../../components/UI/Button/Button";
 
 function ManufacturerOutgoingHistory() {
   const { setTitle, setCategory } = useStateContext();
@@ -21,7 +23,8 @@ function ManufacturerOutgoingHistory() {
 
   setTitle("/Manufacturer");
   setCategory("OutGoingBatch");
-
+  const [showExport, setShowExport] = useState(false);
+  const [displayedData, setDisplayedData] = useState([]);
   const filterData = () =>
     data.filter(
       (item) =>
@@ -38,6 +41,10 @@ function ManufacturerOutgoingHistory() {
     setShowPopup(true);
   };
 
+  const exportClick = () => {
+    setShowExport(true);
+  };
+
   function handleTableDataFromMyComponent(data) {
     console.log("Received data from MyComponent:", data);
     setDisplayedData(data);
@@ -52,6 +59,7 @@ function ManufacturerOutgoingHistory() {
 
   function closePopup() {
     setShowPopup(false);
+    setShowExport(false);
   }
 
   console.log(`TYPE OF DATA: ${typeof data}`);
@@ -60,11 +68,8 @@ function ManufacturerOutgoingHistory() {
   return (
     <>
       {/* <Header category="Page" title="Manufacturer | Outgoing Batches" /> */}
-      {showPopup && (
-        <FileUpload
-          onDataReceived={handleRawDataFromMyComponent}
-          onCloseRecieved={closePopup}
-        />
+      {showExport && (
+        <FileExport data={displayedData} onCloseRecieved={closePopup} />
       )}
       <div className="rounded-lg">
         <div className="bg-white mt-2 flex justify-between ">
@@ -76,16 +81,12 @@ function ManufacturerOutgoingHistory() {
             />
           </div>
           <div className=" flex align-baseline m-4">
-            <button className="" onClick={handleClick}>
-              <p className="text-2xl">
-                <AiOutlineImport />
-              </p>
-            </button>
-            <button className="" onClick={handleClick}>
-              <p className="text-2xl">
+            <Button className="" onClick={exportClick}>
+              {/* <p className="text-2xl">
                 <AiOutlineExport />
-              </p>
-            </button>
+              </p> */}
+              Export
+            </Button>
             {/* <button className="m-2">
               <p className="text-2xl">
                 <BsFilterRight />
