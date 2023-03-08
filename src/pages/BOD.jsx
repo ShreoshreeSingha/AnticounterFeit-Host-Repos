@@ -95,7 +95,7 @@ const BODMaster = () => {
         />
       )}
       {showExport && (
-        <FileExport data={displayedData} onCloseRecieved={closePopup} />
+        <FileExport data={data} onCloseRecieved={closePopup} />
       )}
       {modalIsOpen && (
         <ADDBOD

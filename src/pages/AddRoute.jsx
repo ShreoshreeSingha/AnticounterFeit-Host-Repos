@@ -14,8 +14,10 @@ import { useStateContext } from "../contexts/ContextProvider";
 
 
 
-const apiPostUrl = "http://20.193.146.8:8080/api/data/bod";
-const apiGetUrl = "http://20.193.146.8:8080/api/updateRoute";
+const apiPostUrl = "http://20.193.146.8:8080/api/data/get/bodmaster";
+const apiGetUrl = "http://20.193.146.8:8080/api/data/routemaster";
+const URL = "http://20.193.146.8:8080/api/data/get/bodmaster";
+
 
 const WAIT_TIME = 2000;
 
@@ -95,15 +97,31 @@ const AddRoute = (props) => {
   //   avgTimeTaken: "78hrs",
   // };
 
+
+
+
   // API CALL TO FETCH BOD DATA
-  React.useEffect(() => {
-    const fetchData = async () => {
-      const response = await fetch(apiPostUrl);
-      const json = await response.json();
-      setData(json.data);
-      console.log(`DATA : ${JSON.stringify(data.data[0].startingPoint)}`);
-    };
-    fetchData();
+  // React.useEffect(() => {
+  //   const fetchData = async () => {
+  //     const response = await fetch("http://20.193.146.8:8080/api/data/get/bodmaster");
+  //     const json = await response.json();
+  //     setData(json.data);
+  //     console.log(`DATA : ${JSON.stringify(data.data[0].startingPoint)}`);
+  //   };
+  //   fetchData();
+  // }, []);
+   React.useEffect(() => {
+    fetch(URL, {
+      headers: {
+        "content-type": "application/json",
+        Accept: "application/json",
+      },
+    })
+      .then((response) => response.json())
+      .then((data) => {
+        setData(data);
+      });
+    console.log("DATA : " + JSON.stringify(data));
   }, []);
 
   // API CALL TO SEND ADD ROUTE REQUEST
@@ -125,7 +143,7 @@ const AddRoute = (props) => {
         // setTotalDistance(d.totalDistance);
         // setAvgTimeTaken(d.avgTimeTaken);
         console.log(`DATA TYPE OF : ${typeof responseData}`);
-        console.log(d);
+        console.log("Add Route: "+d);
       });
   };
 
@@ -138,11 +156,8 @@ const AddRoute = (props) => {
       >
         <AiOutlineClose />
       </button> 
-      {routeId == "" ? (
-        <>
-          {/* <Header category="Page" title="Add Route" /> */}
-          <div className="mx-12 my-4">
-            {data ? (
+          <div className="m-10">
+            {/* {data ? ( */}
               <form onSubmit={handleSubmit}>
                 <button
                   className="rounded-full bg-hover-bg p-1 hover:bg-[#3497c1] mr-2 "
@@ -173,10 +188,10 @@ const AddRoute = (props) => {
                   >
                     {data.map((option) => (
                       <option
-                        key={option.startingPoint}
-                        value={option.startingPoint}
+                        key={option.doc.checkPoints}
+                        value={option.doc.startingPoint}
                       >
-                        {option.startingPoint}
+                        {option.doc.startingPoint}
                       </option>
                     ))}
                   </select>
@@ -189,47 +204,13 @@ const AddRoute = (props) => {
                 <h1 className="font-semibold">
                   Total checkpoints: {numSelects}
                 </h1>
+                <div className="m-3">
+                  <Button type="submit">
+                    Create
+                  </Button>
+                </div>
               </form>
-            ) : (
-              <p>Loading...</p>
-            )}
-          </div>
-          <Button
-            type="submit"
-            className="absolute bottom-0 left-0 m-12"
-            onClick={handleSubmit}
-            // onClick={() =>
-            //   apicall({
-            //     route: JSON.stringify(route),
-            //     totalDistance: JSON.stringify(totalDistance),
-            //     avgTimeTaken: JSON.stringify(avgTimeTaken),
-            //   })
-            // }
-          >
-            Create
-          </Button>
-        </>
-      ) : (
-        <div className="flex-col flex text-center mx-24 absolute top-1/8 left-1/8">
-          <div>
-            <p className="mt-16">Response Message : </p>
-          </div>
-          <div>
-            {/* <p className="mt-4">Route Id : {routeId}</p>
-              <p className="mt-4">Checkpoints : {checkpoints}</p>
-              <p className="mt-4">Total Distance : {totalDistance}</p>
-              <p className="mt-4">Average Time Taken : {avgTimeTaken}</p> */}
-          </div>
-          <div className="pt-10 ml-[29%]">
-            {batchId === null ? (
-              "Generated Route Details Will be Displayed Here"
-            ) : (
-              // <QRCode value={batchId} size={200} />
-              <h1>Check!</h1>
-            )}
-          </div>
-        </div>
-      )}
+          </div> 
       </div>
     </>
   );

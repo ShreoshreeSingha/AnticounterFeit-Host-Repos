@@ -13,7 +13,7 @@ import ADDROUTE from "../pages/AddRoute";
 import Button from "../components/UI/Button/Button";
 
 
-const URL = "http://192.168.0.164:8080/api/data/get/routemaster";
+const URL = "http://20.193.146.8:8080/api/data/get/routemaster";
 
 const RouteMaster = () => {
   const { setTitle, setCategory } = useStateContext();
@@ -170,13 +170,14 @@ const RouteMaster = () => {
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
                 {data.map((route, index) => (
                   <tr class="hover:bg-gray-50" key={index}>
-                    <td class="px-6 py-2">{route.doc.RouteID}</td>
+                    <td class="px-6 py-2">{route.key}</td>
                     <td class="px-6 py-2">
-                      {route.doc.CheckPoints[0]}-{route.doc.CheckPoints[1]}-
-                      {route.doc.CheckPoints[2]}-{route.doc.CheckPoints[3]}
+                      {route.doc.route}
+                      {/* {route.doc.checkPoints[0]}-{route.doc.checkPoints[1]}-
+                      {route.doc.checkPoints[2]}-{route.doc.checkPoints[3]} */}
                     </td>
-                    <td class="px-6 py-2">{route.doc.AvgTime}</td>
-                    <td class="px-6 py-2">{route.doc.TotalDistance}</td>
+                    <td class="px-6 py-2">{route.doc.avgTimeTaken}</td>
+                    <td class="px-6 py-2">{route.doc.totalDistance}</td>
                     <td class="px-6 py-2">
                       {/* <div class="flex justify-end gap-4">
                         <button x-data="{ tooltip: 'Delete' }">
