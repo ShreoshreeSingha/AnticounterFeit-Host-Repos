@@ -3,6 +3,7 @@ import { CSVLink } from "react-csv";
 import { DownloadTableExcel } from "react-export-table-to-excel";
 import { AiOutlineClose } from "react-icons/ai";
 import Button from "./Button/Button";
+import Header from "../../components/Header";
 
 const FileExport = (props) => {
   // const [selectedOption, setSelectedOption] = useState(null);
@@ -18,6 +19,7 @@ const FileExport = (props) => {
 
   return (
     <div className="bg-white shadow-lg rounded-lg w-1/2 h-2/3 fixed top-[20%] left-[25%] z-[5]">
+      <Header category="" title="Export File Here" />
       <button
         className="absolute top-0 right-0 p-4 text-xl hover:text-red-600 "
         onClick={onClick}

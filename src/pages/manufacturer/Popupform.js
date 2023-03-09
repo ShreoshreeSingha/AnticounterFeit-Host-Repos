@@ -169,9 +169,9 @@ const Popupform = () => {
           <table className=" min-h-[70vh] w-full border-collapse text-left text-sm text-gray-500">
             <thead className="bg-gray-50">
               <tr>
-                <th scope="col" className="px-6 py-4 font-medium text-gray-900">
+                {/* <th scope="col" className="px-6 py-4 font-medium text-gray-900">
                   Product ID
-                </th>
+                </th> */}
                 <th scope="col" className="px-6 py-4 font-medium text-gray-900">
                   Product Name
                 </th>
@@ -197,7 +197,7 @@ const Popupform = () => {
               <tbody className="divide-y divide-gray-100 border-t border-gray-100">
                 {filterData().map((item) => (
                   <tr className="hover:bg-gray-50" key={item.id}>
-                    <td className="px-6 py-2">{item.doc.productId}</td>
+                    {/* <td className="px-6 py-2">{item.doc.productId}</td> */}
                     <td className="px-6 py-2">{item.doc.productName}</td>
                     <td className="px-6 py-2">{item.doc.productCategory}</td>
                     <td className="px-6 py-2">{item.doc.manufacturingDate}</td>
@@ -205,7 +205,7 @@ const Popupform = () => {
                       {item.doc.manufacturingLocation}
                     </td>
                     <td className="px-6 py-2">{item.doc.price}</td>
-                    <td className="px-6 py-2">
+                    {/* <td className="px-6 py-2">
                       <div className="flex justify-end gap-4">
                         <a x-data="{ tooltip: 'Delete' }" href="#">
                           <svg
@@ -242,7 +242,7 @@ const Popupform = () => {
                           </svg>
                         </a>
                       </div>
-                    </td>
+                    </td>*/}
                   </tr>
                 ))}
               </tbody>

@@ -142,7 +142,7 @@ const AddProduct = (props) => {
   return (
     <>
       {/* <Header category="Page" title="Manufacturer |Add Product" /> */}
-      <div className="bg-white shadow-lg rounded-lg w-1/2 h-2/3 fixed top-[10%] left-[25%] z-[5] ">
+      <div className="bg-white shadow-lg rounded-lg w-1/2 h-2/3 fixed top-[10%] left-[25%] z-[5] text-center ">
         <button
           className="absolute top-0 right-0 p-2 text-xl hover:text-red-600 "
           onClick={onClick}
@@ -169,12 +169,13 @@ const AddProduct = (props) => {
               placeholder="Product Category*"
             />
             <input
-              className="w-full bg-gray-100 text-gray-900 m-3 p-3 rounded-lg focus:outline-none focus:shadow-outline"
-              type="date"
+              className="w-full bg-gray-100  m-3 p-3 rounded-lg focus:outline-none focus:shadow-outline text-zinc-400"
+              type="text"
               name="manufacturingDate"
               value={formData.manufacturingDate}
               onChange={handleInputChange}
               placeholder=" Manufacturing Date*"
+              //onfocus="(this.type='date')
             />
             <input
               className="w-full bg-gray-100 text-gray-900 m-3 p-3 rounded-lg focus:outline-none focus:shadow-outline"

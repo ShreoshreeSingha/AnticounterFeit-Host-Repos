@@ -12,17 +12,14 @@ import { bodData } from "../data/bodData";
 import { AiOutlineClose } from "react-icons/ai";
 import { useStateContext } from "../contexts/ContextProvider";
 
-
-
 const apiPostUrl = "http://20.193.146.8:8080/api/data/get/bodmaster";
 const apiGetUrl = "http://20.193.146.8:8080/api/data/routemaster";
 const URL = "http://20.193.146.8:8080/api/data/get/bodmaster";
 
-
 const WAIT_TIME = 2000;
 
 const AddRoute = (props) => {
-  const { setTitle , setCategory } = useStateContext();
+  const { setTitle, setCategory } = useStateContext();
   const [numSelects, setNumSelects] = useState(2);
   const [selectedValues, setSelectedValues] = useState([]);
   const [showWarning, setShowWarning] = React.useState(false);
@@ -44,9 +41,8 @@ const AddRoute = (props) => {
 
   const onClick = props.onCloseRecieved;
 
-  setTitle('/Add Route')
-  setCategory('Data')
-
+  setTitle("/Add Route");
+  setCategory("Data");
 
   const addSelect = () => {
     setShowWarning(false);
@@ -97,9 +93,6 @@ const AddRoute = (props) => {
   //   avgTimeTaken: "78hrs",
   // };
 
-
-
-
   // API CALL TO FETCH BOD DATA
   // React.useEffect(() => {
   //   const fetchData = async () => {
@@ -110,7 +103,7 @@ const AddRoute = (props) => {
   //   };
   //   fetchData();
   // }, []);
-   React.useEffect(() => {
+  React.useEffect(() => {
     fetch(URL, {
       headers: {
         "content-type": "application/json",
@@ -143,74 +136,70 @@ const AddRoute = (props) => {
         // setTotalDistance(d.totalDistance);
         // setAvgTimeTaken(d.avgTimeTaken);
         console.log(`DATA TYPE OF : ${typeof responseData}`);
-        console.log("Add Route: "+d);
+        console.log("Add Route: " + d);
       });
   };
 
   return (
     <>
-    <div className="bg-white shadow-lg rounded-lg w-1/2 h-3/3 fixed top-[10%] left-[25%] z-[5]">
-      <button
-        className="absolute top-0 right-0 p-4 text-xl hover:text-red-600 "
-        onClick={onClick}
-      >
-        <AiOutlineClose />
-      </button> 
-          <div className="m-10">
-            {/* {data ? ( */}
-              <form onSubmit={handleSubmit}>
-                <button
-                  className="rounded-full bg-hover-bg p-1 hover:bg-[#3497c1] mr-2 "
-                  onClick={removeSelect}
-                >
-                  {" "}
-                  <AiOutlineMinus className="text-3xl" />
-                </button>
-                <button
-                  className="rounded-full bg-hover-bg p-1 hover:bg-[#3497c1] mr-2"
-                  onClick={addSelect}
-                >
-                  <IoMdAdd className="text-3xl" />
-                </button>
-                <br />
-                <br />
-                {showWarning && (
-                  <div>
-                    <Warning content="Warning: You must add atleast 2 location." />
-                  </div>
-                )}
-                {Array.from({ length: numSelects }, (_, i) => (
-                  <select
-                    key={i}
-                    value={selectedValues[i]}
-                    onChange={handleChange(i)}
-                    className="rounded-lg text-base md:text-lg px-[5%] py-3 mr-2 mt-2"
+      <div className="bg-white shadow-lg rounded-lg w-1/2 h-3/3 fixed top-[10%] left-[25%] z-[5] text-center">
+        <button
+          className="absolute top-0 right-0 p-4 text-xl hover:text-red-600 "
+          onClick={onClick}
+        >
+          <AiOutlineClose />
+        </button>
+        <div className="m-10">
+          {/* {data ? ( */}
+          <form onSubmit={handleSubmit}>
+            <button
+              className="rounded-full bg-hover-bg p-1 hover:bg-[#3497c1] mr-2 "
+              onClick={removeSelect}
+            >
+              {" "}
+              <AiOutlineMinus className="text-3xl" />
+            </button>
+            <button
+              className="rounded-full bg-hover-bg p-1 hover:bg-[#3497c1] mr-2"
+              onClick={addSelect}
+            >
+              <IoMdAdd className="text-3xl" />
+            </button>
+            <br />
+            <br />
+            {showWarning && (
+              <div>
+                <Warning content="Warning: You must add atleast 2 location." />
+              </div>
+            )}
+            {Array.from({ length: numSelects }, (_, i) => (
+              <select
+                key={i}
+                value={selectedValues[i]}
+                onChange={handleChange(i)}
+                className="rounded-lg text-base md:text-lg px-[5%] py-3 mr-2 mt-2"
+              >
+                {data.map((option) => (
+                  <option
+                    key={option.doc.checkPoints}
+                    value={option.doc.startingPoint}
                   >
-                    {data.map((option) => (
-                      <option
-                        key={option.doc.checkPoints}
-                        value={option.doc.startingPoint}
-                      >
-                        {option.doc.startingPoint}
-                      </option>
-                    ))}
-                  </select>
+                    {option.doc.startingPoint}
+                  </option>
                 ))}
-                <br />
-                <br />
-                <h1 className="font-semibold">
-                  Selected values: [{selectedValues.join(", ")}]
-                </h1>
-                <h1 className="font-semibold">
-                  Total checkpoints: {numSelects}
-                </h1>
-                <div className="m-3">
-                  <Button type="submit">
-                    Create
-                  </Button>
-                </div>
-              </form>
-          </div> 
+              </select>
+            ))}
+            <br />
+            <br />
+            <h1 className="font-semibold">
+              Selected values: [{selectedValues.join(", ")}]
+            </h1>
+            <h1 className="font-semibold">Total checkpoints: {numSelects}</h1>
+            <div className="m-3">
+              <Button type="submit">Create</Button>
+            </div>
+          </form>
+        </div>
       </div>
     </>
   );

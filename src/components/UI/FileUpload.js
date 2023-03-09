@@ -1,11 +1,10 @@
 import React from "react";
 import Papa from "papaparse";
-import {
-    AiOutlineClose,
-  } from "react-icons/ai";
-  import { CiImport } from "react-icons/ci";
-  import Warning from "../Warning";
-  import Button from "./Button/Button";
+import { AiOutlineClose } from "react-icons/ai";
+import { CiImport } from "react-icons/ci";
+import Warning from "../Warning";
+import Button from "./Button/Button";
+import Header from "../../components/Header";
 
 const FileUpload = (props) => {
   const [data, setData] = React.useState([]);
@@ -13,7 +12,7 @@ const FileUpload = (props) => {
   const [showWarning, setShowWarning] = React.useState(false);
 
   const handleData = props.onDataReceived;
-  const onClick = props.onCloseRecieved
+  const onClick = props.onCloseRecieved;
 
   // handleFileUpload that will be called when the user selects a file
   function handleFileUpload(event) {
@@ -28,7 +27,7 @@ const FileUpload = (props) => {
 
       // Update the state with the processed data
       setData(processedData);
-      handleData(processedData)
+      handleData(processedData);
     };
 
     if (/\.(json)$/i.test(file.name) || /\.(csv)$/i.test(file.name)) {
@@ -79,6 +78,7 @@ const FileUpload = (props) => {
   }
   return (
     <div className="bg-white shadow-lg rounded-lg w-1/2 h-2/3 fixed top-[20%] left-[25%] z-[5]">
+      <Header category="" title="Import File Here" />
       <button
         className="absolute top-0 right-0 p-4 text-xl hover:text-red-600 "
         onClick={onClick}
