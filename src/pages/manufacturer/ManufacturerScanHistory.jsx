@@ -72,9 +72,7 @@ function ManufacturerScanHistory() {
   return (
     <>
       {/* <Header category="Page" title="Manufacturer | Scan History" /> */}
-      {showExport && (
-        <FileExport data={displayedData} onCloseRecieved={closePopup} />
-      )}
+      {showExport && <FileExport data={data} onCloseRecieved={closePopup} />}
       <div className="rounded-lg">
         <div className="bg-white mt-2 flex justify-between ">
           <div>

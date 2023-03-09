@@ -12,8 +12,6 @@ import { NavLink } from "react-router-dom";
 import ADDBOD from "../pages/AddBOD";
 import Button from "../components/UI/Button/Button";
 
-
-
 const URL = "http://20.193.146.8:8080/api/data/get/bodmaster";
 
 const BODMaster = () => {
@@ -23,12 +21,21 @@ const BODMaster = () => {
   const [showExport, setShowExport] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [filterParam, setFilterParam] = useState("");
 
   setTitle("/BOD Master");
   setCategory("Data");
 
   // React.useEffect(() => {
   // },[displayedData])
+  const filterData = () =>
+    data.filter(
+      (item) =>
+        (item && item.Key?.includes(filterParam)) ||
+        item.doc.startingPoint.includes(filterParam) ||
+        item.doc.endingPoint.includes(filterParam) ||
+        item.doc.transitType.includes(filterParam)
+    );
 
   var pageSize = 10;
 
@@ -94,14 +101,8 @@ const BODMaster = () => {
           onCloseRecieved={closePopup}
         />
       )}
-      {showExport && (
-        <FileExport data={data} onCloseRecieved={closePopup} />
-      )}
-      {modalIsOpen && (
-        <ADDBOD
-          onCloseRecieved={closeModal}
-        />
-      )}
+      {showExport && <FileExport data={data} onCloseRecieved={closePopup} />}
+      {modalIsOpen && <ADDBOD onCloseRecieved={closeModal} />}
       <div className="m-2 rounded-lg">
         {/* <div className="flex justify-between p-4 bg-white rounded-lg">
           <div className="flex items-center text-xl">
@@ -118,10 +119,14 @@ const BODMaster = () => {
         </div> */}
         <div className="bg-white mt-3 flex justify-between ">
           <div>
-            <input placeholder="Search" className="w-52 h-8" />
+            <input
+              placeholder="Search"
+              className="w-52 h-8"
+              onChange={(e) => setFilterParam(e.target.value)}
+            />
           </div>
           <div className=" flex align-baseline m-4">
-          <Button className="" onClick={openModal}>
+            <Button className="" onClick={openModal}>
               Add BOD
             </Button>
             <Button className="" onClick={handleClick}>
@@ -173,7 +178,7 @@ const BODMaster = () => {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {data.map((bod, index) => (
+                {filterData().map((bod, index) => (
                   <tr class="hover:bg-gray-50" key={index}>
                     <td class="px-6 py-2">{bod.doc.pathID}</td>
                     <td class="px-6 py-2">{bod.doc.startingPoint}</td>

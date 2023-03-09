@@ -10,6 +10,7 @@ import TablePagination from "../../components/UI/TablePagination";
 import LoadingSpinner from "../../components/LoadingSpinner";
 import FileExport from "../../components/UI/FileExport";
 import { useStateContext } from "../../contexts/ContextProvider";
+import Button from "../../components/UI/Button/Button";
 
 function DistributorIncomingBatch() {
   const [data, setData] = useState([]);
@@ -18,7 +19,6 @@ function DistributorIncomingBatch() {
   const [displayedData, setDisplayedData] = useState([]);
   // rest of component code
 
-  
   useEffect(() => {
     fetch("http://20.193.146.8:8080/api/getallbatches")
       .then((response) => response.json())
@@ -27,9 +27,16 @@ function DistributorIncomingBatch() {
   }, []);
   console.log("Data: " + JSON.stringify(data));
 
-  const filterData = () => data.filter((item) => item.Record.route[1] === "S2");
-  const recievedFilterData = filterData()
-
+  const filterData = () =>
+    data.filter(
+      (item) =>
+        (item.Record.route.includes("R1") && item.Key.includes(filterParam)) ||
+        item.Record.route.includes(filterParam) ||
+        item.Record.actualPath.includes(filterParam) ||
+        item.Record.currentLocation.includes(filterParam)
+    );
+  const recievedFilterData = filterData();
+  console.log("ff" + recievedFilterData);
 
   // var pageSize = 2;
   const [showPopup, setShowPopup] = useState(false);
@@ -42,11 +49,12 @@ function DistributorIncomingBatch() {
   //   setShowPopup(true);
   // };
 
-  function handleTableDataFromMyComponent(data) {
+  function handleTableDataFromMyComponent(recievedFilterData) {
     // console.log(`Received data from MyComponent:${JSON.stringify(data)}`);
-    setDisplayedData(data);
+    setDisplayedData(recievedFilterData);
+    //console.log("Displayed data:" + displayedData);
     // console.log("Inside handleTableDataFromMyComponent FUNCTION ");
-    // console.log("Displayed Data: " + JSON.stringify(displayedData));
+    console.log("Displayed Data55: " + JSON.stringify(displayedData));
     // Do something with the data here
   }
 
@@ -73,7 +81,11 @@ function DistributorIncomingBatch() {
       <div className="rounded-lg">
         <div className="bg-white mt-2 flex justify-between ">
           <div>
-            <input placeholder="Search" className="w-52 h-8" />
+            <input
+              placeholder="Search"
+              className="w-52 h-8"
+              onChange={(e) => setFilterParam(e.target.value)}
+            />
           </div>
           <div className=" flex align-baseline m-4">
             {/* <button className="" onClick={handleClick}>
@@ -81,11 +93,12 @@ function DistributorIncomingBatch() {
                 <AiOutlineImport />
               </p> */}
             {/* </button> */}
-            <button className="" onClick={exportClick}>
-              <p className="text-2xl">
-                <AiOutlineCloudDownload />
-              </p>
-            </button>
+            <Button className="" onClick={exportClick}>
+              {/* <p className="text-2xl">
+                <AiOutlineExport />
+              </p> */}
+              Export
+            </Button>
             {/* <button className="m-2">
               <p className="text-2xl">
                 <BsFilterRight />
@@ -123,7 +136,7 @@ function DistributorIncomingBatch() {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {displayedData.map((item) => (
+                {filterData().map((item) => (
                   <tr class="hover:bg-gray-50" key={item.id}>
                     <td class="px-6 py-1 font-medium text-gray-900">
                       {item.Key}

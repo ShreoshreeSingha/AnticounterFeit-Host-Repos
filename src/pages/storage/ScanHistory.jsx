@@ -1,13 +1,20 @@
 import React, { useState, useEffect } from "react";
 import Header from "../../components/Header";
 import TablePagination from "../../components/UI/TablePagination";
-import { AiOutlineImport, AiOutlineExport } from "react-icons/ai";
+import {
+  AiOutlineImport,
+  AiOutlineExport,
+  AiOutlineCloudDownload,
+} from "react-icons/ai";
 //import FileUpload from "../components/UI/FileUpload";
 import LoadingSpinner from "../../components/LoadingSpinner";
+import FileExport from "../../components/UI/FileExport";
+import Button from "../../components/UI/Button/Button";
 
 function ScanHistory() {
   const [data, setData] = useState([]);
   const [filterParam, setFilterParam] = useState("");
+  const [showExport, setShowExport] = useState(false);
   // rest of component code
   useEffect(() => {
     fetch("http://20.193.146.8:8080/api/getallbatches")
@@ -16,12 +23,24 @@ function ScanHistory() {
       .catch((error) => console.error(error));
   }, []);
 
-  const filterData = () => data.filter((item) => item.Record.route[3] === "R1");
+  const filterData = () =>
+    data.filter(
+      (item) =>
+        (item.Record.route.includes("S2") && item.Key.includes(filterParam)) ||
+        item.Record.route.includes(filterParam) ||
+        item.Record.actualPath.includes(filterParam) ||
+        item.Record.currentLocation.includes(filterParam)
+    );
+
   var pageSize = 10;
   const [showPopup, setShowPopup] = useState(false);
 
   const handleClick = () => {
     setShowPopup(true);
+  };
+
+  const exportClick = () => {
+    setShowExport(true);
   };
 
   function handleTableDataFromMyComponent(data) {
@@ -38,6 +57,7 @@ function ScanHistory() {
 
   function closePopup() {
     setShowPopup(false);
+    setShowExport(false);
   }
 
   console.log("TYPE OF DATA: " + typeof data);
@@ -46,28 +66,23 @@ function ScanHistory() {
   return (
     <>
       <Header category="Page" title="WareHouse | Scan History" />
-      {showPopup && (
-        <FileUpload
-          onDataReceived={handleRawDataFromMyComponent}
-          onCloseRecieved={closePopup}
-        />
-      )}
+      {showExport && <FileExport data={data} onCloseRecieved={closePopup} />}
       <div className="rounded-lg">
         <div className="bg-white mt-2 flex justify-between ">
           <div>
-            <input placeholder="Search" className="w-52 h-8" />
+            <input
+              placeholder="Search"
+              className="w-52 h-8"
+              onChange={(e) => setFilterParam(e.target.value)}
+            />
           </div>
           <div className=" flex align-baseline m-4">
-            <button className="" onClick={handleClick}>
-              <p className="text-2xl">
-                <AiOutlineImport />
-              </p>
-            </button>
-            <button className="" onClick={handleClick}>
-              <p className="text-2xl">
+            <Button className="" onClick={exportClick}>
+              {/* <p className="text-2xl">
                 <AiOutlineExport />
-              </p>
-            </button>
+              </p> */}
+              Export
+            </Button>
             {/* <button className="m-2">
               <p className="text-2xl">
                 <BsFilterRight />

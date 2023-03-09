@@ -9,18 +9,18 @@ import { useStateContext } from "../contexts/ContextProvider";
 import FileExport from "../components/UI/FileExport";
 import Button from "../components/UI/Button/Button";
 
-
 const URL = "http://20.193.146.8:8080/api/getallbatches";
 
 const TransactionMaster = () => {
-  const { setTitle , setCategory } = useStateContext();
+  const { setTitle, setCategory } = useStateContext();
   const [data, setData] = React.useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
   const [showExport, setShowExport] = useState(false);
+  const [filterParam, setFilterParam] = useState("");
 
-  setTitle('/Transaction Master')
-  setCategory('Data')
+  setTitle("/Transaction Master");
+  setCategory("Data");
 
   // React.useEffect(() => {
   // },[displayedData])
@@ -33,14 +33,14 @@ const TransactionMaster = () => {
     setShowPopup(true);
   };
 
-  const exportClick = () =>{
+  const exportClick = () => {
     setShowExport(true);
   };
 
-  function handleTableDataFromMyComponent(data) {
-    console.log("Received tabledata from MyComponent: "+ data); 
-    setDisplayedData(data);
-    console.log("Displayed data:"+displayedData);
+  function handleTableDataFromMyComponent(recievedFilterData) {
+    console.log("Received tabledata from MyComponent: " + recievedFilterData);
+    setDisplayedData(recievedFilterData);
+    console.log("Displayed data:" + displayedData);
     // Do something with the data here
   }
 
@@ -79,8 +79,16 @@ const TransactionMaster = () => {
   }, []);
   // const exportData= JSON.stringify(data);
   // console.log("DISPLAYED DATA:", exportData);
-  console.log("RECORD DATA:",data);
-  
+  console.log("RECORD DATA:", data);
+  const filterData = () =>
+    data.filter(
+      (item) =>
+        (item && item.Key?.includes(filterParam)) ||
+        item.Record.route.includes(filterParam) ||
+        item.Record.actualPath.includes(filterParam) ||
+        item.Record.currentLocation.includes(filterParam)
+    );
+  const recievedFilterData = filterData();
   return (
     <>
       {showPopup && (
@@ -89,19 +97,18 @@ const TransactionMaster = () => {
           onCloseRecieved={closePopup}
         />
       )}
-      {showExport && (
-        <FileExport
-          data={data}
-          onCloseRecieved={closePopup}
-        />
-      )}
+      {showExport && <FileExport data={data} onCloseRecieved={closePopup} />}
       <div className="m-2 rounded-lg">
         <div className="bg-white mt-3 flex justify-between ">
           <div>
-            <input placeholder="Search" className="w-52 h-8" />
+            <input
+              placeholder="Search"
+              className="w-52 h-8"
+              onChange={(e) => setFilterParam(e.target.value)}
+            />
           </div>
           <div className=" flex align-baseline m-4">
-          <Button className="" onClick={handleClick}>
+            <Button className="" onClick={handleClick}>
               {/* <p className="text-2xl">
                 <AiOutlineImport />
               </p> */}
@@ -145,13 +152,15 @@ const TransactionMaster = () => {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {data.map((transaction,index) => (
-                  <tr class="hover:bg-gray-50" key={index}>
-                    <td class="px-6 py-2">{transaction.Record.batchId}</td>
-                    <td class="px-6 py-2">{transaction.Record.currentLocation}</td>
-                    <td class="px-6 py-2">{transaction.Record.route}</td>
-                    <td class="px-6 py-2">{transaction.Record.actualPath}</td>
-                    <td class="px-6 py-2">{transaction.Record.soldStatus.toString()}</td>
+                {filterData().map((item) => (
+                  <tr class="hover:bg-gray-50" key={item.id}>
+                    <td class="px-6 py-2">{item.Record.batchId}</td>
+                    <td class="px-6 py-2">{item.Record.currentLocation}</td>
+                    <td class="px-6 py-2">{item.Record.route}</td>
+                    <td class="px-6 py-2">{item.Record.actualPath}</td>
+                    <td class="px-6 py-2">
+                      {item.Record.soldStatus.toString()}
+                    </td>
                     <td class="px-6 py-2">
                       {/* <div class="flex justify-end gap-4">
                         <button x-data="{ tooltip: 'Delete' }">
@@ -194,11 +203,13 @@ const TransactionMaster = () => {
                 ))}
               </tbody>
             ) : (
-              <div className="text-lg"><LoadingSpinner /></div>
+              <div className="text-lg">
+                <LoadingSpinner />
+              </div>
             )}
           </table>
           <TablePagination
-            data={data}
+            data={recievedFilterData}
             // pageSize={pageSize}
             onDataReceived={handleTableDataFromMyComponent}
           />
@@ -209,9 +220,3 @@ const TransactionMaster = () => {
 };
 
 export default TransactionMaster;
-
-
-
-
-
-

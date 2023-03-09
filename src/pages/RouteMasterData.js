@@ -12,7 +12,6 @@ import { NavLink } from "react-router-dom";
 import ADDROUTE from "../pages/AddRoute";
 import Button from "../components/UI/Button/Button";
 
-
 const URL = "http://20.193.146.8:8080/api/data/get/routemaster";
 
 const RouteMaster = () => {
@@ -22,10 +21,18 @@ const RouteMaster = () => {
   const [showExport, setShowExport] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
-
+  const [filterParam, setFilterParam] = useState("");
 
   setTitle("/Route Master");
   setCategory("Data");
+  const filterData = () =>
+    data.filter(
+      (item) =>
+        (item && item.Key?.includes(filterParam)) ||
+        item.doc.route.includes(filterParam) ||
+        item.doc.avgTimeTaken.includes(filterParam) ||
+        item.doc.totalDistance.includes(filterParam)
+    );
 
   // React.useEffect(() => {
   // },[displayedData])
@@ -40,7 +47,6 @@ const RouteMaster = () => {
     setShowExport(true);
   };
 
-
   function closeModal() {
     console.log("close POPUP");
     setIsOpen(false);
@@ -50,8 +56,6 @@ const RouteMaster = () => {
     console.log("Open POPUP");
     setIsOpen(true);
   }
-
-
 
   function handleTableDataFromMyComponent(data) {
     console.log("Received data from MyComponent:", data);
@@ -96,16 +100,9 @@ const RouteMaster = () => {
         />
       )}
       {showExport && (
-        <FileExport 
-          data={displayedData} 
-          onCloseRecieved={closePopup} 
-        />
+        <FileExport data={displayedData} onCloseRecieved={closePopup} />
       )}
-      {modalIsOpen && (
-        <ADDROUTE
-          onCloseRecieved={closeModal}
-        />
-      )}
+      {modalIsOpen && <ADDROUTE onCloseRecieved={closeModal} />}
       <div className="m-2 rounded-lg">
         {/* <div className="flex justify-between p-4 bg-white rounded-lg">
           <div className="flex items-center text-xl">
@@ -119,7 +116,11 @@ const RouteMaster = () => {
         </div> */}
         <div className="bg-white mt-3 flex justify-between ">
           <div>
-            <input placeholder="Search" className="w-52 h-8" />
+            <input
+              placeholder="Search"
+              className="w-52 h-8"
+              onChange={(e) => setFilterParam(e.target.value)}
+            />
           </div>
           <div className=" flex align-baseline m-4">
             <Button className="" onClick={openModal}>
@@ -168,16 +169,16 @@ const RouteMaster = () => {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {data.map((route, index) => (
-                  <tr class="hover:bg-gray-50" key={index}>
-                    <td class="px-6 py-2">{route.key}</td>
+                {filterData().map((item) => (
+                  <tr class="hover:bg-gray-50" key={item.id}>
+                    <td class="px-6 py-2">{item.key}</td>
                     <td class="px-6 py-2">
-                      {route.doc.route}
+                      {item.doc.route}
                       {/* {route.doc.checkPoints[0]}-{route.doc.checkPoints[1]}-
                       {route.doc.checkPoints[2]}-{route.doc.checkPoints[3]} */}
                     </td>
-                    <td class="px-6 py-2">{route.doc.avgTimeTaken}</td>
-                    <td class="px-6 py-2">{route.doc.totalDistance}</td>
+                    <td class="px-6 py-2">{item.doc.avgTimeTaken}</td>
+                    <td class="px-6 py-2">{item.doc.totalDistance}</td>
                     <td class="px-6 py-2">
                       {/* <div class="flex justify-end gap-4">
                         <button x-data="{ tooltip: 'Delete' }">

@@ -13,7 +13,6 @@ import ExportIcon from "../data/image/share.png";
 import Button from "../components/UI/Button/Button";
 import ADDLOCATION from "../pages/AddLocation";
 
-
 const URL = "http://20.193.146.8:8080/api/data/get/locationmaster";
 
 const LocationMaster = () => {
@@ -23,9 +22,21 @@ const LocationMaster = () => {
   const [showExport, setShowExport] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
   const [modalIsOpen, setIsOpen] = useState(false);
+  const [filterParam, setFilterParam] = useState("");
 
   setTitle("/Location Master");
   setCategory("Data");
+  const filterData = () =>
+    data.filter(
+      (item) =>
+        (item && item.Key?.includes(filterParam)) ||
+        item.doc.locationType.includes(filterParam) ||
+        item.doc.city.includes(filterParam) ||
+        item.doc.state.includes(filterParam) ||
+        item.doc.country.includes(filterParam) ||
+        item.doc.streetAddress.includes(filterParam) ||
+        item.doc.storageCapacity.includes(filterParam)
+    );
 
   // React.useEffect(() => {
   // },[displayedData])
@@ -50,11 +61,11 @@ const LocationMaster = () => {
     setIsOpen(true);
   }
 
-  const handleDelete = (index) =>{
+  const handleDelete = (item) => {
     const d = [...data];
-    d.splice(index,1);
+    d.splice(item, 1);
     setData(d);
-};
+  };
 
   function handleTableDataFromMyComponent(data) {
     console.log("Received data from MyComponent:", data);
@@ -99,16 +110,9 @@ const LocationMaster = () => {
         />
       )}
       {showExport && (
-        <FileExport 
-          data={displayedData} 
-          onCloseRecieved={closePopup} 
-        />
+        <FileExport data={displayedData} onCloseRecieved={closePopup} />
       )}
-       {modalIsOpen && (
-        <ADDLOCATION
-          onCloseRecieved={closeModal}
-        />
-      )}
+      {modalIsOpen && <ADDLOCATION onCloseRecieved={closeModal} />}
       <div className="m-2 rounded-lg">
         {/* <div className="flex justify-between p-4 bg-white rounded-lg">
           <div className="flex items-center text-xl">
@@ -125,7 +129,11 @@ const LocationMaster = () => {
         </div> */}
         <div className="bg-white mt-3 flex justify-between ">
           <div>
-            <input placeholder="Search" className="w-52 h-8" />
+            <input
+              placeholder="Search"
+              className="w-52 h-8"
+              onChange={(e) => setFilterParam(e.target.value)}
+            />
           </div>
           <div className=" flex align-baseline m-4">
             <Button className="" onClick={openModal}>
@@ -152,9 +160,9 @@ const LocationMaster = () => {
           <table class=" min-h-[70vh] w-full border-collapse text-left text-sm text-gray-500">
             <thead class="bg-gray-50">
               <tr>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                {/* <th scope="col" class="px-6 py-4 font-medium text-gray-900">
                   Location ID
-                </th>
+                </th> */}
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
                   Location Name
                 </th>
@@ -183,20 +191,23 @@ const LocationMaster = () => {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {data.map((location, index) => (
-                  <tr class="hover:bg-gray-50" key={location.doc.locationID}>
-                    <td class="px-6 py-2">{location.doc.locationID}</td>
-                    <td class="px-6 py-2">{location.doc.locationName}</td>
-                    <td class="px-6 py-2">{location.doc.locationType}</td>
-                    <td class="px-6 py-2">{location.doc.streetAddress}</td>
-                    <td class="px-6 py-2">{location.doc.city}</td>
-                    <td class="px-6 py-2">{location.doc.state}</td>
-                    <td class="px-6 py-2">{location.doc.country}</td>
-                    <td class="px-6 py-2">{location.doc.storageCapacity}</td>
-                    <td class="px-6 py-2">{location.doc.status}</td>
+                {filterData().map((item) => (
+                  <tr class="hover:bg-gray-50" key={item.id}>
+                    {/* <td class="px-6 py-2">{item.id}</td> */}
+                    <td class="px-6 py-2">{item.doc.locationName}</td>
+                    <td class="px-6 py-2">{item.doc.locationType}</td>
+                    <td class="px-6 py-2">{item.doc.streetAddress}</td>
+                    <td class="px-6 py-2">{item.doc.city}</td>
+                    <td class="px-6 py-2">{item.doc.state}</td>
+                    <td class="px-6 py-2">{item.doc.country}</td>
+                    <td class="px-6 py-2">{item.doc.storageCapacity}</td>
+                    <td class="px-6 py-2">{item.doc.status}</td>
                     <td class="px-6 py-2">
                       <div class="flex justify-end gap-4">
-                        <button x-data="{ tooltip: 'Delete' }" onClick={() => handleDelete(index)}>
+                        <button
+                          x-data="{ tooltip: 'Delete' }"
+                          onClick={() => handleDelete(item)}
+                        >
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
                             fill="none"
