@@ -10,8 +10,10 @@ import {
 import LoadingSpinner from "../../components/LoadingSpinner";
 import FileExport from "../../components/UI/FileExport";
 import Button from "../../components/UI/Button/Button";
+import { useStateContext } from "../../contexts/ContextProvider";
 
 function DistributorOutgoingBatch() {
+  const { setTitle, setCategory } = useStateContext();
   const [data, setData] = useState([]);
   const [filterParam, setFilterParam] = useState("");
   const [showExport, setShowExport] = useState(false);
@@ -57,6 +59,8 @@ function DistributorOutgoingBatch() {
     setShowPopup(false);
     setShowExport(false);
   }
+  setTitle("/Distributor");
+  setCategory("Outgoing Batches");
 
   console.log("TYPE OF DATA: " + typeof data);
   console.log("STATE DATA: " + JSON.stringify(data));

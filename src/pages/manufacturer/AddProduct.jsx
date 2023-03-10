@@ -18,8 +18,8 @@ const AddProduct = (props) => {
 
   const onClick = props.onCloseRecieved;
 
-  // setTitle("/Add Product");
-  // setCategory("Manufacturer");
+  setTitle("/Add Product");
+  setCategory("Manufacturer");
 
   // // const apiUrl = "";
 

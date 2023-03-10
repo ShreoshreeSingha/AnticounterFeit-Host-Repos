@@ -5,6 +5,7 @@ import OUTGOING from "../../data/GIF/complete.gif";
 import INCOMING from "../../data/GIF/shipping.gif";
 import SCAN from "../../data/GIF/qr-code.gif";
 import { NavLink } from "react-router-dom";
+import { useStateContext } from "../../contexts/ContextProvider";
 
 const cardList = [
   {
@@ -25,6 +26,9 @@ const cardList = [
 ];
 
 const DistributerActivity = () => {
+  const { setTitle, setCategory } = useStateContext();
+  setTitle("/Distributor");
+  setCategory("Activity");
   return (
     <>
       <div>

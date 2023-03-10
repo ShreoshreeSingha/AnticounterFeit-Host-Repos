@@ -67,7 +67,7 @@ function ManufacturerOutgoingHistory() {
 
   return (
     <>
-      {/* <Header category="Page" title="Manufacturer | Outgoing Batches" /> */}
+      <Header category="Page" title="Manufacturer | Outgoing Batches" />
       {showExport && <FileExport data={data} onCloseRecieved={closePopup} />}
       <div className="rounded-lg">
         <div className="bg-white mt-2 flex justify-between ">

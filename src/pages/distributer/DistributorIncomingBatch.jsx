@@ -13,6 +13,7 @@ import { useStateContext } from "../../contexts/ContextProvider";
 import Button from "../../components/UI/Button/Button";
 
 function DistributorIncomingBatch() {
+  const { setTitle, setCategory } = useStateContext();
   const [data, setData] = useState([]);
   const [showExport, setShowExport] = useState(false);
   const [filterParam, setFilterParam] = useState("");
@@ -44,6 +45,8 @@ function DistributorIncomingBatch() {
   const exportClick = () => {
     setShowExport(true);
   };
+  setTitle("/Distributor");
+  setCategory("Incoming Batches");
 
   // const handleClick = () => {
   //   setShowPopup(true);

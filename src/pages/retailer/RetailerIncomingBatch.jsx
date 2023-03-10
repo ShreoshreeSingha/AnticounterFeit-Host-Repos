@@ -10,8 +10,10 @@ import {
 import LoadingSpinner from "../../components/LoadingSpinner";
 import FileExport from "../../components/UI/FileExport";
 import Button from "../../components/UI/Button/Button";
+import { useStateContext } from "../../contexts/ContextProvider";
 
 function RetailerIncomingBatch() {
+  const { setTitle, setCategory } = useStateContext();
   const [data, setData] = useState([]);
   const [filterParam, setFilterParam] = useState("");
   const [showExport, setShowExport] = useState(false);
@@ -34,6 +36,9 @@ function RetailerIncomingBatch() {
 
   var pageSize = 10;
   const [showPopup, setShowPopup] = useState(false);
+
+  setTitle("/Retailer");
+  setCategory("Incoming Batches");
 
   const handleClick = () => {
     setShowPopup(true);

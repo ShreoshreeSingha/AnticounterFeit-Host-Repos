@@ -10,8 +10,10 @@ import {
 import LoadingSpinner from "../../components/LoadingSpinner";
 import FileExport from "../../components/UI/FileExport";
 import Button from "../../components/UI/Button/Button";
+import { useStateContext } from "../../contexts/ContextProvider";
 
 function ScanHistory() {
+  const { setTitle, setCategory } = useStateContext();
   const [data, setData] = useState([]);
   const [filterParam, setFilterParam] = useState("");
   const [showExport, setShowExport] = useState(false);
@@ -42,6 +44,9 @@ function ScanHistory() {
   const exportClick = () => {
     setShowExport(true);
   };
+
+  setTitle("/Storage");
+  setCategory("Scan History");
 
   function handleTableDataFromMyComponent(data) {
     console.log("Received data from MyComponent:", data);

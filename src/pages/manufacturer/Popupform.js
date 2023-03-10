@@ -58,8 +58,8 @@ const Popupform = () => {
   //     });
   //   });
 
-  setTitle("Product Master");
-  setCategory("Data");
+  setTitle("Manufacturer");
+  setCategory("Product Data");
 
   // React.useEffect(() => {
   // },[displayedData])

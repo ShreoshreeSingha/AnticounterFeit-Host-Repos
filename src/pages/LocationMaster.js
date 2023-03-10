@@ -109,9 +109,7 @@ const LocationMaster = () => {
           onCloseRecieved={closePopup}
         />
       )}
-      {showExport && (
-        <FileExport data={displayedData} onCloseRecieved={closePopup} />
-      )}
+      {showExport && <FileExport data={data} onCloseRecieved={closePopup} />}
       {modalIsOpen && <ADDLOCATION onCloseRecieved={closeModal} />}
       <div className="m-2 rounded-lg">
         {/* <div className="flex justify-between p-4 bg-white rounded-lg">

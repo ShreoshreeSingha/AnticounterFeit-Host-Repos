@@ -5,10 +5,11 @@ import Header from "../components/Header";
 
 import { routeLists } from "../data/link";
 import LoadingScreen from "../components/LoadingScreen";
+import { useStateContext } from "../contexts/ContextProvider";
 
 const CreateBatch = () => {
   const [inputValue, setInputValue] = useState("");
-
+  const { setTitle, setCategory } = useStateContext();
   const [data, setData] = React.useState();
   const [msg, setMsg] = React.useState("");
   const [batchId, setbatchId] = React.useState("");
@@ -34,6 +35,8 @@ const CreateBatch = () => {
   const jsonBody = {
     route: route,
   };
+  setTitle("/Manufacturer");
+  setCategory("Create Batch");
 
   const apicall = () => {
     //API CALL

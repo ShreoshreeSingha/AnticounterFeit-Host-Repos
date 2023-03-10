@@ -174,7 +174,7 @@ const AddLocation = (props) => {
           <Button onClick={() => handleCreateUserClick} >Add Location</Button>
         </div>
       </div> */}
-      <div className="bg-white shadow-lg rounded-lg w-1/2 h-3/3 fixed top-[10%] left-[25%] z-[5] text-center">
+      <div className="bg-white shadow-lg rounded-lg w-1/2 h-3/3 fixed top-[5%] left-[25%] z-[5] text-center">
         <button
           className="absolute top-0 right-0 p-4 text-xl hover:text-red-600 "
           onClick={onClick}
@@ -185,7 +185,7 @@ const AddLocation = (props) => {
         <div class="grid grid-cols-1 gap-1 md:grid-cols-2 mt-8">
           <form onSubmit={handleSubmit}>
             <input
-              class="w-[97%] bg-gray-100 text-gray-900 mt-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+              class="w-[97%] bg-gray-100 text-gray-900 mt-1 p-2 rounded-lg focus:outline-none focus:shadow-outline"
               type="text"
               name="locationName"
               placeholder="Location Name*"
@@ -193,7 +193,7 @@ const AddLocation = (props) => {
               onChange={handleInputChange}
             />
             <input
-              class="w-[97%] bg-gray-100 text-gray-900 mt-1 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+              class="w-[97%] bg-gray-100 text-gray-900 mt-1 p-2 rounded-lg focus:outline-none focus:shadow-outline"
               type="text"
               name="locationType"
               placeholder="Location Type*"
@@ -201,7 +201,7 @@ const AddLocation = (props) => {
               onChange={handleInputChange}
             />
             <input
-              class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+              class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
               type="text"
               name="streetAddress"
               placeholder="Street Address*"
@@ -209,7 +209,7 @@ const AddLocation = (props) => {
               onChange={handleInputChange}
             />
             <input
-              class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+              class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
               type="text"
               name="city"
               placeholder="City*"
@@ -217,7 +217,7 @@ const AddLocation = (props) => {
               onChange={handleInputChange}
             />
             <input
-              class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+              class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
               type="text"
               name="state"
               placeholder="State*"
@@ -225,7 +225,7 @@ const AddLocation = (props) => {
               onChange={handleInputChange}
             />
             <input
-              class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+              class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
               type="text"
               name="country"
               placeholder="Country*"
@@ -233,7 +233,7 @@ const AddLocation = (props) => {
               onChange={handleInputChange}
             />
             <input
-              class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+              class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
               type="text"
               name="storageCapacity"
               placeholder="Storage Capacity*"
@@ -241,7 +241,7 @@ const AddLocation = (props) => {
               onChange={handleInputChange}
             />
             <input
-              class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-3 rounded-lg focus:outline-none focus:shadow-outline"
+              class="w-[97%] bg-gray-100 text-gray-900 mt-2 p-2 rounded-lg focus:outline-none focus:shadow-outline"
               type="text"
               name="status"
               placeholder="Status*"
@@ -249,7 +249,7 @@ const AddLocation = (props) => {
               onChange={handleInputChange}
             />
 
-            <div className="m-3">
+            <div className="m-2">
               <Button type="submit">Add Location</Button>
             </div>
           </form>

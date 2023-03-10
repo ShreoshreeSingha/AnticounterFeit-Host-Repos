@@ -5,6 +5,7 @@ import OUTGOING from "../../data/GIF/complete.gif";
 import INCOMING from "../../data/GIF/shipping.gif";
 import SCAN from "../../data/GIF/qr-code.gif";
 import { NavLink } from "react-router-dom";
+import { useStateContext } from "../../contexts/ContextProvider";
 
 const cardList = [
   {
@@ -25,10 +26,13 @@ const cardList = [
 ];
 
 const WarehouseActivity = () => {
+  const { setTitle, setCategory } = useStateContext();
+  setTitle("/Storage");
+  setCategory("Activity");
   return (
     <>
       <div>
-        <Header category="Page" title="Warehouse Activity | Batch History" />
+        <Header category="Page" title="Storage Activity | Batch History" />
         <div>
           <div className="container">
             {cardList.map((item, index) => (

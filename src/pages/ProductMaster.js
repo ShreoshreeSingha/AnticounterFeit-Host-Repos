@@ -112,9 +112,7 @@ const ProductMaster = () => {
           onCloseRecieved={closePopup}
         />
       )}
-      {showExport && (
-        <FileExport data={displayedData} onCloseRecieved={closePopup} />
-      )}
+      {showExport && <FileExport data={data} onCloseRecieved={closePopup} />}
       <div className="m-2 rounded-lg">
         <div className="bg-white mt-3 flex justify-between ">
           <div>
