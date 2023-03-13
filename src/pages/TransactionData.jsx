@@ -1,7 +1,8 @@
 import React, { useState } from "react";
+import { AiOutlineImport, AiOutlineExport } from "react-icons/ai";
+import QRCode from "qrcode.react";
 import Header from "../components/Header";
 import TablePagination from "../components/UI/TablePagination";
-import { AiOutlineImport, AiOutlineExport } from "react-icons/ai";
 import FileUpload from "../components/UI/FileUpload";
 import LoadingSpinner from "../components/LoadingSpinner";
 import Navbar from "../components/Navbar";
@@ -38,9 +39,9 @@ const TransactionMaster = () => {
   };
 
   function handleTableDataFromMyComponent(recievedFilterData) {
-    console.log("Received tabledata from MyComponent: " + recievedFilterData);
+    console.log(`Received tabledata from MyComponent: ${recievedFilterData}`);
     setDisplayedData(recievedFilterData);
-    console.log("Displayed data:" + displayedData);
+    console.log(`Displayed data:${displayedData}`);
     // Do something with the data here
   }
 
@@ -61,8 +62,8 @@ const TransactionMaster = () => {
     setShowExport(false);
   }
 
-  console.log("TYPE OF DATA: " + typeof data);
-  console.log("STATE DATA: " + JSON.stringify(data));
+  console.log(`TYPE OF DATA: ${typeof data}`);
+  console.log(`STATE DATA: ${JSON.stringify(data)}`);
 
   React.useEffect(() => {
     fetch(URL, {
@@ -75,7 +76,7 @@ const TransactionMaster = () => {
       .then((data) => {
         setData(data);
       });
-    console.log("DATA PRINT : " + JSON.stringify(data));
+    console.log(`DATA PRINT : ${JSON.stringify(data)}`);
   }, []);
   // const exportData= JSON.stringify(data);
   // console.log("DISPLAYED DATA:", exportData);
@@ -125,43 +126,47 @@ const TransactionMaster = () => {
             </button> */}
           </div>
         </div>
-        <div class="overflow-hidden bg-white shadow-md">
-          <table class=" min-h-[70vh] w-full border-collapse text-left text-sm text-gray-500">
-            <thead class="bg-gray-50">
+        <div className="overflow-hidden bg-white shadow-md">
+          <table className=" min-h-[70vh] w-full border-collapse text-left text-sm text-gray-500">
+            <thead className="bg-gray-50">
               <tr>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
-                  Batch ID
+                <th scope="col" className="px-6 py-4 font-medium text-gray-900">
+                  AC ID
                 </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                <th scope="col" className="px-6 py-4 font-medium text-gray-900">
                   Current Location
                 </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                <th scope="col" className="px-6 py-4 font-medium text-gray-900">
                   Route
                 </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                <th scope="col" className="px-6 py-4 font-medium text-gray-900">
                   Actual Path
                 </th>
-                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                <th scope="col" className="px-6 py-4 font-medium text-gray-900">
                   Sold Status
+                </th>
+                <th scope="col" className="px-6 py-4 font-medium text-gray-900">
+                  QR Code
                 </th>
                 <th
                   scope="col"
-                  class="px-6 py-4 font-medium text-gray-900"
-                ></th>
+                  className="px-6 py-4 font-medium text-gray-900"
+                />
               </tr>
             </thead>
             {data != "" ? (
-              <tbody class="divide-y divide-gray-100 border-t border-gray-100">
+              <tbody className="divide-y divide-gray-100 border-t border-gray-100">
                 {filterData().map((item) => (
-                  <tr class="hover:bg-gray-50" key={item.id}>
-                    <td class="px-6 py-2">{item.Record.batchId}</td>
-                    <td class="px-6 py-2">{item.Record.currentLocation}</td>
-                    <td class="px-6 py-2">{item.Record.route}</td>
-                    <td class="px-6 py-2">{item.Record.actualPath}</td>
-                    <td class="px-6 py-2">
+                  <tr className="hover:bg-gray-50" key={item.id}>
+                    <td className="px-6 py-2">{item.Record.batchId}</td>
+                    <td className="px-6 py-2">{item.Record.currentLocation}</td>
+                    <td className="px-6 py-2">{item.Record.route}</td>
+                    <td className="px-6 py-2">{item.Record.actualPath}</td>
+                    <td className="px-6 py-2">
                       {item.Record.soldStatus.toString()}
                     </td>
-                    <td class="px-6 py-2">
+                    <td className="px-6 py-2">
+                      <QRCode value={item.id} size={100} />
                       {/* <div class="flex justify-end gap-4">
                         <button x-data="{ tooltip: 'Delete' }">
                           <svg

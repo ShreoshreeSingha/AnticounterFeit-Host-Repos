@@ -7,8 +7,10 @@ import LoadingSpinner from "../components/LoadingSpinner";
 import Navbar from "../components/Navbar";
 import { useStateContext } from "../contexts/ContextProvider";
 import FileExport from "../components/UI/FileExport";
+import Qrcodegen from "../components/UI/Qrcodegen";
 
 import Button from "../components/UI/Button/Button";
+import QRCode from "qrcode.react";
 
 const URL = "http://20.193.146.8:8080/api/data/get/productmaster";
 
@@ -17,6 +19,7 @@ const ProductMaster = () => {
   const [data, setData] = React.useState([]);
   const [showPopup, setShowPopup] = useState(false);
   const [showExport, setShowExport] = useState(false);
+  const [showQrcode, setShowQrcode] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
   const [filterParam, setFilterParam] = useState("");
 
@@ -69,6 +72,9 @@ const ProductMaster = () => {
   const exportClick = () => {
     setShowExport(true);
   };
+  const QrCodeClick = () => {
+    setShowQrcode(true);
+  };
 
   function handleTableDataFromMyComponent(data) {
     console.log("Received data from MyComponent:", data);
@@ -85,6 +91,7 @@ const ProductMaster = () => {
   function closePopup() {
     setShowPopup(false);
     setShowExport(false);
+    setShowQrcode(false);
   }
 
   console.log("TYPE OF DATA: " + typeof data);
@@ -113,6 +120,7 @@ const ProductMaster = () => {
         />
       )}
       {showExport && <FileExport data={data} onCloseRecieved={closePopup} />}
+      {showQrcode && <Qrcodegen data={_id} onCloseRecieved={closePopup} />}
       <div className="m-2 rounded-lg">
         <div className="bg-white mt-3 flex justify-between ">
           <div>
@@ -164,6 +172,9 @@ const ProductMaster = () => {
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
                   MRP
                 </th>
+                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                  Show QRCode
+                </th>
                 <th
                   scope="col"
                   class="px-6 py-4 font-medium text-gray-900"
@@ -181,7 +192,16 @@ const ProductMaster = () => {
                     <td class="px-6 py-2">{item.doc.manufacturingLocation}</td>
                     <td class="px-6 py-2">{item.doc.price}</td>
                     <td class="px-6 py-2">
-                      {/* <div class="flex justify-end gap-4">
+                      <QRCode value={item.id} size={100} />
+                    </td>
+                    {/* <td class="px-6 py-2">
+                      <Button className="" onClick={QrCodeClick}>
+                        {/* <p className="text-2xl">
+                <AiOutlineExport />
+              </p> 
+                        View Qr Code
+                      </Button> */}
+                    {/* <div class="flex justify-end gap-4">
                         <a x-data="{ tooltip: 'Delete' }" href="#">
                           <svg
                             xmlns="http://www.w3.org/2000/svg"
@@ -216,8 +236,8 @@ const ProductMaster = () => {
                             />
                           </svg>
                         </a>
-                      </div> */}
-                    </td>
+                      </div> 
+                    </td>*/}
                   </tr>
                 ))}
               </tbody>
