@@ -23,7 +23,7 @@ const ProductMaster = () => {
   const [displayedData, setDisplayedData] = useState([]);
   const [filterParam, setFilterParam] = useState("");
 
-  const filterData = () =>
+  const filterData = (data) =>
     data.filter(
       (item) =>
         (item && item.Key?.includes(filterParam)) ||
@@ -33,7 +33,7 @@ const ProductMaster = () => {
         item.doc.manufacturingLocation.includes(filterParam)
     );
 
-  // const tableRef = useRef(null);
+  const recievedFilterData = filterData(displayedData);
 
   // const { onDownload } = useDownloadExcel({
   //   currentTableRef: tableRef.current,
@@ -170,6 +170,9 @@ const ProductMaster = () => {
                   Manufacturing Location
                 </th>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
+                  Path History
+                </th>
+                <th scope="col" class="px-6 py-4 font-medium text-gray-900">
                   MRP
                 </th>
                 <th scope="col" class="px-6 py-4 font-medium text-gray-900">
@@ -183,13 +186,14 @@ const ProductMaster = () => {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {filterData().map((item) => (
+                {recievedFilterData.map((item) => (
                   <tr class="hover:bg-gray-50" key={item.id}>
                     <td class="px-6 py-2">{item.doc.productID}</td>
                     <td class="px-6 py-2">{item.doc.productName}</td>
                     <td class="px-6 py-2">{item.doc.productCategory}</td>
                     <td class="px-6 py-2">{item.doc.manufacturingDate}</td>
                     <td class="px-6 py-2">{item.doc.manufacturingLocation}</td>
+                    <td class="px-6 py-2">{item.doc.route}</td>
                     <td class="px-6 py-2">{item.doc.price}</td>
                     <td class="px-6 py-2">
                       <QRCode value={item.id} size={100} />
@@ -249,7 +253,7 @@ const ProductMaster = () => {
           </table>
           <TablePagination
             data={data}
-            pageSize={pageSize}
+            //pageSize={pageSize}
             onDataReceived={handleTableDataFromMyComponent}
           />
         </div>

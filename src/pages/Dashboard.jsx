@@ -101,16 +101,18 @@ const Dashboard = () => {
             </div>
           </div>
           <div class="bg-white rounded-lg row-span-3">
-            <h1 className="p-3 text-2xl font-extrabold rounded-t-l text-[#0B2853]">Quick View</h1>
+            <h1 className="p-3 text-2xl font-extrabold rounded-t-l text-[#0B2853]">
+              Quick View
+            </h1>
             <div style={{ borderTop: "solid 4px #20232A" }}>
-            {quickViews.map((item, index) => (
-              <div className="flex items-center gap-1 p-1 rounded-lg text-xs text-gray-500 dark:text-gray-200 m-2">
-                <p>{item.name}</p>
-                <h1 className="text-lg font-bold text-[#0B2853] ml-4">
-                  {item.count}
-                </h1>
-              </div>
-            ))}
+              {quickViews.map((item, index) => (
+                <div className="flex items-center gap-1 p-1 rounded-lg text-xs text-gray-500 dark:text-gray-200 m-2">
+                  <p>{item.name}</p>
+                  <h1 className="text-lg font-bold text-[#0B2853] ml-4">
+                    {item.count}
+                  </h1>
+                </div>
+              ))}
             </div>
           </div>
           <div class="bg-white rounded-lg row-span-2">

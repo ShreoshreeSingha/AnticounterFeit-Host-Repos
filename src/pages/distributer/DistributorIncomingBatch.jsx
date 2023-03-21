@@ -18,26 +18,52 @@ function DistributorIncomingBatch() {
   const [showExport, setShowExport] = useState(false);
   const [filterParam, setFilterParam] = useState("");
   const [displayedData, setDisplayedData] = useState([]);
+
   // rest of component code
 
   useEffect(() => {
     fetch("http://20.193.146.8:8080/api/getallbatches")
       .then((response) => response.json())
-      .then((data) => setData(data))
+      .then((data) => {
+        setData(
+          data.filter((item) => item.Record.route.includes("Distributor"))
+        );
+      })
       .catch((error) => console.error(error));
+    console.log("Dataddd: " + JSON.stringify(data));
+    //const filterData = data.filter((item) => item.Record.route.includes("R1"));
   }, []);
   console.log("Data: " + JSON.stringify(data));
 
-  const filterData = () =>
-    data.filter(
+  // const filterData = displayedData.filter((item) =>
+  //   item.Record.route.includes("R4")
+  // );
+
+  //console.log("data:" + filterData);
+  //const recievedFilterData = filterData;
+
+  const handleSearchChange = (event) => {
+    setFilterParam(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    console.log("inside func");
+    const filteruserData = data.filter(
       (item) =>
-        (item.Record.route.includes("R1") && item.Key.includes(filterParam)) ||
+        (item && item.Key.includes(filterParam)) ||
         item.Record.route.includes(filterParam) ||
         item.Record.actualPath.includes(filterParam) ||
         item.Record.currentLocation.includes(filterParam)
     );
-  const recievedFilterData = filterData();
-  console.log("ff" + recievedFilterData);
+    setData(filteruserData);
+  };
+  //displayedData = filterData;
+
+  //const userdata = filteruserData(filterData);
+
+  //console.log("user Data" + userdata);
+  //console.log("ff" + filterData);
 
   // var pageSize = 2;
   const [showPopup, setShowPopup] = useState(false);
@@ -52,12 +78,12 @@ function DistributorIncomingBatch() {
   //   setShowPopup(true);
   // };
 
-  function handleTableDataFromMyComponent(recievedFilterData) {
+  function handleTableDataFromMyComponent(data) {
     // console.log(`Received data from MyComponent:${JSON.stringify(data)}`);
-    setDisplayedData(recievedFilterData);
+    setDisplayedData(data);
     //console.log("Displayed data:" + displayedData);
     // console.log("Inside handleTableDataFromMyComponent FUNCTION ");
-    console.log("Displayed Data55: " + JSON.stringify(displayedData));
+    console.log("Displayed Data55: " + JSON.stringify(data));
     // Do something with the data here
   }
 
@@ -79,16 +105,21 @@ function DistributorIncomingBatch() {
 
   return (
     <>
-      <Header category="Page" title="Distributor | Incoming Batches" />
+      <Header category="" title="Distributor | Incoming Batches" />
       {showExport && <FileExport data={data} onCloseRecieved={closePopup} />}
       <div className="rounded-lg">
         <div className="bg-white mt-2 flex justify-between ">
           <div>
-            <input
-              placeholder="Search"
-              className="w-52 h-8"
-              onChange={(e) => setFilterParam(e.target.value)}
-            />
+            <form onSubmit={handleSearchSubmit}>
+              <input
+                placeholder="Search"
+                className="w-52 h-8"
+                value={filterParam}
+                // onChange={(e) => setFilterParam(e.target.value)}
+                onChange={handleSearchChange}
+              />
+              {/* <Button type="submit">Search</Button> */}
+            </form>
           </div>
           <div className=" flex align-baseline m-4">
             {/* <button className="" onClick={handleClick}>
@@ -139,7 +170,7 @@ function DistributorIncomingBatch() {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {filterData().map((item) => (
+                {displayedData.map((item) => (
                   <tr class="hover:bg-gray-50" key={item.id}>
                     <td class="px-6 py-1 font-medium text-gray-900">
                       {item.Key}
@@ -206,7 +237,7 @@ function DistributorIncomingBatch() {
             )}
           </table>
           <TablePagination
-            data={recievedFilterData}
+            data={data}
             // pageSize={pageSize}
             onDataReceived={handleTableDataFromMyComponent}
           />

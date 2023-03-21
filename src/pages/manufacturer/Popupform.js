@@ -123,7 +123,7 @@ const Popupform = () => {
       )}
       {showPopup && (
         <AddProduct
-          onDataReceived={handleRawDataFromMyComponent}
+          //onDataReceived={handleRawDataFromMyComponent}
           onCloseRecieved={closePopup}
         />
       )}

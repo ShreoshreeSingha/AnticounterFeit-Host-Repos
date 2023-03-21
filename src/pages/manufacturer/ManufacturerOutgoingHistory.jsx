@@ -13,28 +13,48 @@ function ManufacturerOutgoingHistory() {
   const { setTitle, setCategory } = useStateContext();
   const [data, setData] = useState([]);
   const [filterParam, setFilterParam] = useState("");
+  const [displayedData, setDisplayedData] = useState([]);
+
   // rest of component code
   useEffect(() => {
     fetch("http://20.193.146.8:8080/api/getallbatches")
       .then((response) => response.json())
-      .then((data) => setData(data))
+      .then((data) => {
+        setData(data.filter((item) => item.Record.route.includes("Storage")));
+      })
       .catch((error) => console.error(error));
   }, []);
 
   setTitle("/Manufacturer");
   setCategory("OutGoingBatch");
   const [showExport, setShowExport] = useState(false);
-  const [displayedData, setDisplayedData] = useState([]);
-  const filterData = () =>
-    data.filter(
+  //console.log("myyyyyy" + data);
+  // const filterData = displayedData.filter((item) =>
+  //   item.Record.route.includes("Storage")
+  // );
+
+  // console.log("data:" + filterData);
+  //const recievedFilterData = filterData;
+  const handleSearchChange = (event) => {
+    setFilterParam(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    console.log("inside func");
+    const filteruserData = data.filter(
       (item) =>
-        (item.Record.route.includes("S2") && item.Key.includes(filterParam)) ||
+        (item && item.Key.includes(filterParam)) ||
         item.Record.route.includes(filterParam) ||
         item.Record.actualPath.includes(filterParam) ||
         item.Record.currentLocation.includes(filterParam)
     );
+    setData(filteruserData);
+  };
+  //displayedData = filterData;
 
-  const pageSize = 10;
+  //const userdata = filteruserData(filterData);
+  //const pageSize = 10;
   const [showPopup, setShowPopup] = useState(false);
 
   const handleClick = () => {
@@ -72,11 +92,21 @@ function ManufacturerOutgoingHistory() {
       <div className="rounded-lg">
         <div className="bg-white mt-2 flex justify-between ">
           <div>
-            <input
+            {/* <input
               placeholder="Search"
               className="w-52 h-8"
               onChange={(e) => setFilterParam(e.target.value)}
-            />
+            /> */}
+            <form onSubmit={handleSearchSubmit}>
+              <input
+                placeholder="Search"
+                className="w-52 h-8"
+                value={filterParam}
+                // onChange={(e) => setFilterParam(e.target.value)}
+                onChange={handleSearchChange}
+              />
+              {/* <Button type="submit">Search</Button> */}
+            </form>
           </div>
           <div className=" flex align-baseline m-4">
             <Button className="" onClick={exportClick}>
@@ -122,7 +152,7 @@ function ManufacturerOutgoingHistory() {
             </thead>
             {data != "" ? (
               <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-                {filterData().map((item) => (
+                {displayedData.map((item) => (
                   <tr className="hover:bg-gray-50" key={item.id}>
                     <td className="px-6 py-1 font-medium text-gray-900">
                       {item.Key}
@@ -190,7 +220,7 @@ function ManufacturerOutgoingHistory() {
           </table>
           <TablePagination
             data={data}
-            pageSize={pageSize}
+            // pageSize={pageSize}
             onDataReceived={handleTableDataFromMyComponent}
           />
         </div>

@@ -17,23 +17,41 @@ function DistributorScanHistory() {
   const [data, setData] = useState([]);
   const [filterParam, setFilterParam] = useState("");
   const [showExport, setShowExport] = useState(false);
+  const [displayedData, setDisplayedData] = useState([]);
   // rest of component code
   useEffect(() => {
     fetch("http://20.193.146.8:8080/api/getallbatches")
       .then((response) => response.json())
-      .then((data) => setData(data))
+      .then((data) => {
+        setData(
+          data.filter((item) => item.Record.route.includes("Distributor"))
+        );
+      })
       .catch((error) => console.error(error));
   }, []);
 
-  const filterData = () =>
-    data.filter(
+  // const filterData = displayedData.filter((item) =>
+  //   item.Record.route.includes("R4")
+  // );
+
+  const handleSearchChange = (event) => {
+    setFilterParam(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    console.log("inside func");
+    const filteruserData = data.filter(
       (item) =>
-        (item.Record.route.includes("R1") && item.Key.includes(filterParam)) ||
+        (item && item.Key.includes(filterParam)) ||
         item.Record.route.includes(filterParam) ||
         item.Record.actualPath.includes(filterParam) ||
         item.Record.currentLocation.includes(filterParam)
     );
-  var pageSize = 10;
+    setData(filteruserData);
+  };
+  //const userdata = filteruserData(filterData);
+  //var pageSize = 10;
   const [showPopup, setShowPopup] = useState(false);
 
   const handleClick = () => {
@@ -71,11 +89,16 @@ function DistributorScanHistory() {
       <div className="rounded-lg">
         <div className="bg-white mt-2 flex justify-between ">
           <div>
-            <input
-              placeholder="Search"
-              className="w-52 h-8"
-              onChange={(e) => setFilterParam(e.target.value)}
-            />
+            <form onSubmit={handleSearchSubmit}>
+              <input
+                placeholder="Search"
+                className="w-52 h-8"
+                value={filterParam}
+                // onChange={(e) => setFilterParam(e.target.value)}
+                onChange={handleSearchChange}
+              />
+              {/* <Button type="submit">Search</Button> */}
+            </form>
           </div>
           <div className=" flex align-baseline m-4">
             <Button className="" onClick={exportClick}>
@@ -121,7 +144,7 @@ function DistributorScanHistory() {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {filterData().map((item) => (
+                {displayedData.map((item) => (
                   <tr class="hover:bg-gray-50" key={item.id}>
                     <td class="px-6 py-1 font-medium text-gray-900">
                       {item.Key}
@@ -189,7 +212,7 @@ function DistributorScanHistory() {
           </table>
           <TablePagination
             data={data}
-            pageSize={pageSize}
+            //pageSize={pageSize}
             onDataReceived={handleTableDataFromMyComponent}
           />
         </div>

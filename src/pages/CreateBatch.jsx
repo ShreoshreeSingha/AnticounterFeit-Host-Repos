@@ -76,7 +76,7 @@ const CreateBatch = () => {
                 onChange={handleRouteChange}
               >
                 {routeLists.map((item, index) => (
-                  <option value={item.Checkpoints}>{item.Checkpoints}</option>
+                  <option value={item.checkpoints}>{item.checkpoints}</option>
                 ))}
               </select>
             </form>

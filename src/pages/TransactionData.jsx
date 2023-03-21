@@ -19,6 +19,7 @@ const TransactionMaster = () => {
   const [displayedData, setDisplayedData] = useState([]);
   const [showExport, setShowExport] = useState(false);
   const [filterParam, setFilterParam] = useState("");
+  //const [recievedFilterData,setre]
 
   setTitle("/Transaction Master");
   setCategory("Data");
@@ -26,7 +27,7 @@ const TransactionMaster = () => {
   // React.useEffect(() => {
   // },[displayedData])
 
-  // var pageSize = 5;
+  //var pageSize = 5;
 
   // this.deleteProducts = this.deleteProducts.bind(this);
 
@@ -81,7 +82,7 @@ const TransactionMaster = () => {
   // const exportData= JSON.stringify(data);
   // console.log("DISPLAYED DATA:", exportData);
   console.log("RECORD DATA:", data);
-  const filterData = () =>
+  const filterData = (data) =>
     data.filter(
       (item) =>
         (item && item.Key?.includes(filterParam)) ||
@@ -89,7 +90,10 @@ const TransactionMaster = () => {
         item.Record.actualPath.includes(filterParam) ||
         item.Record.currentLocation.includes(filterParam)
     );
-  const recievedFilterData = filterData();
+  const recievedFilterData = filterData(displayedData);
+  //recievedFilterData = displayedData;
+
+  console.log("filtered data :" + recievedFilterData);
   return (
     <>
       {showPopup && (
@@ -98,7 +102,9 @@ const TransactionMaster = () => {
           onCloseRecieved={closePopup}
         />
       )}
-      {showExport && <FileExport data={data} onCloseRecieved={closePopup} />}
+      {showExport && (
+        <FileExport data={recievedFilterData} onCloseRecieved={closePopup} />
+      )}
       <div className="m-2 rounded-lg">
         <div className="bg-white mt-3 flex justify-between ">
           <div>
@@ -126,7 +132,7 @@ const TransactionMaster = () => {
             </button> */}
           </div>
         </div>
-        <div className="overflow-hidden bg-white shadow-md">
+        <div className=" bg-white shadow-md overflow-x-auto">
           <table className=" min-h-[70vh] w-full border-collapse text-left text-sm text-gray-500">
             <thead className="bg-gray-50">
               <tr>
@@ -156,7 +162,7 @@ const TransactionMaster = () => {
             </thead>
             {data != "" ? (
               <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-                {filterData().map((item) => (
+                {recievedFilterData.map((item) => (
                   <tr className="hover:bg-gray-50" key={item.id}>
                     <td className="px-6 py-2">{item.Record.batchId}</td>
                     <td className="px-6 py-2">{item.Record.currentLocation}</td>
@@ -166,7 +172,7 @@ const TransactionMaster = () => {
                       {item.Record.soldStatus.toString()}
                     </td>
                     <td className="px-6 py-2">
-                      <QRCode value={item.id} size={100} />
+                      <QRCode value={item.Record.batchId} size={100} />
                       {/* <div class="flex justify-end gap-4">
                         <button x-data="{ tooltip: 'Delete' }">
                           <svg
@@ -214,8 +220,8 @@ const TransactionMaster = () => {
             )}
           </table>
           <TablePagination
-            data={recievedFilterData}
-            // pageSize={pageSize}
+            data={data}
+            //pageSize={pageSize}
             onDataReceived={handleTableDataFromMyComponent}
           />
         </div>
