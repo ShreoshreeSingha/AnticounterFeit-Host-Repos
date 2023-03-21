@@ -10,6 +10,7 @@
     "@material-ui/icons": "^4.11.3",
     "@mui/icons-material": "^5.11.9",
     "chart.js": "^4.2.1",
+    "file-saver": "^2.0.5",
     "google-map-react": "^2.2.0",
     "google-maps-react": "^2.0.6",
     "loadjs": "^4.3.0-rc1",
@@ -26,10 +27,12 @@
     "react-scripts": "^5.0.1",
     "react-vis-network": "^1.0.0",
     "react-vis-network-graph": "^3.0.1",
+    "sheetjs-style": "^0.15.8",
     "uuid": "^9.0.0",
     "vis": "^4.21.0-EOL",
     "vis-data": "^7.1.4",
-    "vis-network": "^9.1.2"
+    "vis-network": "^9.1.2",
+    "xlsx": "^0.18.5"
   },
   "scripts": {
     "start": "react-scripts start",

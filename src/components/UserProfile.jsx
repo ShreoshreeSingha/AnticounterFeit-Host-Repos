@@ -8,8 +8,9 @@ import avatar from "../data/image/avatar.jpg";
 import { AuthContext } from "../contexts/auth-context";
 
 
-const UserProfile = () => {
+const UserProfile = (props) => {
   const { logout } = useContext(AuthContext);
+  const clickClose = props.close;
 
   return (
     <div className="nav-item absolute right-4 top-16 bg-white dark:bg-[#42464D] p-4 rounded-lg w-80 z-50 shadow-lg shadow-gray">
@@ -20,7 +21,8 @@ const UserProfile = () => {
           bgHoverColor="light-gray"
           size="2xl"
           borderRadius="50%"
-          icon={<MdOutlineCancel />}
+          icon={<MdOutlineCancel onClick={clickClose}/>}
+          // onClick={clickClose}
         />
       </div>
       <div className="flex gap-5 items-center pb-6">

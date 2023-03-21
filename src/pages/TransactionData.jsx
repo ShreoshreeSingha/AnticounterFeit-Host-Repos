@@ -19,6 +19,7 @@ const TransactionMaster = () => {
   const [displayedData, setDisplayedData] = useState([]);
   const [showExport, setShowExport] = useState(false);
   const [filterParam, setFilterParam] = useState("");
+  //const [recievedFilterData, setRecievedfilterData] =useState([]);
 
   setTitle("/Transaction Master");
   setCategory("Data");
@@ -38,10 +39,12 @@ const TransactionMaster = () => {
     setShowExport(true);
   };
 
-  function handleTableDataFromMyComponent(recievedFilterData) {
-    console.log(`Received tabledata from MyComponent: ${recievedFilterData}`);
-    setDisplayedData(recievedFilterData);
-    console.log(`Displayed data:${displayedData}`);
+  function handleTableDataFromMyComponent(data) {
+    console.log("Received tabledata from MyComponent: " + JSON.stringify(data));
+    setDisplayedData(data);
+    //console.log("Displayed data:" +JSON.stringify(displayedData));
+    //filterData(displayedData);
+    // console.log(`Displayed data:${data}`);
     // Do something with the data here
   }
 
@@ -62,8 +65,17 @@ const TransactionMaster = () => {
     setShowExport(false);
   }
 
-  console.log(`TYPE OF DATA: ${typeof data}`);
-  console.log(`STATE DATA: ${JSON.stringify(data)}`);
+  
+
+    
+  // //console.log("RECORD DATA:"+ JSON.stringify(data));
+  
+  
+
+
+
+  // console.log(`TYPE OF DATA: ${typeof data}`);
+  // console.log(`STATE DATA: ${JSON.stringify(data)}`);
 
   React.useEffect(() => {
     fetch(URL, {
@@ -80,16 +92,48 @@ const TransactionMaster = () => {
   }, []);
   // const exportData= JSON.stringify(data);
   // console.log("DISPLAYED DATA:", exportData);
-  console.log("RECORD DATA:", data);
-  const filterData = () =>
-    data.filter(
-      (item) =>
-        (item && item.Key?.includes(filterParam)) ||
-        item.Record.route.includes(filterParam) ||
-        item.Record.actualPath.includes(filterParam) ||
-        item.Record.currentLocation.includes(filterParam)
-    );
-  const recievedFilterData = filterData();
+  // console.log("RECORD DATA:", data);
+
+  
+
+  // const filterData = (data) =>
+  //   data.filter(
+  //     (item) =>
+  //       (item && item.Key?.includes(filterParam)) ||
+  //       item.Record.route.includes(filterParam) ||
+  //       item.Record.actualPath.includes(filterParam) ||
+  //       item.Record.currentLocation.includes(filterParam)
+  //   );
+
+
+  const handleSearchChange = (event) => {
+    setFilterParam(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    // Here you can perform the search logic based on the searchTerm
+    // and update the searchResults state accordingly.
+    // For simplicity, let's assume that we have a list of items like this:
+    console.log("inside func");
+    const results = data.filter(
+              (item) =>
+                (item && item.Key.includes(filterParam)) ||
+                // item.Record.batchId.includes(filterParam) ||
+                item.Record.route.includes(filterParam) ||
+                item.Record.actualPath.includes(filterParam) ||
+                item.Record.currentLocation.includes(filterParam)
+          );
+    setData(results);
+  };
+
+    
+  //console.log("RECORD DATA:"+ JSON.stringify(data));
+  
+  //const recievedFilterData = filterData(displayedData);
+
+  // console.log("RECORD DATA:", recievedFilterData);
+
   return (
     <>
       {showPopup && (
@@ -98,15 +142,25 @@ const TransactionMaster = () => {
           onCloseRecieved={closePopup}
         />
       )}
-      {showExport && <FileExport data={data} onCloseRecieved={closePopup} />}
+      {showExport && (
+        <FileExport 
+          data={displayedData} 
+          onCloseRecieved={closePopup} 
+        />
+      )}
       <div className="m-2 rounded-lg">
         <div className="bg-white mt-3 flex justify-between ">
           <div>
-            <input
-              placeholder="Search"
-              className="w-52 h-8"
-              onChange={(e) => setFilterParam(e.target.value)}
-            />
+            <form onSubmit={handleSearchSubmit}>
+              <input
+                placeholder="Search"
+                className="w-52 h-8"
+                value={filterParam}
+                // onChange={(e) => setFilterParam(e.target.value)}
+                onChange={handleSearchChange}
+              />
+              {/* <Button type="submit">Search</Button> */}
+            </form>
           </div>
           <div className=" flex align-baseline m-4">
             <Button className="" onClick={handleClick}>
@@ -126,8 +180,8 @@ const TransactionMaster = () => {
             </button> */}
           </div>
         </div>
-        <div className="overflow-hidden bg-white shadow-md">
-          <table className=" min-h-[70vh] w-full border-collapse text-left text-sm text-gray-500">
+        <div className="overflow-x-scroll bg-white shadow-md">
+          <table className=" min-h-[70vh] w-[100%] border-collapse text-left text-sm text-gray-500">
             <thead className="bg-gray-50">
               <tr>
                 <th scope="col" className="px-6 py-4 font-medium text-gray-900">
@@ -156,9 +210,9 @@ const TransactionMaster = () => {
             </thead>
             {data != "" ? (
               <tbody className="divide-y divide-gray-100 border-t border-gray-100">
-                {filterData().map((item) => (
+                {displayedData.map((item) => (
                   <tr className="hover:bg-gray-50" key={item.id}>
-                    <td className="px-6 py-2">{item.Record.batchId}</td>
+                    <td className="px-2 py-2">{item.Record.batchId}</td>
                     <td className="px-6 py-2">{item.Record.currentLocation}</td>
                     <td className="px-6 py-2">{item.Record.route}</td>
                     <td className="px-6 py-2">{item.Record.actualPath}</td>
@@ -166,7 +220,7 @@ const TransactionMaster = () => {
                       {item.Record.soldStatus.toString()}
                     </td>
                     <td className="px-6 py-2">
-                      <QRCode value={item.id} size={100} />
+                      <QRCode value={item.id} size={50} />
                       {/* <div class="flex justify-end gap-4">
                         <button x-data="{ tooltip: 'Delete' }">
                           <svg
@@ -214,7 +268,7 @@ const TransactionMaster = () => {
             )}
           </table>
           <TablePagination
-            data={recievedFilterData}
+            data={data}
             // pageSize={pageSize}
             onDataReceived={handleTableDataFromMyComponent}
           />

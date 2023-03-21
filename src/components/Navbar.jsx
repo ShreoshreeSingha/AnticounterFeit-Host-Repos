@@ -31,8 +31,18 @@ const NavButton = ({ title, customFunc, icon, color, dotColor }) => (
 
 const Navbar = (props) => {
   const { title, category } = useStateContext();
+  const [showProfile, setShowProfile] = useState(false);
 
   const { handleClick, isClicked } = useStateContext();
+
+  const closeProfile = () => {
+    setShowProfile(false);
+  };
+
+  const openProfile = () => {
+      setShowProfile(true);
+  };
+
 
   return (
     <div className="flex justify-between w-full bg-navbar-bg rounded-lg ">
@@ -53,7 +63,7 @@ const Navbar = (props) => {
         <div content="Profile" position="BottomCenter">
           <div
             className="flex items-center gap-2 cursor-pointer p-1 hover:bg-light-gray rounded-lg"
-            onClick={() => handleClick("userProfile")}
+            //onClick={handleClick}
           >
             <img
               className="rounded-full w-8 h-8"
@@ -66,12 +76,19 @@ const Navbar = (props) => {
                 Michael
               </span>
             </p>
-            <MdKeyboardArrowDown className="text-gray-400 text-14" />
+            <MdKeyboardArrowDown 
+              className="text-gray-400 text-14"  
+              onClick={openProfile}
+            />
           </div>
         </div>
 
         {isClicked.notification && <Notification />}
-        {isClicked.userProfile && <UserProfile />}
+        {showProfile && (
+          <UserProfile
+            close = {closeProfile}
+          />
+        )}
       </div>
     </div>
   );

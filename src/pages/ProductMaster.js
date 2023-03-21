@@ -21,17 +21,10 @@ const ProductMaster = () => {
   const [showExport, setShowExport] = useState(false);
   const [showQrcode, setShowQrcode] = useState(false);
   const [displayedData, setDisplayedData] = useState([]);
+  //const [receivedFilterData, setReceivedFilterData] = useState([]);
   const [filterParam, setFilterParam] = useState("");
 
-  const filterData = () =>
-    data.filter(
-      (item) =>
-        (item && item.Key?.includes(filterParam)) ||
-        item.doc.productName.includes(filterParam) ||
-        item.doc.productCategory.includes(filterParam) ||
-        item.doc.manufacturingDate.includes(filterParam) ||
-        item.doc.manufacturingLocation.includes(filterParam)
-    );
+  
 
   // const tableRef = useRef(null);
 
@@ -63,7 +56,7 @@ const ProductMaster = () => {
   // React.useEffect(() => {
   // },[displayedData])
 
-  var pageSize = 5;
+  // var pageSize = 5;
 
   const handleClick = () => {
     setShowPopup(true);
@@ -79,6 +72,7 @@ const ProductMaster = () => {
   function handleTableDataFromMyComponent(data) {
     console.log("Received data from MyComponent:", data);
     setDisplayedData(data);
+    //filterData(displayedData);
     // Do something with the data here
   }
 
@@ -107,9 +101,67 @@ const ProductMaster = () => {
       .then((response) => response.json())
       .then((data) => {
         setData(data);
+        // filter(data);
+        // console.log("filter call");
+
       });
     console.log("DATA : " + JSON.stringify(data));
+    // filter(data);
+    // console.log("filter call");
   }, []);
+
+
+  // const filterData = (data) =>
+  //   data.filter(
+  //     (item) =>
+  //       (item && item.Key?.includes(filterParam)) ||
+  //       item.doc.productName.includes(filterParam) ||
+  //       item.doc.productCategory.includes(filterParam) ||
+  //       item.doc.manufacturingDate.includes(filterParam) ||
+  //       item.doc.manufacturingLocation.includes(filterParam)
+  //   );
+
+  // const filteredData = data.filter((item) =>
+  // item.doc.manufacturingLocation.includes(filterParam.toLowerCase())
+  // );
+
+
+  // function filter(data){
+  //   const filterdata = data.filter(
+  //         (item) =>
+  //           (item && item.Key?.includes(filterParam)) ||
+  //           item.doc.productName.includes(filterParam) ||
+  //           item.doc.productCategory.includes(filterParam) ||
+  //           item.doc.manufacturingDate.includes(filterParam) ||
+  //           item.doc.manufacturingLocation.includes(filterParam)
+  //       );
+
+  //   setData(filterdata);
+  // }
+
+  // const receivedFilterData = filterData(displayedData);
+
+  const handleSearchChange = (event) => {
+    setFilterParam(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    // Here you can perform the search logic based on the searchTerm
+    // and update the searchResults state accordingly.
+    // For simplicity, let's assume that we have a list of items like this:
+    console.log("inside func");
+    const results = data.filter(
+              (item) =>
+                (item && item.Key?.includes(filterParam)) ||
+                item.doc.productName.includes(filterParam) ||
+                item.doc.productCategory.includes(filterParam) ||
+                item.doc.manufacturingDate.includes(filterParam) ||
+                item.doc.manufacturingLocation.includes(filterParam)
+            );
+    setData(results);
+  };
+  
 
   return (
     <>
@@ -119,16 +171,26 @@ const ProductMaster = () => {
           onCloseRecieved={closePopup}
         />
       )}
-      {showExport && <FileExport data={data} onCloseRecieved={closePopup} />}
+      {showExport && (
+        <FileExport 
+          data={displayedData} 
+          onCloseRecieved={closePopup}
+        />
+      )}
       {showQrcode && <Qrcodegen data={_id} onCloseRecieved={closePopup} />}
       <div className="m-2 rounded-lg">
         <div className="bg-white mt-3 flex justify-between ">
           <div>
-            <input
-              placeholder="Search"
-              className="w-52 h-8"
-              onChange={(e) => setFilterParam(e.target.value)}
-            />
+            <form onSubmit={handleSearchSubmit}>
+              <input
+                placeholder="Search"
+                className="w-52 h-8"
+                value={filterParam}
+                // onChange={(e) => setFilterParam(e.target.value)}
+                onChange={handleSearchChange}
+              />
+              {/* <Button type="submit">Search</Button> */}
+            </form>
           </div>
           <div className=" flex align-baseline m-4">
             <Button className="" onClick={handleClick}>
@@ -183,9 +245,9 @@ const ProductMaster = () => {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {filterData().map((item) => (
+                {displayedData.map((item) => (
                   <tr class="hover:bg-gray-50" key={item.id}>
-                    <td class="px-6 py-2">{item.doc.productID}</td>
+                    <td class="px-6 py-2">{item.doc._id}</td>
                     <td class="px-6 py-2">{item.doc.productName}</td>
                     <td class="px-6 py-2">{item.doc.productCategory}</td>
                     <td class="px-6 py-2">{item.doc.manufacturingDate}</td>
@@ -249,7 +311,7 @@ const ProductMaster = () => {
           </table>
           <TablePagination
             data={data}
-            pageSize={pageSize}
+            // pageSize={pageSize}
             onDataReceived={handleTableDataFromMyComponent}
           />
         </div>

@@ -25,19 +25,12 @@ const RouteMaster = () => {
 
   setTitle("/Route Master");
   setCategory("Data");
-  const filterData = () =>
-    data.filter(
-      (item) =>
-        (item && item.Key?.includes(filterParam)) ||
-        item.doc.route.includes(filterParam) ||
-        item.doc.avgTimeTaken.includes(filterParam) ||
-        item.doc.totalDistance.includes(filterParam)
-    );
+ 
 
   // React.useEffect(() => {
   // },[displayedData])
 
-  var pageSize = 10;
+  // var pageSize = 10;
 
   const handleClick = () => {
     setShowPopup(true);
@@ -91,6 +84,38 @@ const RouteMaster = () => {
     console.log("DATA : " + JSON.stringify(data));
   }, []);
 
+  // const filterData = (data) =>
+  // data.filter(
+  //   (item) =>
+  //     (item && item.Key?.includes(filterParam)) ||
+  //     item.doc.route.includes(filterParam) ||
+  //     item.doc.avgTimeTaken.includes(filterParam) ||
+  //     item.doc.totalDistance.includes(filterParam)
+  // );
+
+  // const receivedfilterData = filterData(displayedData);
+
+  const handleSearchChange = (event) => {
+    setFilterParam(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    // Here you can perform the search logic based on the searchTerm
+    // and update the searchResults state accordingly.
+    // For simplicity, let's assume that we have a list of items like this:
+    console.log("inside func");
+    const results = data.filter(
+            (item) =>
+            (item && item.Key?.includes(filterParam)) ||
+            item.doc.route.includes(filterParam) ||
+            item.doc.avgTimeTaken.includes(filterParam) ||
+            item.doc.totalDistance.includes(filterParam)
+        );
+    setData(results);
+  };
+
+
   return (
     <>
       {showPopup && (
@@ -99,8 +124,17 @@ const RouteMaster = () => {
           onCloseRecieved={closePopup}
         />
       )}
-      {showExport && <FileExport data={data} onCloseRecieved={closePopup} />}
-      {modalIsOpen && <ADDROUTE onCloseRecieved={closeModal} />}
+      {showExport && (
+        <FileExport 
+          data={displayedData} 
+          onCloseRecieved={closePopup} 
+        />
+      )}
+      {modalIsOpen && (
+        <ADDROUTE 
+          onCloseRecieved={closeModal} 
+        />
+      )}
       <div className="m-2 rounded-lg">
         {/* <div className="flex justify-between p-4 bg-white rounded-lg">
           <div className="flex items-center text-xl">
@@ -114,17 +148,23 @@ const RouteMaster = () => {
         </div> */}
         <div className="bg-white mt-3 flex justify-between ">
           <div>
-            <input
-              placeholder="Search"
-              className="w-52 h-8"
-              onChange={(e) => setFilterParam(e.target.value)}
-            />
+            <form onSubmit={handleSearchSubmit}>
+              <input
+                placeholder="Search"
+                className="w-52 h-8"
+                value={filterParam}
+                onChange={handleSearchChange}
+                //onChange={(e) => setFilterParam(e.target.value)}
+              />
+            </form>
           </div>
           <div className=" flex align-baseline m-4">
-            <Button className="" onClick={openModal}>
-              Add Route
+            <Button>
+              <NavLink to={"/addRoute"}>
+                Add Route
+              </NavLink>
             </Button>
-            <Button className="" onClick={handleClick}>
+            <Button onClick={handleClick}>
               {/* <p className="text-2xl">
                 <AiOutlineImport />
               </p> */}
@@ -167,7 +207,7 @@ const RouteMaster = () => {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-                {filterData().map((item) => (
+                {displayedData.map((item) => (
                   <tr class="hover:bg-gray-50" key={item.id}>
                     <td class="px-6 py-2">{item.key}</td>
                     <td class="px-6 py-2">
@@ -226,7 +266,7 @@ const RouteMaster = () => {
           </table>
           <TablePagination
             data={data}
-            pageSize={pageSize}
+            // pageSize={pageSize}
             onDataReceived={handleTableDataFromMyComponent}
           />
         </div>

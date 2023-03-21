@@ -142,16 +142,17 @@ const AddRoute = (props) => {
 
   return (
     <>
-      <div className="bg-white shadow-lg rounded-lg w-1/2 h-3/3 fixed top-[10%] left-[25%] z-[5]">
+      {/* <div className="bg-white shadow-lg rounded-lg w-1/2 h-3/3 fixed top-[10%] left-[25%] z-[5]">
         <button
           className="absolute top-0 right-0 p-4 text-xl hover:text-red-600 "
           onClick={onClick}
         >
           <AiOutlineClose />
-        </button>
+        </button> */}
+      <div className="w-[80%] mx-auto p-4 rounded-lg shadow-lg bg-white my-2">
         <div className="m-10">
           {/* {data ? ( */}
-          <form onSubmit={handleSubmit}>
+          <form onClick={handleSubmit}>
             <button
               className="rounded-full bg-hover-bg p-1 hover:bg-[#3497c1] mr-2 "
               onClick={removeSelect}
@@ -196,7 +197,11 @@ const AddRoute = (props) => {
             </h1>
             <h1 className="font-semibold">Total checkpoints: {numSelects}</h1>
             <div className="m-3">
-              <Button type="submit">Create</Button>
+              <Button 
+                type="submit" 
+                // onClick={handleSubmit}
+              >Create
+              </Button>
             </div>
           </form>
         </div>

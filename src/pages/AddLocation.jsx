@@ -174,14 +174,14 @@ const AddLocation = (props) => {
           <Button onClick={() => handleCreateUserClick} >Add Location</Button>
         </div>
       </div> */}
-      <div className="bg-white shadow-lg rounded-lg w-1/2 h-3/3 fixed top-[5%] left-[25%] z-[5] text-center">
-        <button
+      {/* <div className="bg-white shadow-lg rounded-lg w-1/2 h-3/3 fixed top-[5%] left-[25%] z-[5] text-center"> */}
+        {/* <button
           className="absolute top-0 right-0 p-4 text-xl hover:text-red-600 "
           onClick={onClick}
         >
           <AiOutlineClose />
-        </button>
-        {/* <div className="w-[80%] mx-auto p-4 rounded-lg shadow-lg bg-white my-2"> */}
+        </button> */}
+        <div className="w-[80%] mx-auto p-4 rounded-lg shadow-lg bg-white my-2">
         <div class="grid grid-cols-1 gap-1 md:grid-cols-2 mt-8">
           <form onSubmit={handleSubmit}>
             <input
@@ -254,6 +254,7 @@ const AddLocation = (props) => {
             </div>
           </form>
         </div>
+        {/* </div> */}
       </div>
     </>
   );
