@@ -12,6 +12,7 @@ import { useStateContext } from "../../contexts/ContextProvider";
 import Button from "../../components/UI/Button/Button";
 import FileExport from "../../components/UI/FileExport";
 import FileUpload from "../../components/UI/FileUpload";
+import { NavLink } from "react-router-dom";
 
 const URL = "http://20.193.146.8:8080/api/data/get/productmaster";
 
@@ -121,12 +122,12 @@ const Popupform = () => {
           onCloseRecieved={closePopup}
         />
       )}
-      {showPopup && (
+      {/* {showPopup && (
         <AddProduct
           //onDataReceived={handleRawDataFromMyComponent}
           onCloseRecieved={closePopup}
         />
-      )}
+      )} */}
       {showExport && (
         <FileExport data={displayedData} onCloseRecieved={closePopup} />
       )}
@@ -140,11 +141,8 @@ const Popupform = () => {
             />
           </div>
           <div className=" flex align-baseline m-4">
-            <Button className="" onClick={handleClick}>
-              {/* <p className="text-2xl">
-                <AiOutlineImport />
-              </p> */}
-              Add Product
+            <Button className="">
+              <NavLink to={"/addProduct"}> Add Product</NavLink>
             </Button>
             <Button className="" onClick={importClick}>
               {/* <p className="text-2xl">

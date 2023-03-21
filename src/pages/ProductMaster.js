@@ -24,21 +24,7 @@ const ProductMaster = () => {
   //const [receivedFilterData, setReceivedFilterData] = useState([]);
   const [filterParam, setFilterParam] = useState("");
 
-<<<<<<< HEAD
-  const filterData = (data) =>
-    data.filter(
-      (item) =>
-        (item && item.Key?.includes(filterParam)) ||
-        item.doc.productName.includes(filterParam) ||
-        item.doc.productCategory.includes(filterParam) ||
-        item.doc.manufacturingDate.includes(filterParam) ||
-        item.doc.manufacturingLocation.includes(filterParam)
-    );
-=======
-  
->>>>>>> 1ed638973483c4ec537e63b7dcf5ce453fd8d6e6
-
-  const recievedFilterData = filterData(displayedData);
+  //const recievedFilterData = filterData(displayedData);
 
   // const { onDownload } = useDownloadExcel({
   //   currentTableRef: tableRef.current,
@@ -115,13 +101,11 @@ const ProductMaster = () => {
         setData(data);
         // filter(data);
         // console.log("filter call");
-
       });
     console.log("DATA : " + JSON.stringify(data));
     // filter(data);
     // console.log("filter call");
   }, []);
-
 
   // const filterData = (data) =>
   //   data.filter(
@@ -136,7 +120,6 @@ const ProductMaster = () => {
   // const filteredData = data.filter((item) =>
   // item.doc.manufacturingLocation.includes(filterParam.toLowerCase())
   // );
-
 
   // function filter(data){
   //   const filterdata = data.filter(
@@ -164,16 +147,16 @@ const ProductMaster = () => {
     // For simplicity, let's assume that we have a list of items like this:
     console.log("inside func");
     const results = data.filter(
-              (item) =>
-                (item && item.Key?.includes(filterParam)) ||
-                item.doc.productName.includes(filterParam) ||
-                item.doc.productCategory.includes(filterParam) ||
-                item.doc.manufacturingDate.includes(filterParam) ||
-                item.doc.manufacturingLocation.includes(filterParam)
-            );
+      (item) =>
+        (item && item.Key?.includes(filterParam)) ||
+        item.doc._id.includes(filterParam) ||
+        item.doc.productName.includes(filterParam) ||
+        item.doc.productCategory.includes(filterParam) ||
+        item.doc.manufacturingDate.includes(filterParam) ||
+        item.doc.manufacturingLocation.includes(filterParam)
+    );
     setData(results);
   };
-  
 
   return (
     <>
@@ -184,10 +167,7 @@ const ProductMaster = () => {
         />
       )}
       {showExport && (
-        <FileExport 
-          data={displayedData} 
-          onCloseRecieved={closePopup}
-        />
+        <FileExport data={displayedData} onCloseRecieved={closePopup} />
       )}
       {showQrcode && <Qrcodegen data={_id} onCloseRecieved={closePopup} />}
       <div className="m-2 rounded-lg">
@@ -260,11 +240,7 @@ const ProductMaster = () => {
             </thead>
             {data != "" ? (
               <tbody class="divide-y divide-gray-100 border-t border-gray-100">
-<<<<<<< HEAD
-                {recievedFilterData.map((item) => (
-=======
                 {displayedData.map((item) => (
->>>>>>> 1ed638973483c4ec537e63b7dcf5ce453fd8d6e6
                   <tr class="hover:bg-gray-50" key={item.id}>
                     <td class="px-6 py-2">{item.doc._id}</td>
                     <td class="px-6 py-2">{item.doc.productName}</td>
@@ -331,11 +307,7 @@ const ProductMaster = () => {
           </table>
           <TablePagination
             data={data}
-<<<<<<< HEAD
-            //pageSize={pageSize}
-=======
             // pageSize={pageSize}
->>>>>>> 1ed638973483c4ec537e63b7dcf5ce453fd8d6e6
             onDataReceived={handleTableDataFromMyComponent}
           />
         </div>
