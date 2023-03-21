@@ -5,8 +5,13 @@ import { AiOutlineClose } from "react-icons/ai";
 import Button from "./Button/Button";
 import Header from "../../components/Header";
 //import XLSX from 'xlsx';
+<<<<<<< HEAD
 const XLSX = require("xlsx");
 import { saveAs } from "file-saver";
+=======
+const XLSX = require('xlsx');
+import { saveAs } from 'file-saver';
+>>>>>>> 1ed638973483c4ec537e63b7dcf5ce453fd8d6e6
 
 const FileExport = (props) => {
   // const [selectedOption, setSelectedOption] = useState(null);
@@ -14,8 +19,10 @@ const FileExport = (props) => {
   const data = props.data;
   const onClick = props.onCloseRecieved;
 
+
   console.log("Inside Export data: " + data);
 
+<<<<<<< HEAD
   const csvData = data
     .map((row) => {
       const flatRow = {};
@@ -24,6 +31,17 @@ const FileExport = (props) => {
     })
     .join("\n");
 
+=======
+
+  const csvData = data.map((row) => {
+    const flatRow = {};
+    flatten(row, flatRow);
+    return Object.values(flatRow).join(",");
+  }).join("\n");
+  
+ 
+  
+>>>>>>> 1ed638973483c4ec537e63b7dcf5ce453fd8d6e6
   function flatten(obj, flatObj, prefix = "") {
     for (let key in obj) {
       if (typeof obj[key] === "object" && obj[key] !== null) {
@@ -36,6 +54,7 @@ const FileExport = (props) => {
 
   console.log("csvData ::" + csvData);
 
+<<<<<<< HEAD
   function exportToExcel() {
     console.log("exportExcel:" + data);
     const worksheet = XLSX.utils.json_to_sheet(
@@ -55,6 +74,24 @@ const FileExport = (props) => {
     });
     const file = new Blob([fileBuffer], { type: "application/octet-stream" });
     saveAs(file, "MYDATA.xlsx");
+=======
+
+
+  function exportToExcel() {
+    console.log("exportExcel:"+data);
+    const worksheet = XLSX.utils.json_to_sheet(data.map((item) => {
+      const flatRow = {};
+      flatten(item, flatRow);
+      return flatRow;
+    }));
+    const workbook = XLSX.utils.book_new();
+   //const sheetrr= flatten(worksheet, flatRow);
+    XLSX.utils.book_append_sheet(workbook, worksheet, 'Sheet1');
+    // XLSX.writeFileXLSX(workbook,"MYTABLE.xlsx");
+    const fileBuffer = XLSX.write(workbook, { bookType: 'xlsx', type: 'array' });
+    const file = new Blob([fileBuffer], {type: 'application/octet-stream'});
+    saveAs(file, "MYDATA.xlsx")
+>>>>>>> 1ed638973483c4ec537e63b7dcf5ce453fd8d6e6
     // saveAs(new Blob([s2ab(file)], { type: 'application/octet-stream' }), 'MyTable.xlsx');
   }
 
@@ -86,7 +123,11 @@ const FileExport = (props) => {
             sheet="data"
             currentTableRef={data.current}
           > */}
+<<<<<<< HEAD
           <Button onClick={exportToExcel}>Excel</Button>
+=======
+            <Button onClick={exportToExcel}>Excel</Button>
+>>>>>>> 1ed638973483c4ec537e63b7dcf5ce453fd8d6e6
           {/* </DownloadTableExcel> */}
         </div>
         {/* <div className="flex justify-center m-₹">

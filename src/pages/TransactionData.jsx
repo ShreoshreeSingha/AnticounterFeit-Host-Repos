@@ -19,7 +19,11 @@ const TransactionMaster = () => {
   const [displayedData, setDisplayedData] = useState([]);
   const [showExport, setShowExport] = useState(false);
   const [filterParam, setFilterParam] = useState("");
+<<<<<<< HEAD
   //const [recievedFilterData,setre]
+=======
+  //const [recievedFilterData, setRecievedfilterData] =useState([]);
+>>>>>>> 1ed638973483c4ec537e63b7dcf5ce453fd8d6e6
 
   setTitle("/Transaction Master");
   setCategory("Data");
@@ -39,10 +43,12 @@ const TransactionMaster = () => {
     setShowExport(true);
   };
 
-  function handleTableDataFromMyComponent(recievedFilterData) {
-    console.log(`Received tabledata from MyComponent: ${recievedFilterData}`);
-    setDisplayedData(recievedFilterData);
-    console.log(`Displayed data:${displayedData}`);
+  function handleTableDataFromMyComponent(data) {
+    console.log("Received tabledata from MyComponent: " + JSON.stringify(data));
+    setDisplayedData(data);
+    //console.log("Displayed data:" +JSON.stringify(displayedData));
+    //filterData(displayedData);
+    // console.log(`Displayed data:${data}`);
     // Do something with the data here
   }
 
@@ -63,8 +69,17 @@ const TransactionMaster = () => {
     setShowExport(false);
   }
 
-  console.log(`TYPE OF DATA: ${typeof data}`);
-  console.log(`STATE DATA: ${JSON.stringify(data)}`);
+  
+
+    
+  // //console.log("RECORD DATA:"+ JSON.stringify(data));
+  
+  
+
+
+
+  // console.log(`TYPE OF DATA: ${typeof data}`);
+  // console.log(`STATE DATA: ${JSON.stringify(data)}`);
 
   React.useEffect(() => {
     fetch(URL, {
@@ -81,6 +96,7 @@ const TransactionMaster = () => {
   }, []);
   // const exportData= JSON.stringify(data);
   // console.log("DISPLAYED DATA:", exportData);
+<<<<<<< HEAD
   console.log("RECORD DATA:", data);
   const filterData = (data) =>
     data.filter(
@@ -94,6 +110,50 @@ const TransactionMaster = () => {
   //recievedFilterData = displayedData;
 
   console.log("filtered data :" + recievedFilterData);
+=======
+  // console.log("RECORD DATA:", data);
+
+  
+
+  // const filterData = (data) =>
+  //   data.filter(
+  //     (item) =>
+  //       (item && item.Key?.includes(filterParam)) ||
+  //       item.Record.route.includes(filterParam) ||
+  //       item.Record.actualPath.includes(filterParam) ||
+  //       item.Record.currentLocation.includes(filterParam)
+  //   );
+
+
+  const handleSearchChange = (event) => {
+    setFilterParam(event.target.value);
+  };
+
+  const handleSearchSubmit = (event) => {
+    event.preventDefault();
+    // Here you can perform the search logic based on the searchTerm
+    // and update the searchResults state accordingly.
+    // For simplicity, let's assume that we have a list of items like this:
+    console.log("inside func");
+    const results = data.filter(
+              (item) =>
+                (item && item.Key.includes(filterParam)) ||
+                // item.Record.batchId.includes(filterParam) ||
+                item.Record.route.includes(filterParam) ||
+                item.Record.actualPath.includes(filterParam) ||
+                item.Record.currentLocation.includes(filterParam)
+          );
+    setData(results);
+  };
+
+    
+  //console.log("RECORD DATA:"+ JSON.stringify(data));
+  
+  //const recievedFilterData = filterData(displayedData);
+
+  // console.log("RECORD DATA:", recievedFilterData);
+
+>>>>>>> 1ed638973483c4ec537e63b7dcf5ce453fd8d6e6
   return (
     <>
       {showPopup && (
@@ -103,16 +163,28 @@ const TransactionMaster = () => {
         />
       )}
       {showExport && (
+<<<<<<< HEAD
         <FileExport data={recievedFilterData} onCloseRecieved={closePopup} />
+=======
+        <FileExport 
+          data={displayedData} 
+          onCloseRecieved={closePopup} 
+        />
+>>>>>>> 1ed638973483c4ec537e63b7dcf5ce453fd8d6e6
       )}
       <div className="m-2 rounded-lg">
         <div className="bg-white mt-3 flex justify-between ">
           <div>
-            <input
-              placeholder="Search"
-              className="w-52 h-8"
-              onChange={(e) => setFilterParam(e.target.value)}
-            />
+            <form onSubmit={handleSearchSubmit}>
+              <input
+                placeholder="Search"
+                className="w-52 h-8"
+                value={filterParam}
+                // onChange={(e) => setFilterParam(e.target.value)}
+                onChange={handleSearchChange}
+              />
+              {/* <Button type="submit">Search</Button> */}
+            </form>
           </div>
           <div className=" flex align-baseline m-4">
             <Button className="" onClick={handleClick}>
@@ -132,8 +204,13 @@ const TransactionMaster = () => {
             </button> */}
           </div>
         </div>
+<<<<<<< HEAD
         <div className=" bg-white shadow-md overflow-x-auto">
           <table className=" min-h-[70vh] w-full border-collapse text-left text-sm text-gray-500">
+=======
+        <div className="overflow-x-scroll bg-white shadow-md">
+          <table className=" min-h-[70vh] w-[100%] border-collapse text-left text-sm text-gray-500">
+>>>>>>> 1ed638973483c4ec537e63b7dcf5ce453fd8d6e6
             <thead className="bg-gray-50">
               <tr>
                 <th scope="col" className="px-6 py-4 font-medium text-gray-900">
@@ -162,9 +239,13 @@ const TransactionMaster = () => {
             </thead>
             {data != "" ? (
               <tbody className="divide-y divide-gray-100 border-t border-gray-100">
+<<<<<<< HEAD
                 {recievedFilterData.map((item) => (
+=======
+                {displayedData.map((item) => (
+>>>>>>> 1ed638973483c4ec537e63b7dcf5ce453fd8d6e6
                   <tr className="hover:bg-gray-50" key={item.id}>
-                    <td className="px-6 py-2">{item.Record.batchId}</td>
+                    <td className="px-2 py-2">{item.Record.batchId}</td>
                     <td className="px-6 py-2">{item.Record.currentLocation}</td>
                     <td className="px-6 py-2">{item.Record.route}</td>
                     <td className="px-6 py-2">{item.Record.actualPath}</td>
@@ -172,7 +253,11 @@ const TransactionMaster = () => {
                       {item.Record.soldStatus.toString()}
                     </td>
                     <td className="px-6 py-2">
+<<<<<<< HEAD
                       <QRCode value={item.Record.batchId} size={100} />
+=======
+                      <QRCode value={item.id} size={50} />
+>>>>>>> 1ed638973483c4ec537e63b7dcf5ce453fd8d6e6
                       {/* <div class="flex justify-end gap-4">
                         <button x-data="{ tooltip: 'Delete' }">
                           <svg
@@ -221,7 +306,11 @@ const TransactionMaster = () => {
           </table>
           <TablePagination
             data={data}
+<<<<<<< HEAD
             //pageSize={pageSize}
+=======
+            // pageSize={pageSize}
+>>>>>>> 1ed638973483c4ec537e63b7dcf5ce453fd8d6e6
             onDataReceived={handleTableDataFromMyComponent}
           />
         </div>
