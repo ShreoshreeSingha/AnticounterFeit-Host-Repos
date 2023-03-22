@@ -206,7 +206,7 @@ const TransactionMaster = () => {
                       {item.Record.soldStatus.toString()}
                     </td>
                     <td className="px-6 py-2">
-                      <QRCode value={item.id} size={50} />
+                      <QRCode value={item.Record.batchId} size={100} />
                       {/* <div class="flex justify-end gap-4">
                         <button x-data="{ tooltip: 'Delete' }">
                           <svg
