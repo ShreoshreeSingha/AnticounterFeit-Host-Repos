@@ -77,7 +77,7 @@
 },
 {
   "plugins": ["@babel/plugin-syntax-jsx"]
-}
+},
 
 
   "browser": {
