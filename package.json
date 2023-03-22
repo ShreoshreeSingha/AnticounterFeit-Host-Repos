@@ -72,14 +72,7 @@
     "postcss": "^8.4.6",
     "tailwindcss": "^3.0.19"
   },
-  {
-  "presets": ["@babel/preset-react"]
-},
-{
-  "plugins": ["@babel/plugin-syntax-jsx"]
-},
-
-
+ 
   "browser": {
     "fs": false,
     "os": false,
