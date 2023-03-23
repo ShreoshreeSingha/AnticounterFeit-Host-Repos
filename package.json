@@ -72,6 +72,7 @@
     "postcss": "^8.4.6",
     "tailwindcss": "^3.0.19"
   },
+ 
   "browser": {
     "fs": false,
     "os": false,
