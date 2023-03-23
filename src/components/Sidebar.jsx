@@ -1,4 +1,3 @@
-/* eslint-disable quotes */
 import React, { useContext } from "react";
 import { Link, NavLink } from "react-router-dom";
 import SidebarMenu from "./SidebarMenu";
@@ -10,6 +9,7 @@ import {
   storageRoutes,
 } from "../data/link";
 import { AuthContext } from "../contexts/auth-context";
+import { useMediaQuery } from "@material-ui/core";
 
 const Sidebar = () => {
   const { userRole } = useContext(AuthContext);
@@ -31,52 +31,71 @@ const Sidebar = () => {
   const normalLink =
     "grid items-center gap-1 p-2 rounded-lg text-md font-semibold text-white dark:text-gray-200 hover:text-[#7b8cb8] m-2";
 
+  const isSmallScreen = useMediaQuery("(max-width: 640px)");
+
   return (
     <>
-      <div className="h-screen pb-10 pt-2 z-50 sm:hidden">
-        <div className="flex justify-center items-center">
-          <Link>
-            <img
-              src={require("../data/image/logo-edited.png")}
-              className="h-12"
-            />
-          </Link>
-        </div>
-        <div className="mt-0">
-          <div className="grid justify-center">
-            {routes.map((route, index) => {
-              if (route.subRoutes) {
-                return <SidebarMenu route={route} />;
-              }
+      {!isSmallScreen && (
+        <div className="h-screen pb-10 pt-2 z-50">
+          <div className="flex justify-center items-center">
+            <Link>
+              <img
+                src={require("../data/image/logo-edited.png")}
+                className="h-12"
+              />
+            </Link>
+          </div>
+          <div className="mt-0">
+            <div className="grid justify-center">
+              {routes.map((route, index) => {
+                if (route.subRoutes) {
+                  return <SidebarMenu route={route} />;
+                }
 
-              return (
-                <>
-                  <NavLink
-                    to={route.path}
-                    key={index}
-                    className={({ isActive }) =>
-                      isActive ? activeLink : normalLink
-                    }
-                  >
-                    <div
-                      style={{
-                        fontSize: "1.5rem",
-                        display: "flex",
-                        justifyContent: "center",
-                      }}
+                return (
+                  <>
+                    <NavLink
+                      to={route.path}
+                      key={index}
+                      className={({ isActive }) =>
+                        isActive ? activeLink : normalLink
+                      }
                     >
-                      {route.icon}
-                    </div>
-                    <div className="capitalize flex justify-center text-xs">
-                      {route.name}
-                    </div>
-                  </NavLink>
-                </>
-              );
-            })}
+                      <div
+                        style={{
+                          fontSize: "1.5rem",
+                          display: "flex",
+                          justifyContent: "center",
+                        }}
+                      >
+                        {route.icon}
+                      </div>
+                      <div className="capitalize flex justify-center text-xs">
+                        {route.name}
+                      </div>
+                    </NavLink>
+                  </>
+                );
+              })}
+            </div>
           </div>
         </div>
-      </div>
+      )}
+      {isSmallScreen && (
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-white">
+          <div className="flex justify-center items-center py-2">
+            <Link>
+              <img
+                src={require("../data/image/logo-edited.png")}
+                className="h-8"
+              />
+            </Link>
+          </div>
+          <div className="flex justify-center py-2">
+            <button>Menu</button>
+          </div>
+        </div>
+      )}
     </>
   );
 };
