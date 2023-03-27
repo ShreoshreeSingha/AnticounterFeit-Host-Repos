@@ -135,7 +135,7 @@ const TransactionMaster = () => {
         <FileExport data={displayedData} onCloseRecieved={closePopup} />
       )}
       <div className="m-2 rounded-lg">
-        <div className="bg-white mt-3 flex justify-between ">
+        <div className="bg-white mt-3 flex justify-between flex-wrap">
           <div>
             <form onSubmit={handleSearchSubmit}>
               <input

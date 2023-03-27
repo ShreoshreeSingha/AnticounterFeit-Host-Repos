@@ -1,4 +1,4 @@
-import React, { useContext } from "react";
+import React, { useContext, useState } from "react";
 import { Link, NavLink } from "react-router-dom";
 import SidebarMenu from "./SidebarMenu";
 import {
@@ -32,6 +32,15 @@ const Sidebar = () => {
     "grid items-center gap-1 p-2 rounded-lg text-md font-semibold text-white dark:text-gray-200 hover:text-[#7b8cb8] m-2";
 
   const isSmallScreen = useMediaQuery("(max-width: 640px)");
+  const [isModal, setIsModal] = useState(false);
+
+  const openModal = () =>{
+    setIsModal(!isModal);
+  }
+
+  // const closeModal =()=>{
+  //   setIsModal(false);
+  // }
 
   return (
     <>
@@ -46,7 +55,15 @@ const Sidebar = () => {
             </Link>
           </div>
           <div className="mt-0">
-            <div className="grid justify-center">
+            <div 
+              // style={{
+              //   display: "flex",
+              //   flexDirection: "column",
+              //   alignItems: "center",
+              //   justifyContent: "center",
+              // }}  
+              className="grid justify-center"
+            >
               {routes.map((route, index) => {
                 if (route.subRoutes) {
                   return <SidebarMenu route={route} />;
@@ -70,32 +87,73 @@ const Sidebar = () => {
                       >
                         {route.icon}
                       </div>
-                      <div className="capitalize flex justify-center text-xs">
+                      <div 
+                        style={{
+                          textTransform: "capitalize",
+                          display: "flex",
+                          justifyContent: "center",
+                          fontSize: "0.75rem",
+                          "@media only screen and (min-width:360px) and (max-width:500px)": {
+                            display: "none",
+                          }
+                        }}
+                      >
                         {route.name}
                       </div>
                     </NavLink>
                   </>
                 );
+                // if (route.subRoutes) {
+                //   return <SidebarMenu route={route} />;
+                // }
               })}
             </div>
           </div>
         </div>
       )}
       {isSmallScreen && (
-        <div className="fixed bottom-0 left-0 right-0 z-50 bg-white">
+        <div className="fixed bottom-0 left-0 right-0 z-50 bg-white pt-2">
           <div className="flex justify-center items-center py-2">
             <Link>
               <img
                 src={require("../data/image/logo-edited.png")}
                 className="h-8"
+                onClick={openModal}
               />
             </Link>
           </div>
-          <div className="flex justify-center py-2">
-            <button>Menu</button>
-          </div>
+          <div className="flex justify-center ">
+            {isModal &&(
+              <div className="flex flex-row">
+                  {routes.map((route, index) => {
+                  if (route.subRoutes) {
+                    return <SidebarMenu 
+                    route={route} 
+                    // onDropDown={isModal}
+                    />;
+                  }
+                  return (
+                    <>
+                      <NavLink
+                        to={route.path}
+                        key={index}
+                        style={{
+                          fontSize: "2.5rem",
+                        }}
+                      >
+                          {route.icon}
+                      </NavLink>
+                    </>
+                  );
+                })}
+              </div>
+            )}
+          </div> 
         </div>
+        
+        
       )}
+      
     </>
   );
 };

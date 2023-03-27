@@ -18,7 +18,7 @@ function App() {
       <div>{!isAuth && <Login onLogin={login} />}</div>
       {isAuth && (
         <BrowserRouter>
-          <div className="flex relative">
+          <div className="flex relative h-[100%] w-[100%]">
             <div className="w-[8%] fixed sidebar bg-sidebar-bg z-50 text-clip">
               <Sidebar />
             </div>
@@ -26,7 +26,7 @@ function App() {
               <div className="fixed w-[92%] z-[5]">
                 <Navbar />
               </div>
-              <div className="z-[1] bg-main-bg absolute top-14 min-h-[90vh] w-full ">
+              <div className="z-[1] bg-main-bg absolute top-20 min-h-[90vh] w-full ">
                 <div>
                   {userRole === "admin@gmail.com" ? <HomeAdmin /> : ""}
                   {userRole === "manufacturer@gmail.com" ? (

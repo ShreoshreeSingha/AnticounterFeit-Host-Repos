@@ -3,8 +3,24 @@
 body{
     margin: 0;
     padding:0;
+    /* width: screen;
+    height: 867px; */
     font-family: "Open Sans", sans-serif;
 }
+
+
+
+/* @media screen and (min-height: 730px){
+    body{
+    height: 1180px;
+    }
+}
+
+@media screen and (max-width: 450px){
+    body{
+    width: 100%;
+    }
+} */
 
 @tailwind base;
 @tailwind components;
