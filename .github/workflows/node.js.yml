@@ -10,16 +10,20 @@ on:
 
 jobs:
   build:
-
     runs-on: self-hosted
 
     strategy:
       matrix:
-        node-version: [18.x]
+        node-version: [16.x]
         # See supported Node.js release schedule at https://nodejs.org/en/about/releases/
 
     steps:
-    - uses: actions/checkout@v3
+    - uses: actions/checkout@v2
+    - name: Install yarn
+      run: |
+        curl -sS https://dl.yarnpkg.com/debian/pubkey.gpg | sudo apt-key add -
+        echo "deb https://dl.yarnpkg.com/debian/ stable main" | sudo tee /etc/apt/sources.list.d/yarn.list
+        sudo apt-get update && sudo apt-get install yarn
     - name: Use Node.js ${{ matrix.node-version }}
       uses: actions/setup-node@v3
       with:
@@ -27,4 +31,3 @@ jobs:
         cache: 'yarn'
     - run: yarn install --frozen-lockfile
     - run: yarn build --if-present
-    
