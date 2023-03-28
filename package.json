@@ -71,7 +71,8 @@
     "eslint-plugin-react": "^7.28.0",
     "eslint-plugin-react-hooks": "^4.3.0",
     "postcss": "^8.4.6",
-    "tailwindcss": "^3.0.19"
+    "tailwindcss": "^3.0.19",
+    "webpack-cli": "^5.0.1"
   },
   "browser": {
     "fs": false,
@@ -79,8 +80,8 @@
     "path": false
   },
   "babel": {
-  "presets": [
-    "@babel/preset-react"
-  ]
-}
+    "presets": [
+      "@babel/preset-react"
+    ]
+  }
 }
