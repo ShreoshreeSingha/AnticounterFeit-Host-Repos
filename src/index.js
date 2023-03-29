@@ -1,16 +1,18 @@
-import React from 'react';
-import ReactDOM from 'react-dom';
+import React from "react";
+import ReactDOM from "react-dom";
 
-import './index.css';
-import App from './App';
-import { ContextProvider } from './contexts/ContextProvider';
-import { AuthContextProvider } from './contexts/auth-context';
+import "./index.css";
+import App from "./App";
+import { ContextProvider } from "./contexts/ContextProvider";
+import { AuthContextProvider } from "./contexts/auth-context";
 
 ReactDOM.render(
-  <AuthContextProvider>
-    <ContextProvider>
+    <React.StrictMode>
+      <AuthContextProvider>
+        <ContextProvider>
       <App />
-    </ContextProvider>
-  </AuthContextProvider>,
-  document.getElementById('root'),
+      </ContextProvider>
+      </AuthContextProvider>
+    </React.StrictMode>,
+  document.getElementById("root")
 );
