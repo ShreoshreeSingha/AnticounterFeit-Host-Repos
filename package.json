@@ -34,12 +34,16 @@
     "vis-network": "^9.1.2",
     "xlsx": "^0.18.5"
   },
-  "scripts": {
-    "start": "webpack-dev-server --open",
-    "build": "webpack --mode development",
-    "test": "jest",
-    "eject": "react-scripts eject"
-  },
+ “scripts”: {
+
+"predeploy": "yarn run build",
+“deploy”: "gh-pages -d build -b master",
+"start": "react-scripts start",
+"build": "react-scripts build",
+"test": "react-scripts test",
+"eject": "react-scripts eject"
+
+},
   "eslintConfig": {
     "extends": [
       "react-app",
