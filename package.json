@@ -34,10 +34,10 @@
     "vis-network": "^9.1.2",
     "xlsx": "^0.18.5"
   },
- “scripts”: {
+ "scripts": {
 
 "predeploy": "yarn run build",
-“deploy”: "gh-pages -d build -b master",
+"deploy": "gh-pages -d build -b master",
 "start": "react-scripts start",
 "build": "react-scripts build",
 "test": "react-scripts test",
