@@ -7,7 +7,7 @@ import HomeDistributor from "./pages/distributer/HomeDistributor";
 import HomeStorage from "./pages/storage/HomeStorage";
 import HomeRetailer from "./pages/retailer/HomeRetailer";
 import Login from "./components/Login/Login";
-import Navbar from "./components/Navbar";
+import Navbar from "./src/components/Navbar";
 import Sidebar from "./components/Sidebar";
 import { AuthContext } from "./contexts/auth-context";
 
