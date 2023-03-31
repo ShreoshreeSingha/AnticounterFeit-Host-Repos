@@ -35,8 +35,8 @@
     "xlsx": "^0.18.5"
   },
  "scripts": {
-    "start": "webpack-dev-server --open",
-    "build": "webpack --mode development",
+    "start": "webpack-dev-server --mode development --open",
+    "build": "webpack --mode production"
     "test": "react-scripts test",
     "eject": "react-scripts eject"
   },
