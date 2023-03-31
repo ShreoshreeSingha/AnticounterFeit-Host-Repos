@@ -2,12 +2,7 @@
 
 # For more information see: https://docs.github.com/en/actions/automating-builds-and-tests/building-and-testing-nodejs
 
-
-
-
 name: Node.js CI
-
-
 
 
 on:
@@ -15,11 +10,6 @@ on:
   push:
 
     branches: [ "main" ]
-
- 
-
-
-
 
 jobs:
 
